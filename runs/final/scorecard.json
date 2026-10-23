@@ -1,0 +1,60 @@
+{
+  "asof": "2026-01-30",
+  "end": "2026-10-16",
+  "forward_returns": {
+    "AAPL": 0.32724996022789377,
+    "MSFT": 0.23731983256412037,
+    "NVDA": 0.12295851353490295,
+    "AMZN": 0.04471373510984833,
+    "XOM": 0.2911630826321794,
+    "JNJ": 0.1426645913415716,
+    "PG": 0.06574698642594345,
+    "CAT": 0.11584131545219423,
+    "NEE": -0.0723411108993387,
+    "KO": 0.2795600762101522
+  },
+  "analysts": {
+    "fundamentals": {
+      "n_views": 10,
+      "hit_rate": 0.7,
+      "stance_weighted_ret": 0.0494304028967564,
+      "rank_ic": 0.18237166310401937,
+      "avg_abs_stance": 0.53
+    },
+    "geopolitics": {
+      "n_views": 10,
+      "hit_rate": 0.125,
+      "stance_weighted_ret": -0.014327017038520096,
+      "rank_ic": 0.3077287274483318,
+      "avg_abs_stance": 0.375
+    },
+    "macro": {
+      "n_views": 10,
+      "hit_rate": null,
+      "stance_weighted_ret": 0.0,
+      "rank_ic": null,
+      "avg_abs_stance": 0.0
+    },
+    "sentiment": {
+      "n_views": 10,
+      "hit_rate": 0.25,
+      "stance_weighted_ret": 0.003386992941701155,
+      "rank_ic": 0.3313132843355184,
+      "avg_abs_stance": 0.15
+    },
+    "technical": {
+      "n_views": 10,
+      "hit_rate": 0.7,
+      "stance_weighted_ret": 0.043558468108686896,
+      "rank_ic": 0.08510677611520903,
+      "avg_abs_stance": 0.5549999999999999
+    }
+  },
+  "ranking": [
+    "fundamentals",
+    "technical",
+    "sentiment",
+    "macro",
+    "geopolitics"
+  ]
+}

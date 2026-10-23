@@ -51,7 +51,7 @@ Run `python show_position.py MSFT`. Scroll as you talk.
 
 ### 1:50 to 2:25, what happened (A)
 
-> "Over the 180 days the portfolio returned 16.7 percent. SPY returned 11.2. Equal weight returned 15.5. The Sharpe ratio, which is return for the risk taken, was 2.37 against 1.19 and 2.02. The worst drop was 5.3 percent, against 8.9 for SPY and 6.1 for equal weight. The biggest contributors were Apple, Exxon and Coca-Cola.
+> "Over the 180 days the portfolio returned 16.7 percent. SPY returned 11.2. Equal weight returned 15.5. The Sharpe ratio, which is return for the risk taken, was 2.37 against 1.19 and 2.02. The worst drop was 5.3 percent, against 8.9 for SPY and 6.1 for equal weight. The biggest contributors were Apple, Exxon and Coca-Cola. We also graded each analyst afterward: the fundamentals and technical analysts got the direction right on 7 of 10 stocks, and the sentiment and geopolitics analysts were weak. With ten stocks that is a hint, not proof.
 >
 > We reran the whole pipeline five times from scratch. It beat SPY every time. It beat equal weight in only three of the five, with returns between 14.9 and 16.4 percent. So the honest summary: it beats the market and it's close to equal weight. The real value here is the explanation, not outperformance."
 
@@ -72,8 +72,9 @@ Optional, 10 seconds if time allows: `python agentcore/invoke_demo.py` shows the
 ## If you run out of time, cut in this order
 
 1. The AgentCore call.
-2. The "five reruns" sentence.
-3. The sentiment, macro and geopolitics lines in the Microsoft segment.
+2. The analyst-grading sentence.
+3. The "five reruns" sentence.
+4. The sentiment, macro and geopolitics lines in the Microsoft segment.
 
 Never cut the Microsoft walkthrough, the baselines comparison or the leak attack.
 
