@@ -15,18 +15,18 @@ git pull
 .venv/bin/streamlit run app/streamlit_app.py              # optional interactive version with Reasoning and Risk tabs
 ```
 
-Have three things open: the deck (`presentation/portfolio-pitch.pptx`), the dashboard in a browser tab, and a terminal.
+Have three things open: the deck (`presentation/portfolio-pitch.pptx`, five slides: title, architecture, the Microsoft decision, what happened, credibility), the dashboard in a browser tab, and a terminal.
 
 ## The script
 
 | Time | Who | On screen |
 | --- | --- | --- |
 | 0:00 to 0:20 | C | Slide 1 |
-| 0:20 to 1:00 | B | Slide 2 (the pipeline and the models) |
-| 1:00 to 1:45 | B | Terminal: `python show_position.py MSFT` |
-| 1:45 to 2:15 | A | Dashboard |
+| 0:20 to 1:00 | B | Slide 2 (architecture) |
+| 1:00 to 1:45 | B | Slide 3 (the Microsoft decision), then the terminal: `python show_position.py MSFT` |
+| 1:45 to 2:15 | A | Slide 4 (what happened), then the dashboard |
 | 2:15 to 2:45 | B | Terminal: `python demo_leak_attack.py` |
-| 2:45 to 3:00 | C | Slide 3 |
+| 2:45 to 3:00 | C | Slide 5 (credibility and what's next) |
 
 ### 0:00 to 0:20, frame it (C)
 
