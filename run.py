@@ -8,7 +8,7 @@ from src.agents.orchestrate import run
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--config", default="config.yaml")
-    p.add_argument("--evidence", default="fixtures/evidence", help="folder with <analyst>.json packs")
+    p.add_argument("--evidence", default="evidence", help="folder with <analyst>.json packs")
     p.add_argument("--run-id")
     p.add_argument("--only", nargs="*", help="run only these analysts")
     p.add_argument("--no-cache", action="store_true")

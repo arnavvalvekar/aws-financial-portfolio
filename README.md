@@ -37,6 +37,18 @@ python3 -m venv .venv
 
 The last command should print `OK`. The kit's own [README](hackathon-kit/README.md) has the model table, the AgentCore deploy steps and troubleshooting. Leave `hackathon-kit/` untouched and copy from it. `positron.py` is the optional Positron bootstrap from the event page, and the core build does not need it.
 
+### Run the whole pipeline
+
+One environment for everything, from the repo root:
+
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+.venv/bin/python pipeline.py --run-id dev-test
+```
+
+It builds the technical evidence from the committed price store, runs the analysts on whatever packs are in `evidence/`, and scores the decision with the backtest against SPY and equal weight. Model calls are cached in `.llm_cache/`, so a repeat run is instant.
+
 ## What to aim for
 
 The demo checklist asks for three things. State the universe, cutoff and baseline. Show the reasoning behind at least one allocation. Compare the equity curve and key metrics with the baseline. A few months of returns on ten stocks is mostly noise, so the return figure will not carry the demo. A traceable thesis and a clean test will.
