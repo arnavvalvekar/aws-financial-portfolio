@@ -9,7 +9,7 @@ Team build plan for Track 3 (Financial Portfolio Management) at the Austin Agent
 - **Timeline:** 4 hours, finishing at 4:00 pm. T+0:00 is the start. Drop the stretch items first when time runs short.
 - **Checkpoints:** at the end of each phase everyone stops, runs `git pull --rebase`, commits and pushes, then checks the milestone before moving on.
 
-[Get started](#get-started) · [What to aim for](#what-to-aim-for) · [Lock first](#lock-these-in-the-first-30-minutes) · [Pipeline](#how-the-pieces-connect) · [Risk management](#risk-management) · [Roles](#who-does-what) · [Timeline](#timeline) · [Contracts](#contracts-and-layout) · [Look-ahead checklist](#look-ahead-checklist) · [Risks](#risks-and-fallbacks) · [Demo](#three-minute-demo) · [Results](#results-and-limitations)
+[Get started](#get-started) · [What to aim for](#what-to-aim-for) · [Lock first](#lock-these-in-the-first-30-minutes) · [Pipeline](#how-the-pieces-connect) · [Risk management](#risk-management) · [CrashLab](#crashlab) · [Roles](#who-does-what) · [Timeline](#timeline) · [Contracts](#contracts-and-layout) · [Look-ahead checklist](#look-ahead-checklist) · [Risks](#risks-and-fallbacks) · [Demo](#three-minute-demo) · [Results](#results-and-limitations)
 
 ## Milestones
 
@@ -167,6 +167,38 @@ Risk and limitations: an event-driven rebalance adds trades and cost, so count e
 
 Owner: B, alongside the portfolio manager and orchestration, with A wiring the monitored state out of the backtest.
 
+## CrashLab
+
+CrashLab stress-tests the frozen portfolio. Where the risk management agent watches the scored window as it unfolds, CrashLab asks a different question: how would these exact weights have held up under conditions far worse than the test window showed. It takes `decision.json`, replays it through a set of shock scenarios, and proposes protective changes the portfolio manager can consider.
+
+It runs three kinds of scenario.
+
+1. **Historical replays.** It re-prices the current weights against real crisis windows, the 2008 global financial crisis and the 2020 COVID crash to start, and reports what the portfolio would have done through each: peak-to-trough drawdown, the worst day, time to recover, and which positions did the damage. These use archived price history for the universe and SPY, read only by CrashLab after the decision is frozen, exactly like the backtest's later prices.
+2. **Agent-invented shocks.** A scenario agent proposes plausible shocks the history does not cover, each as a named, parameterised stress: a rate spike of so many basis points, an oil shock, a sector-wide selloff, a liquidity crunch, a geopolitical break. Each scenario is a short JSON spec with per-factor or per-sector shocks, so the same stress can be re-applied and audited. The agent must ground each shock in a mechanism and name the positions it expects to hurt, not just pick a number.
+3. **Protective changes.** From the worst scenarios it proposes concrete, constraint-respecting adjustments: trim a concentrated name, lift cash toward the 20% cap, add a diversifier, and it reports the trade-off, how much drawdown the change removes in the shock against how much expected return it gives up in the base case. These are proposals only. Any change still goes through the portfolio manager and the validator.
+
+Point-in-time discipline still holds, with one honest caveat. CrashLab is a what-if on the frozen weights, so replaying 2008 and 2020 is allowed precisely because those windows are before the cutoff and never feed an agent's decision, they only shock an already-made portfolio. The agent-invented scenarios must be hypothetical by construction and must not encode knowledge of how the actual scored window turned out. Treat CrashLab output as analysis beside the main result, not as an input that changes the frozen `decision.json` unless you re-run the manager and say so.
+
+```mermaid
+flowchart LR
+  DEC["decision.json<br/>frozen weights"]
+  HIST["Historical replays<br/>2008, 2020"]
+  SCEN["Scenario agent<br/>invented shocks"]
+  CL["CrashLab<br/>re-price under each shock"]
+  REP["Stress report<br/>drawdown, worst day,<br/>culprits per scenario"]
+  PROT["Protective changes<br/>proposals, with trade-offs"]
+  DEC --> CL
+  HIST --> CL
+  SCEN --> CL
+  CL --> REP
+  CL --> PROT
+  PROT -.->|"optional re-run, disclosed"| DEC
+```
+
+Risk and limitations: a stress test is only as honest as its scenarios, so state the assumptions behind each one, a single beta to the shock, no correlation changes, no liquidity modelling unless added. Historical replays assume today's universe existed and behaved like its sector back then, which is a stand-in, not the real holdings of 2008. Keep the protective changes as a separate, clearly labelled variant so the headline result stays the one frozen decision. This is a stretch feature, cut it before the point-in-time guard, the baselines, or the reasoning view.
+
+Owner: B for the scenario agent and the protective-change proposals, A for the re-pricing engine and the crisis price history. Shares the backtest's pricing and cost model.
+
 ## Who does what
 
 The split is by layer, so each person owns different directories and rarely edits the same file. Agree the contracts below first. After that everyone can build against fixtures before real data arrives.
@@ -287,6 +319,7 @@ Times count from the start of build time. Tasks are listed per person so you can
 **B**
 - [ ] Prompt tuning on the development cutoff only.
 - [ ] Stretch: a risk management agent (see [Risk management](#risk-management)) that monitors the portfolio, detects regime shifts, triggers rebalancing, and feeds what it learns back to the portfolio manager. Build the plain-code checks first (position and cash caps, sector concentration, missing evidence IDs), then the LLM review. Keep it in report-only mode so the scored decision stays frozen.
+- [ ] Stretch: CrashLab (see [CrashLab](#crashlab)), replay the frozen weights through 2008, 2020 and agent-invented shocks, then propose protective changes. B owns the scenario agent and proposals, A owns the re-pricing and crisis price history.
 - [ ] Freeze prompts and config at M3.
 
 **C**
@@ -439,12 +472,13 @@ Run down this list before the final run. Each item is something a skeptical judg
 
 Cut in this order:
 
-1. Month-end re-decisions. Keep one decision held to the end date.
-2. Analyst scorecard.
-3. Risk management agent. If kept, run it in report-only mode so the scored decision stays frozen.
-4. Full AgentCore deploy. Keep the starter kit sample as proof of the path.
-5. GDELT. Use the dated event log.
-6. Positron notebook. `positron.py` is already in the repo and can stay unrun.
+1. CrashLab. Keep the historical replays if the re-pricing engine already exists, cut the agent-invented scenarios first.
+2. Month-end re-decisions. Keep one decision held to the end date.
+3. Analyst scorecard.
+4. Risk management agent. If kept, run it in report-only mode so the scored decision stays frozen.
+5. Full AgentCore deploy. Keep the starter kit sample as proof of the path.
+6. GDELT. Use the dated event log.
+7. Positron notebook. `positron.py` is already in the repo and can stay unrun.
 
 Never cut:
 
