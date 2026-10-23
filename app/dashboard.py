@@ -255,6 +255,93 @@ def _reasoning_text(value: Any) -> str:
     return html.escape(str(value))
 
 
+# Friendly names for common SEC XBRL tags; falls back to a de-camel-cased form.
+_SEC_TAG_LABELS = {
+    "RevenueFromContractWithCustomerExcludingAssessedTax": "Revenue",
+    "Revenues": "Revenue",
+    "OperatingIncomeLoss": "Operating income",
+    "NetIncomeLoss": "Net income",
+    "NetCashProvidedByUsedInOperatingActivities": "Operating cash flow",
+    "StockholdersEquity": "Stockholders' equity",
+    "Assets": "Total assets",
+    "Liabilities": "Total liabilities",
+    "GrossProfit": "Gross profit",
+    "EarningsPerShareDiluted": "Diluted EPS",
+    "ResearchAndDevelopmentExpense": "R&D expense",
+    "LongTermDebtNoncurrent": "Long-term debt",
+}
+
+_SOURCE_GROUP_LABEL = {
+    "px": "Price", "sec": "SEC", "fred": "Macro",
+    "gdelt": "News", "event": "Event", "regime": "Regime",
+}
+
+
+def _decamel(text: str) -> str:
+    out = []
+    for i, ch in enumerate(text):
+        if ch.isupper() and i and not text[i - 1].isupper():
+            out.append(" ")
+        out.append(ch)
+    return "".join(out).strip()
+
+
+def _decode_source(sid: str) -> tuple[str, str]:
+    """Decode an evidence ID into (group, human-readable label). The full ID is
+    preserved by the caller as a tooltip for auditability."""
+    parts = sid.split(":")
+    kind = parts[0]
+    if kind == "px" and len(parts) >= 3:
+        return "px", f"{parts[1]} · {parts[2]}"
+    if kind == "sec" and len(parts) >= 5:
+        tag = parts[4]
+        label = _SEC_TAG_LABELS.get(tag, _decamel(tag))
+        return "sec", f"{parts[2]} {parts[3]} · {label}"
+    if kind == "fred" and len(parts) >= 3:
+        return "fred", f"{parts[1]} · {parts[2]}"
+    if kind == "gdelt" and len(parts) >= 3:
+        return "gdelt", f"{parts[1]} · {parts[2]}"
+    if kind == "event":
+        body = ":".join(parts[1:])
+        # "sentiment:AAPL" -> "Sentiment: AAPL"; "interest-rates" -> "Interest rates"
+        if ":" in body:
+            theme, _, subj = body.partition(":")
+            return "event", f"{_decamel(theme.replace('-', ' ')).capitalize()}: {subj}"
+        return "event", _decamel(body.replace("-", " ")).capitalize()
+    if kind == "regime":
+        return "regime", ":".join(parts[1:])
+    return kind, sid
+
+
+def _sources_html(value: Any) -> str:
+    """Render sources as readable chips grouped by type. Each chip shows a
+    decoded label and keeps the raw evidence ID as a hover tooltip."""
+    if not value:
+        return "—"
+    ids = value if isinstance(value, (list, tuple)) else [value]
+    grouped: dict[str, list[str]] = {}
+    order: list[str] = []
+    for raw in ids:
+        sid = str(raw)
+        group, label = _decode_source(sid)
+        if group not in grouped:
+            grouped[group] = []
+            order.append(group)
+        chip = (
+            f'<span class="src-chip" title="{html.escape(sid)}">'
+            f"{html.escape(label)}</span>"
+        )
+        grouped[group].append(chip)
+    rows = []
+    for group in order:
+        name = _SOURCE_GROUP_LABEL.get(group, group)
+        rows.append(
+            f'<div class="src-row"><span class="src-group">{html.escape(name)}</span>'
+            f'<span class="src-chips">{"".join(grouped[group])}</span></div>'
+        )
+    return f'<div class="sources">{"".join(rows)}</div>'
+
+
 def _read_analyst_packs(run_dir: Path) -> dict[str, list[dict[str, Any]]]:
     """Read optional analyst artifacts, indexed by ticker.
 
@@ -305,7 +392,7 @@ def _reasoning_section(
             f"<li><strong>Rationale:</strong> {_reasoning_text(position.get('rationale'))}</li>",
             f"<li><strong>Analyst weighting:</strong> {_reasoning_text(position.get('analyst_weighting'))}</li>",
             f"<li><strong>Conflicts:</strong> {_reasoning_text(position.get('conflicts'))}</li>",
-            f"<li><strong>Sources:</strong> {_reasoning_text(position.get('sources'))}</li>",
+            f"<li><strong>Sources:</strong> {_sources_html(position.get('sources'))}</li>",
             f"<li><strong>Confidence:</strong> {_reasoning_text(position.get('confidence'))}</li>",
             f"<li><strong>Change triggers:</strong> {_reasoning_text(position.get('change_triggers'))}</li>",
         ]
@@ -474,6 +561,15 @@ table.metrics {{ border-collapse: collapse; width: 100%; font-variant-numeric: t
 .reasoning-card li {{ margin: .25rem 0; }}
 .stance-label {{ margin: .7rem 0 .2rem; }}
 .reasoning-note {{ color: var(--slate); font-style: italic; }}
+/* Source chips: readable, grouped, with raw ID on hover */
+.sources {{ display: flex; flex-direction: column; gap: .35rem; margin-top: .3rem; }}
+.src-row {{ display: grid; grid-template-columns: 64px 1fr; gap: .6rem; align-items: start; }}
+.src-group {{ font-size: .72rem; font-weight: 600; color: var(--slate); text-align: right; padding-top: .18rem; }}
+.src-chips {{ display: flex; flex-wrap: wrap; gap: .3rem; }}
+.src-chip {{ font: .78rem/1 "SFMono-Regular", ui-monospace, Menlo, monospace;
+  background: #EEF2F6; border: 1px solid var(--line); border-radius: 5px;
+  padding: .25rem .5rem; color: var(--ink); cursor: default; }}
+.src-chip:hover {{ background: #E2EAF1; }}
 @media (max-width: 620px) {{ .hero, .kpis {{ grid-template-columns: 1fr; }} }}
 </style>
 </head>
