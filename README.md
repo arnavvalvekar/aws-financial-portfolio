@@ -510,23 +510,34 @@ Never cut:
 
 ## Results and limitations
 
-Fill this in after the final run. C owns it.
+From the frozen final run (`runs/final/`, cutoff 2026-01-30 → 2026-10-16). Reproduce with `python pipeline.py --run-id final`.
 
-- **Universe and selection rule:**
-- **Cutoff and end date:**
-- **Model profile:**
-- **Rebalance rule:**
-- **Baselines:** SPY, equal weight
+- **Universe and selection rule:** AAPL, MSFT, NVDA, AMZN, XOM, JNJ, PG, CAT, NEE, KO — ten S&P 500 names across seven-plus sectors, fixed from `config.yaml` before any return was looked at. Domestic 10-K/10-Q filers; banks excluded in v1 (revenue tags differ).
+- **Cutoff and end date:** cutoff (asof) 2026-01-30; scored through 2026-10-16 (180 trading days).
+- **Model profile:** `us.openai.gpt-5.6-luna` in `us-east-1`, one profile, no temperature, every call cached to disk.
+- **Rebalance rule:** none — the agents decide once at the cutoff and the portfolio is held to the end date (v1). Long only, 25% cap per name, up to 20% cash, 5 bps on traded value.
+- **Baselines:** SPY buy-and-hold, and equal weight across the same universe.
+- **Deep-dive position:** chosen by rule as the largest analyst disagreement (confidence-weighted stance spread). In the final run this is **MSFT** (spread 0.78: fundamentals strongly positive +0.9, technicals strongly bearish -0.85, sentiment mildly positive +0.25), held at 8%.
 
 | Metric | Portfolio | SPY | Equal weight |
 | --- | --- | --- | --- |
-| Total return | | | |
-| CAGR | | | |
-| Volatility | | | |
-| Sharpe | | | |
-| Maximum drawdown (dates) | | | |
+| Total return | 16.74% | 11.16% | 15.55% |
+| CAGR | 24.34% | 16.07% | 22.56% |
+| Volatility | 9.38% | 13.27% | 10.33% |
+| Sharpe | 2.37 | 1.19 | 2.02 |
+| Maximum drawdown (dates) | -5.27% (2026-02-25 to 2026-03-20) | -8.87% (2026-02-02 to 2026-03-30) | -6.10% (2026-02-25 to 2026-03-20) |
 
-State each of these, even when the answer is "none": model memory, FRED revisions after the cutoff, universe size and window length, how the universe was chosen, the cost assumption, and whether dividends are included.
+Excess return: +5.57 pts over SPY, +1.19 pts over equal weight. The portfolio also carried lower volatility and a shallower drawdown than both baselines. A few months on ten names is mostly noise, so the thesis and the clean point-in-time test carry more weight than the return figure.
+
+Stated plainly, including where the answer is "none":
+
+- **Model memory.** The profile may have training data past the 2026-01-30 cutoff and could in principle recall how the window played out; that is a form of look-ahead the point-in-time guard cannot catch. We did not independently confirm the profile's training cutoff. Treat the result as a historical experiment, not a forecast.
+- **FRED revisions after the cutoff.** Macro series are revised after release; the final run uses values as read, and later revisions are a known, unmitigated gap.
+- **Universe size and window length.** Ten names over ~8.5 months is a small, noisy sample; metrics are indicative, not statistically robust.
+- **How the universe was chosen.** By a written rule fixed before looking at returns (large-cap, sector-spread, domestic filers, no banks), not by back-fitting.
+- **Cost assumption.** 5 bps on traded value at the single initial allocation; with no rebalance there are no further trading costs in v1.
+- **Dividends.** Returns use the adjusted price series (dividends reinvested) for the portfolio and both baselines, consistently. Risk-free rate is zero for v1.
+- **Data sources at build time.** Prices from Yahoo Finance (Stooq was blocked on the workshop network); fundamentals from SEC XBRL; sentiment and geopolitics from a dated event log (GDELT was rate-limited to HTTP 429). Each evidence pack carries a data horizon.
 
 ---
 

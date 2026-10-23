@@ -1,0 +1,32 @@
+{
+  "ticker": "MSFT",
+  "spread": 0.779,
+  "mean_stance": 0.074,
+  "stances": {
+    "technical": -0.85,
+    "fundamentals": 0.9,
+    "sentiment": 0.25
+  },
+  "rule": "Deep-dive = the position with the largest analyst disagreement (highest confidence-weighted stance spread), chosen by rule before any result is seen.",
+  "weight": 0.08,
+  "rationale": "Small position only: the fundamental quality is compelling, but the technical report has exceptionally high confidence and identifies a persistent downtrend. I give technicals more influence for near-term sizing, while retaining a starter position because fundamentals are unusually strong.",
+  "conflicts": [
+    "Fundamentals strongly favor MSFT on 16.7% revenue growth, 20.9% operating-income growth, 60.4% operating-cash-flow growth and a 47.1% margin, while technicals show a death cross, price below both moving averages, sharply negative momentum and elevated volatility.",
+    "Sentiment is modestly constructive, but its evidence and confidence are weaker than the technical evidence."
+  ],
+  "sources": [
+    "px:MSFT:2026-01-30",
+    "sec:MSFT:10-Q:2025-12-31:RevenueFromContractWithCustomerExcludingAssessedTax",
+    "sec:MSFT:10-Q:2025-12-31:OperatingIncomeLoss",
+    "sec:MSFT:10-Q:2025-12-31:NetCashProvidedByUsedInOperatingActivities",
+    "sec:MSFT:10-Q:2025-12-31:LongTermDebtNoncurrent",
+    "event:sentiment:MSFT",
+    "event:export-controls"
+  ],
+  "change_triggers": [
+    "Add if the close reclaims SMA200 and SMA50 rises above SMA200, with momentum stabilizing.",
+    "Cut if negative momentum accelerates or volatility remains elevated.",
+    "Cut if revenue growth falls below 10%, operating-income growth slows materially, operating margin falls below 45%, or operating cash-flow growth turns negative.",
+    "Cut if export controls broaden to affect advanced-chip access or overseas AI/cloud demand."
+  ]
+}
