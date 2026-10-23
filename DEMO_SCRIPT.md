@@ -22,9 +22,9 @@ Have three things open: the deck (`presentation/portfolio-pitch.pptx`), the dash
 | Time | Who | On screen |
 | --- | --- | --- |
 | 0:00 to 0:20 | C | Slide 1 |
-| 0:20 to 0:45 | B | Slide 2 (the pipeline) |
-| 0:45 to 1:40 | B | Terminal: `python show_position.py MSFT` |
-| 1:40 to 2:15 | A | Dashboard |
+| 0:20 to 1:00 | B | Slide 2 (the pipeline and the models) |
+| 1:00 to 1:45 | B | Terminal: `python show_position.py MSFT` |
+| 1:45 to 2:15 | A | Dashboard |
 | 2:15 to 2:45 | B | Terminal: `python demo_leak_attack.py` |
 | 2:45 to 3:00 | C | Slide 3 |
 
@@ -32,11 +32,13 @@ Have three things open: the deck (`presentation/portfolio-pitch.pptx`), the dash
 
 > "We're Alpha Strike. This is a historical experiment, not financial advice. We gave AI agents ten S&P 500 stocks and only what was known on January 30th, 2026. They built a portfolio, and we scored it on the next 180 trading days against SPY and an equal-weight mix."
 
-### 0:20 to 0:45, how it thinks (B)
+### 0:20 to 1:00, how it thinks and which models (B)
 
-> "Five specialist agents read different evidence: prices, filings, rates, news and world events. Each scores every stock and cites its data. A portfolio manager combines them, and a risk reviewer checks the result. Every model call goes through Amazon Bedrock, and the whole pipeline is deployed as an agent on AWS AgentCore, with its IAM role and its code in S3."
+> "Five specialist agents read different evidence: prices, filings, rates, news and world events. Each scores every stock and cites its data. A portfolio manager combines them, and a risk reviewer checks the result.
+>
+> All seven agents use the same model, GPT-5.6 Luna, through Amazon Bedrock. We tested the five GPT models Bedrock offered us, picked Luna because it was the fastest, and found that none of them accept a temperature setting. The whole pipeline is deployed as an agent on AWS AgentCore, with its IAM role and its code in S3."
 
-### 0:45 to 1:40, one decision, opened up (B)
+### 1:00 to 1:45, one decision, opened up (B)
 
 Run `python show_position.py MSFT` and scroll as you talk.
 
@@ -46,7 +48,7 @@ Run `python show_position.py MSFT` and scroll as you talk.
 >
 > Later, Microsoft rose 24 percent, so the business analyst was right and our caution cost us a little. That's the point: you can see exactly why it did what it did."
 
-### 1:40 to 2:15, what happened (A)
+### 1:45 to 2:15, what happened (A)
 
 > "The portfolio returned 16.7 percent, SPY 11.2, equal weight 15.5. Sharpe was 2.37 against 1.19 and 2.02, and the worst drop was 5.3 percent against 8.9 for SPY.
 >
@@ -104,6 +106,10 @@ Never cut the Microsoft walkthrough, the baselines comparison or the leak attack
 **What if the market crashes?** CrashLab stress-tests the frozen weights. It is a simple sector-beta model, not a forecast. Its assumptions are in `runs/final/crashlab.json`.
 
 **How did you use AWS?** Four services. Amazon Bedrock: every model call uses the Converse API, with a forced tool call so each agent returns structured JSON. We tested all five GPT inference profiles it offers, found they all work and that none accept a temperature setting, and used `us.openai.gpt-5.6-luna`. AWS AgentCore Runtime: the whole pipeline is deployed as a hosted agent, and invoking it returns the frozen result in a few seconds. IAM: a dedicated execution role limited to that one model. S3 and CloudWatch: the toolkit stores the deployed code in S3 and the runtime logs to CloudWatch.
+
+**Which model did you use, and why?** GPT-5.6 Luna on Amazon Bedrock, for all seven agents: five analysts, the manager and the risk reviewer. The workshop kit offered five GPT profiles (5.4, 5.5, 5.6 Luna, Sol and Terra). We probed all five for access, speed and structured output. They all worked, and Luna was the fastest, so we used it. We did not compare portfolio quality across models, only whether each one worked.
+
+**Why the same model for every agent?** Simplicity and reproducibility. The downside is that the agents can share the same blind spots. Using a different model for the risk reviewer would make that check more independent, and it's a next step we didn't build.
 
 **Why Bedrock and not calling a model directly?** One managed API for several models, access through the workshop's IAM role with no API keys in the code, and it let us compare five model profiles by changing one setting.
 
