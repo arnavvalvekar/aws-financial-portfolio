@@ -99,19 +99,22 @@ Validator rules (code, not prompt):
 
 `decision.json` plus `config.yaml`. A reads only `weights` and `asof`.
 
-## Risk review (stretch, B writes)
+## Risk review (B writes)
 
-`runs/<run_id>/risk_review.json`. Report-only in version 1.
+`runs/<run_id>/risk_review.json`. Report-only: it never changes `decision.json`.
 
 ```json
 {
   "asof": "2026-01-30",
+  "mode": "report-only",
   "verdict": "approve",
-  "checks": [{ "name": "max_weight", "passed": true, "detail": "" }],
+  "checks": [{ "name": "position_cap", "passed": true, "detail": "" }],
+  "failed_checks": [],
+  "reasons": ["One line per concern, naming a ticker, a check or an evidence id."],
+  "concerns": [{ "ticker": "NEE", "issue": "Rationale says 9% but the weight is 10%." }],
   "adjusted_weights": null,
-  "reasons": ["One line per concern."],
-  "lessons_used": ["lesson id"]
+  "lessons_used": ["Past mistakes of this system, from earlier development runs."]
 }
 ```
 
-`verdict` is `approve`, `adjust` or `veto`. `lessons.json` entries come only from development-cutoff runs and validator failures, never from the final window's results.
+`verdict` is `approve`, `adjust` or `veto`. `adjusted_weights` is filled only for `adjust`. The code checks are position and cash caps, sector concentration, top-three concentration, positions against the analyst consensus, large positions with low confidence, unsourced positions, and crash risk against cash. Lessons come from the validator warnings of earlier development runs only (frozen in `lessons.json`), never from scored results.

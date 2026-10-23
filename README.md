@@ -15,10 +15,10 @@ Team build plan for Track 3 (Financial Portfolio Management) at the Austin Agent
 
 Tick these off by editing this file.
 
-- [ ] **M0 · T+0:20.** Config and schemas committed. Three go or no-go answers reported.
+- [x] **M0 · T+0:20.** Config and schemas committed. Three go or no-go answers reported.
 - [x] **M1 · T+1:15.** One command runs end to end on technical evidence alone. This is your fallback demo.
 - [x] **M2 · T+2:15.** All five analysts run on real evidence. The manager's output carries rationale, sources and triggers.
-- [ ] **M3 · T+3:15.** Config, prompts and data are frozen. The final window is run once and cached.
+- [x] **M3 · T+3:15.** Config, prompts and data are frozen. The final window is run once and cached.
 - [ ] **M4 · T+3:30.** Code freeze. Nothing merges after this.
 
 ## Get started
@@ -83,7 +83,7 @@ Put the answers in `config.yaml` and commit it. Every other task depends on them
 flowchart LR
   subgraph KNOWN ["Known on or before the cutoff"]
     PX["Prices<br/>Yahoo Finance daily (A)<br/>Stooq blocked 2026-10-23, recheck later"]
-    FR["Macro<br/>FRED series (A)"]
+    FR["Macro<br/>Yahoo rates and VIX (A)"]
     SE["Filings<br/>SEC XBRL (C)"]
     GD["News tone<br/>GDELT (C)"]
     GUARD["Point-in-time guard (A)<br/>slice(asof), date ≤ cutoff"]
@@ -173,7 +173,7 @@ CrashLab stress-tests the frozen portfolio. Where the risk management agent watc
 
 It runs three kinds of scenario.
 
-1. **Historical replays.** It re-prices the current weights against real crisis windows, the 2008 global financial crisis and the 2020 COVID crash to start, and reports what the portfolio would have done through each: peak-to-trough drawdown, the worst day, time to recover, and which positions did the damage. These use archived price history for the universe and SPY, read only by CrashLab after the decision is frozen, exactly like the backtest's later prices.
+1. **Historical replays.** It applies the documented market drop of the 2008 global financial crisis and the 2020 COVID crash to the current weights through per-sector betas, and reports the portfolio's shock loss and which positions did the damage. These are not literal price replays: the committed price store only covers 2024 to 2026, so each crisis uses its documented market drop as a stand-in.
 2. **Agent-invented shocks.** A scenario agent proposes plausible shocks the history does not cover, each as a named, parameterised stress: a rate spike of so many basis points, an oil shock, a sector-wide selloff, a liquidity crunch, a geopolitical break. Each scenario is a short JSON spec with per-factor or per-sector shocks, so the same stress can be re-applied and audited. The agent must ground each shock in a mechanism and name the positions it expects to hurt, not just pick a number.
 3. **Protective changes.** From the worst scenarios it proposes concrete, constraint-respecting adjustments: trim a concentrated name, lift cash toward the 20% cap, add a diversifier, and it reports the trade-off, how much drawdown the change removes in the shock against how much expected return it gives up in the base case. These are proposals only. Any change still goes through the portfolio manager and the validator.
 
@@ -197,7 +197,7 @@ flowchart LR
 
 Risk and limitations: a stress test is only as honest as its scenarios, so state the assumptions behind each one, a single beta to the shock, no correlation changes, no liquidity modelling unless added. Historical replays assume today's universe existed and behaved like its sector back then, which is a stand-in, not the real holdings of 2008. Keep the protective changes as a separate, clearly labelled variant so the headline result stays the one frozen decision. This is a stretch feature, cut it before the point-in-time guard, the baselines, or the reasoning view.
 
-Owner: B for the scenario agent and the protective-change proposals, A for the re-pricing engine and the crisis price history. Shares the backtest's pricing and cost model.
+Built by C (`src/crashlab/`, run with `python -m src.crashlab`), reusing the backtest's cost model. The optional scenario agent (`--agent`) uses B's cached model wrapper. It writes `runs/final/crashlab.json` and never changes `decision.json`.
 
 <!-- NOTE (2026-10-23, C): CrashLab is implemented in src/crashlab/ (C took the
      stretch with A/B's sign-off; it imports A's backtest cost model and B's cached
@@ -229,7 +229,7 @@ Owns the numbers. Owner: _add your GitHub handle_. Best fit: pandas and some fin
 Owns the reasoning. Owner: _add your GitHub handle_. Best fit: prompts and the AWS SDK.
 
 - **Owns:** `src/agents/`, `agentcore/`, `SCHEMAS.md`, `prompts/`
-- **Done when:** `python run.py --config config.yaml` writes `decision.json` from real evidence, and a second run returns the identical file from cache.
+- **Done when:** `./run_final.sh` reproduces the frozen `decision.json` and risk review exactly from the committed cache, and `python pipeline.py` runs the whole chain live.
 
 ### C · Evidence and story
 
@@ -251,10 +251,10 @@ Times count from the start of build time. Tasks are listed per person so you can
 
 ### Phase 0 · Align (T+0:00 to 0:20, everyone)
 
-- [ ] Make sure all three of you can push to this repo, and have everyone clone it.
+- [x] Make sure all three of you can push to this repo, and have everyone clone it.
 - [ ] Everyone runs the kit's `infer.py` from `hackathon-kit/` (see [Get started](#get-started)).
-- [ ] Add a `.gitignore` for `.venv/` and raw downloads.
-- [ ] Agree `config.yaml` and the two schemas in `SCHEMAS.md`.
+- [x] Add a `.gitignore` for `.venv/` and raw downloads.
+- [x] Agree `config.yaml` and the two schemas in `SCHEMAS.md`.
 - [ ] Ask the organizers what is fixed.
 
 **A**
@@ -296,10 +296,10 @@ Times count from the start of build time. Tasks are listed per person so you can
 ### Phase 1 · Walking skeleton (T+0:20 to 1:15)
 
 **A**
-- [ ] Price store for the universe and SPY, committed as small CSVs.
-- [ ] `pit.slice(asof)` and the test that fails on any later date.
-- [ ] Technical evidence: momentum, volatility, drawdown, 50 and 200-day trend.
-- [ ] Backtest engine with both baselines and metrics.
+- [x] Price store for the universe and SPY, committed as small CSVs.
+- [x] `pit.slice(asof)` and the test that fails on any later date.
+- [x] Technical evidence: momentum, volatility, drawdown, 50 and 200-day trend.
+- [x] Backtest engine with both baselines and metrics.
 
 **B**
 - [x] Converse wrapper grown from the kit's `infer.py`: JSON output, a disk cache, retry with backoff, and a `maxTokens` far above the kit's 128 with a `stopReason` check.
@@ -308,17 +308,17 @@ Times count from the start of build time. Tasks are listed per person so you can
 - [x] Orchestrator: analysts in parallel, then the manager, with every input and output saved under `runs/<run_id>/`. It writes `decision.json`.
 
 **C**
-- [ ] SEC extraction for three tickers first, then all ten: ticker to CIK, quarterly zips up to the cutoff, only filings with a `filed` date on or before it, about ten tags with two or three candidate names each.
-- [ ] First fundamentals CSV with filing dates.
-- [ ] Evidence ID format for filings.
+- [x] SEC extraction for three tickers first, then all ten: ticker to CIK, quarterly zips up to the cutoff, only filings with a `filed` date on or before it, about ten tags with two or three candidate names each.
+- [x] First fundamentals CSV with filing dates.
+- [x] Evidence ID format for filings.
 
 > **M1 · T+1:15.** One command runs end to end on technical evidence alone: `decision.json`, equity curve, and metrics against SPY and equal weight. This is your fallback demo.
 
 ### Phase 2 · Add the signals (T+1:15 to 2:15)
 
 **A**
-- [ ] FRED macro evidence with release lags.
-- [ ] Dashboard shell: header strip, equity curve, metrics table.
+- [x] Macro evidence from Yahoo series (FRED was unreachable), with no release lag to handle.
+- [x] Dashboard shell: header strip, equity curve, metrics table.
 
 **B**
 - [x] Fundamentals, macro, sentiment and geopolitics analyst prompts.
@@ -346,22 +346,22 @@ Times count from the start of build time. Tasks are listed per person so you can
 ### Phase 3 · Inspectable and credible (T+2:15 to 3:15)
 
 **A**
-- [ ] Leakage test wired into every run.
-- [ ] Contribution by position.
-- [ ] Reasoning view: stances, conflicts, sources, triggers.
-- [ ] Stretch: analyst scorecard.
+- [x] Leakage test wired into every run.
+- [x] Contribution by position.
+- [x] Reasoning view: stances, conflicts, sources, triggers.
+- [x] Stretch: analyst scorecard.
 
 **B**
 - [x] Prompt tuning on the development cutoff only. (None done: prompts were never tuned against scored results. See runs/final/NOTES.md.)
 - [x] Stretch: a risk management agent (see [Risk management](#risk-management)) that monitors the portfolio, detects regime shifts, triggers rebalancing, and feeds what it learns back to the portfolio manager. Build the plain-code checks first (position and cash caps, sector concentration, missing evidence IDs), then the LLM review. Keep it in report-only mode so the scored decision stays frozen.
-- [ ] Stretch: CrashLab (see [CrashLab](#crashlab)), replay the frozen weights through 2008, 2020 and agent-invented shocks, then propose protective changes. B owns the scenario agent and proposals, A owns the re-pricing and crisis price history.
+- [x] Stretch: CrashLab (see [CrashLab](#crashlab)), built by C: stress-tests the frozen weights under 2008-style, 2020-style and invented shocks with a simple sector-beta model, then proposes protective changes. Analysis only.
 - [x] Freeze prompts and config at M3.
 
 **C**
-- [ ] Fill in [Results and limitations](#results-and-limitations).
-- [ ] Set the rule for the deep-dive position, such as the largest analyst disagreement.
+- [x] Fill in [Results and limitations](#results-and-limitations).
+- [x] Set the rule for the deep-dive position, such as the largest analyst disagreement.
 - [ ] Help A with the reasoning view.
-- [ ] Fresh-clone test: clone, run one command, get the same `decision.json` and metrics.
+- [x] Fresh-clone test: clone, run one command, get the same `decision.json` and metrics.
 
 > **M3 · T+3:15.** Freeze config, prompts and data. Run the final window once and cache it.
 
@@ -370,7 +370,7 @@ Times count from the start of build time. Tasks are listed per person so you can
 - [x] **B:** AgentCore handler adapted from the kit's `agent.py` into `agentcore/`, deployed with the kit's direct-code-deploy commands. If it fails, demo the local runner and the kit's deployed sample.
 - [ ] Rehearse twice against the checklist.
 - [ ] Load the cached run so the demo makes at most one live call.
-- [ ] Remove the AgentCore runtime and its dedicated role, following the kit's README.
+- [x] Decision: leave the AgentCore runtime and its role up for the demo. Delete them later if the account is kept (steps in `agentcore/README.md`).
 - [ ] **A** speaks to results: curve, metrics, contribution. **B** speaks to reasoning: one decision opened up. **C** opens and closes with framing, credibility and limitations, and keeps the clock.
 
 > **M4 · T+3:30.** Code freeze. Nothing merges after this.
@@ -470,14 +470,14 @@ tests/                    A test_no_lookahead.py
 
 Run down this list before the final run. Each item is something a skeptical judge could ask about.
 
-- [ ] **Prices.** Agents get rows dated on or before the cutoff. The backtest reads later rows and nothing else.
+- [x] **Prices.** Agents get rows dated on or before the cutoff. The backtest reads later rows and nothing else.
 - [ ] **SEC filings.** Gate on the `filed` date, not the period end. Use the latest filing for each period as of the cutoff and ignore later amendments.
-- [ ] **FRED.** Daily series stop at the cutoff. Lag monthly series by one month and GDP by two, which is safe against real release dates. Revisions after the cutoff are a known gap, so say so.
+- [x] **Macro.** FRED was unreachable, so macro uses Yahoo daily series that stop at the cutoff and are not revised after release. No CPI, jobs or GDP.
 - [ ] **News and events.** Filter on publication date. Every row in a hand-built event log needs a source dated before the cutoff.
-- [ ] **Prompts.** Tell each analyst to use only its evidence pack and to cite IDs. Scan every output for dates after the cutoff and fail the run if one appears.
-- [ ] **Model memory.** Compare the model's training cutoff with yours, and state the result in the limitations.
-- [ ] **Tuning.** Iterate on a development cutoff. Freeze config, prompts and data, then run the final window once.
-- [ ] **Universe.** Pick it with a rule fixed before you look at returns.
+- [x] **Prompts.** Tell each analyst to use only its evidence pack and to cite IDs. Scan every output for dates after the cutoff and fail the run if one appears.
+- [x] **Model memory.** Compare the model's training cutoff with yours, and state the result in the limitations.
+- [x] **Tuning.** Iterate on a development cutoff. Freeze config, prompts and data, then run the final window once.
+- [x] **Universe.** Pick it with a rule fixed before you look at returns.
 
 ## Risks and fallbacks
 
@@ -549,7 +549,7 @@ Stated plainly, including where the answer is "none":
 - **Macro evidence is thin.** FRED was unreachable, so macro uses three Yahoo series (3-month rate, 10-year yield, VIX) plus a market crash-risk measure. There is no CPI, jobs or GDP data. These market series are not revised after release, so there is no revision gap, but the macro analyst had little to work with and answered "insufficient data" for some stocks.
 - **Run-to-run variation.** These models have no temperature setting, so uncached runs differ slightly. Five uncached runs on identical evidence returned 14.9% to 16.4% (mean 15.7%): ahead of SPY in 5 of 5 and ahead of equal weight in 3 of 5. The frozen run is one draw from that spread (`runs/final/repeatability.json`, `runs/final/NOTES.md`).
 - **Entry price.** The backtest buys at the close of the cutoff day, the same close the agents saw.
-- **Sentiment is a curated fallback**, not measured news tone, because GDELT failed.
+- **Sentiment and geopolitics evidence is hand-curated.** GDELT failed, so the team wrote a dated event log. Items carry a date before the cutoff but no per-item source, and they were written after the window ended, so they may carry hindsight. Our own checklist asks for a source on every row, and these do not meet it. Consistent with the evidence not leaking outcomes, these two analysts scored worst in the scorecard (`runs/final/scorecard.json`), but that is weak support.
 - **Universe size and window length.** Ten names over ~8.5 months is a small, noisy sample; metrics are indicative, not statistically robust.
 - **How the universe was chosen.** By a written rule fixed before looking at returns (large-cap, sector-spread, domestic filers, no banks), not by back-fitting.
 - **Cost assumption.** 5 bps on traded value at the single initial allocation; with no rebalance there are no further trading costs in v1.
