@@ -2,7 +2,7 @@
 
     python pipeline.py [--run-id final] [--no-cache]
 
-Fundamentals evidence (and any other pack) is read from evidence/. The technical pack is rebuilt
+Fundamentals (and any other pack) is read from evidence/. The technical and macro packs are rebuilt
 from the committed price store, so nothing here needs the network except the model calls.
 """
 
@@ -14,6 +14,8 @@ import time
 from pathlib import Path
 
 from src.agents.orchestrate import load_config, run
+from src.evidence.macro import build_macro_evidence
+from src.evidence.regime import build_regime_evidence
 from src.evidence.technical import build_technical_evidence
 
 ROOT = Path(__file__).resolve().parent
@@ -34,7 +36,12 @@ def main():
     pack = build_technical_evidence(str(cfg["asof"]), cfg["universe"], str(ROOT / "data" / "prices"))
     evidence.mkdir(exist_ok=True)
     (evidence / "technical.json").write_text(json.dumps(pack, indent=1))
-    print(f"[1/3] technical evidence: {len(pack['items'])} items, data horizon {pack['data_horizon']}")
+    macro = build_macro_evidence(str(cfg["asof"]), str(ROOT / "data" / "prices"))
+    regime = build_regime_evidence(str(cfg["asof"]), cfg["universe"], str(ROOT / "data" / "prices"))
+    macro["items"] += [i for i in regime["items"] if i["ticker"] == "SPY"]  # market-wide crash-risk item
+    (evidence / "macro.json").write_text(json.dumps(macro, indent=1))
+    print(f"[1/3] evidence: technical {len(pack['items'])} items, macro {len(macro['items'])} items, "
+          f"data horizon {pack['data_horizon']}")
 
     out, decision, warnings = run(config, evidence, a.run_id, a.only, not a.no_cache)
     print(f"[2/3] agents done, saved to {out}")
