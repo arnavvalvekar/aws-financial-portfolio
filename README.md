@@ -6,7 +6,8 @@ Team build plan for Track 3 (Financial Portfolio Management) at the Austin Agent
 
 - **Team:** three people, roles A, B and C below. Put your GitHub handle next to your role.
 - **Model:** a Bedrock inference profile from the starter kit, default `us.openai.gpt-5.6-luna`, region `us-east-1`.
-- **Timeline:** assumes about 5.5 hours of build time. Scale it to the real deadline and drop the stretch items first.
+- **Timeline:** 4 hours, finishing at 4:00 pm. T+0:00 is the start. Drop the stretch items first when time runs short.
+- **Checkpoints:** at the end of each phase everyone stops, runs `git pull --rebase`, commits and pushes, then checks the milestone before moving on.
 
 [Get started](#get-started) · [What to aim for](#what-to-aim-for) · [Lock first](#lock-these-in-the-first-30-minutes) · [Pipeline](#how-the-pieces-connect) · [Risk management](#risk-management) · [Roles](#who-does-what) · [Timeline](#timeline) · [Contracts](#contracts-and-layout) · [Look-ahead checklist](#look-ahead-checklist) · [Risks](#risks-and-fallbacks) · [Demo](#three-minute-demo) · [Results](#results-and-limitations)
 
@@ -14,11 +15,11 @@ Team build plan for Track 3 (Financial Portfolio Management) at the Austin Agent
 
 Tick these off by editing this file.
 
-- [ ] **M0 · T+0:30.** Config and schemas committed. Three go or no-go answers reported.
-- [ ] **M1 · T+1:45.** One command runs end to end on technical evidence alone. This is your fallback demo.
-- [ ] **M2 · T+3:15.** All five analysts run on real evidence. The manager's output carries rationale, sources and triggers.
-- [ ] **M3 · T+4:30.** Config, prompts and data are frozen. The final window is run once and cached.
-- [ ] **M4 · T+5:00.** Code freeze. Nothing merges after this.
+- [ ] **M0 · T+0:20.** Config and schemas committed. Three go or no-go answers reported.
+- [ ] **M1 · T+1:15.** One command runs end to end on technical evidence alone. This is your fallback demo.
+- [ ] **M2 · T+2:15.** All five analysts run on real evidence. The manager's output carries rationale, sources and triggers.
+- [ ] **M3 · T+3:15.** Config, prompts and data are frozen. The final window is run once and cached.
+- [ ] **M4 · T+3:30.** Code freeze. Nothing merges after this.
 
 ## Get started
 
@@ -57,8 +58,8 @@ Put the answers in `config.yaml` and commit it. Every other task depends on them
 | --- | --- | --- |
 | Organizer rules | Ask whether the universe, cutoff or evaluation window is fixed. The brief says portfolios are evaluated against actual performance, and it also asks you to choose a cutoff. | |
 | Model | The kit offers five Bedrock inference profiles: `us.openai.gpt-5.4`, `us.openai.gpt-5.5`, `us.openai.gpt-5.6-luna` (the default), `us.openai.gpt-5.6-sol` and `us.openai.gpt-5.6-terra`. Use one profile in `us-east-1` at temperature 0, and cache every request to disk by hash. Temperature 0 does not guarantee identical text, so the cache is what makes a re-run reproducible. | |
-| Cutoff and window | One quarter-end trading day and a fixed end date. Example: cutoff `2025-09-30`, end `2026-09-30`. Choose the model first. A cutoff after the model's training data avoids memory leaks but leaves a shorter window. An earlier cutoff gives a longer window and needs a disclosure. | |
-| Universe | Ten large caps across at least seven sectors, chosen by a written rule. Example: `AAPL MSFT NVDA AMZN XOM JNJ PG CAT NEE KO`. Use domestic 10-K and 10-Q filers only. Leave banks out of version 1, because their revenue tags differ. | |
+| Cutoff and window | One quarter-end trading day and a fixed end date. Example: cutoff `2026-06-30`, end `2026-10-16`. Choose the model first. A cutoff after the model's training data avoids memory leaks but leaves a shorter window. An earlier cutoff gives a longer window and needs a disclosure. | |
+| Universe | Ten S&P 500 stocks across at least seven sectors, chosen by a written rule. Example: `AAPL MSFT NVDA AMZN XOM JNJ PG CAT NEE KO`. Use domestic 10-K and 10-Q filers only. Leave banks out of version 1, because their revenue tags differ. | |
 | Baselines | SPY buy-and-hold, and equal weight across the same universe. The second one separates a good universe from good weighting. | |
 | Decision rule | Version 1: the agents decide once at the cutoff and the portfolio is held to the end date. Version 2 (stretch): re-run at each month-end using only data up to that date. Long only, 25% cap per name, up to 20% cash, 5 bps cost on traded value. | |
 | Returns | The same adjusted price series for the portfolio and both baselines. State whether dividends are included. Risk-free rate is zero or the FRED 3-month bill rate. Pick one and print it. | |
@@ -190,7 +191,7 @@ Owns the hard data and the pitch. Owner: _add your GitHub handle_. Best fit: pat
 
 Times count from the start of build time. Tasks are listed per person so you can tick them off. Items marked stretch go first when time runs short.
 
-### Phase 0 · Align (T+0:00 to 0:30, everyone)
+### Phase 0 · Align (T+0:00 to 0:20, everyone)
 
 - [ ] Make sure all three of you can push to this repo, and have everyone clone it.
 - [ ] Everyone runs the kit's `infer.py` from `hackathon-kit/` (see [Get started](#get-started)).
@@ -210,9 +211,9 @@ Times count from the start of build time. Tasks are listed per person so you can
 - [ ] Can an SEC quarterly zip be downloaded with a User-Agent header, and is GDELT reachable?
 - [ ] Map tickers to CIKs.
 
-> **M0 · T+0:30.** Config and schemas committed. Three go or no-go answers reported.
+> **M0 · T+0:20.** Config and schemas committed. Three go or no-go answers reported.
 
-### Phase 1 · Walking skeleton (T+0:30 to 1:45)
+### Phase 1 · Walking skeleton (T+0:20 to 1:15)
 
 **A**
 - [ ] Price store for the universe and SPY, committed as small CSVs.
@@ -231,9 +232,9 @@ Times count from the start of build time. Tasks are listed per person so you can
 - [ ] First fundamentals CSV with filing dates.
 - [ ] Evidence ID format for filings.
 
-> **M1 · T+1:45.** One command runs end to end on technical evidence alone: `decision.json`, equity curve, and metrics against SPY and equal weight. This is your fallback demo.
+> **M1 · T+1:15.** One command runs end to end on technical evidence alone: `decision.json`, equity curve, and metrics against SPY and equal weight. This is your fallback demo.
 
-### Phase 2 · Add the signals (T+1:45 to 3:15)
+### Phase 2 · Add the signals (T+1:15 to 2:15)
 
 **A**
 - [ ] FRED macro evidence with release lags.
@@ -251,9 +252,9 @@ Times count from the start of build time. Tasks are listed per person so you can
 - [ ] Fallback if GDELT stalls: a dated event log where every row has a source published before the cutoff.
 - [ ] A data horizon line on every evidence pack.
 
-> **M2 · T+3:15.** All five analysts run on real evidence. The manager's output carries rationale, sources and triggers.
+> **M2 · T+2:15.** All five analysts run on real evidence. The manager's output carries rationale, sources and triggers.
 
-### Phase 3 · Inspectable and credible (T+3:15 to 4:30)
+### Phase 3 · Inspectable and credible (T+2:15 to 3:15)
 
 **A**
 - [ ] Leakage test wired into every run.
@@ -263,8 +264,8 @@ Times count from the start of build time. Tasks are listed per person so you can
 
 **B**
 - [ ] Prompt tuning on the development cutoff only.
-- [ ] AgentCore handler adapted from the kit's `agent.py` into `agentcore/`, deployed with the kit's direct-code-deploy commands.
-- [ ] Stretch: a risk management agent (see [Risk management](#risk-management)) that monitors the portfolio, detects regime shifts, triggers rebalancing, and feeds what it learns back to the portfolio manager.
+- [ ] Stretch: a risk management agent (see [Risk management](#risk-management)) that monitors the portfolio, detects regime shifts, triggers rebalancing, and feeds what it learns back to the portfolio manager. Build the plain-code checks first (position and cash caps, sector concentration, missing evidence IDs), then the LLM review. Keep it in report-only mode so the scored decision stays frozen.
+- [ ] Freeze prompts and config at M3.
 
 **C**
 - [ ] Fill in [Results and limitations](#results-and-limitations).
@@ -272,16 +273,17 @@ Times count from the start of build time. Tasks are listed per person so you can
 - [ ] Help A with the reasoning view.
 - [ ] Fresh-clone test: clone, run one command, get the same `decision.json` and metrics.
 
-> **M3 · T+4:30.** Freeze config, prompts and data. Run the final window once and cache it.
+> **M3 · T+3:15.** Freeze config, prompts and data. Run the final window once and cache it.
 
-### Phase 4 · Demo (T+4:30 to 5:30, everyone)
+### Phase 4 · Demo (T+3:15 to 4:00, everyone)
 
+- [ ] **B:** AgentCore handler adapted from the kit's `agent.py` into `agentcore/`, deployed with the kit's direct-code-deploy commands. If it fails, demo the local runner and the kit's deployed sample.
 - [ ] Rehearse twice against the checklist.
 - [ ] Load the cached run so the demo makes at most one live call.
 - [ ] Remove the AgentCore runtime and its dedicated role, following the kit's README.
 - [ ] **A** speaks to results: curve, metrics, contribution. **B** speaks to reasoning: one decision opened up. **C** opens and closes with framing, credibility and limitations, and keeps the clock.
 
-> **M4 · T+5:00.** Code freeze. Nothing merges after this.
+> **M4 · T+3:30.** Code freeze. Nothing merges after this.
 
 ## Contracts and layout
 
@@ -290,8 +292,8 @@ Agree these before anyone codes. They let B build agents against fixtures while 
 **`config.yaml`**
 
 ```yaml
-asof: 2025-09-30       # agents see data dated on or before this day
-end: 2026-09-30        # last day scored
+asof: 2026-06-30       # agents see data dated on or before this day
+end: 2026-10-16        # last day scored
 universe: [AAPL, MSFT, NVDA, AMZN, XOM, JNJ, PG, CAT, NEE, KO]
 baselines: [SPY, equal_weight]
 constraints:
@@ -314,7 +316,7 @@ gdelt:<theme>:<date>
 event:<id>
 
 # example
-sec:CAT:10-Q:2025-06-30:OperatingIncomeLoss
+sec:CAT:10-Q:2026-03-31:OperatingIncomeLoss
 ```
 
 **Analyst view, one per analyst.** Stance runs from -1 (underweight) to +1 (overweight). Confidence runs from 0 to 1.
@@ -322,13 +324,13 @@ sec:CAT:10-Q:2025-06-30:OperatingIncomeLoss
 ```json
 {
   "analyst": "fundamentals",
-  "asof": "2025-09-30",
+  "asof": "2026-06-30",
   "views": [{
     "ticker": "CAT",
     "stance": 0.4,
     "confidence": 0.7,
     "thesis": "One or two sentences grounded in the cited evidence.",
-    "evidence": ["sec:CAT:10-Q:2025-06-30:OperatingIncomeLoss"],
+    "evidence": ["sec:CAT:10-Q:2026-03-31:OperatingIncomeLoss"],
     "change_triggers": ["What would flip or weaken this view"]
   }]
 }
@@ -338,7 +340,7 @@ sec:CAT:10-Q:2025-06-30:OperatingIncomeLoss
 
 ```json
 {
-  "asof": "2025-09-30",
+  "asof": "2026-06-30",
   "weights": { "CAT": 0.12, "KO": 0.08, "CASH": 0.05 },
   "positions": {
     "CAT": {
@@ -346,7 +348,7 @@ sec:CAT:10-Q:2025-06-30:OperatingIncomeLoss
       "analyst_weighting": { "technical": 0.3, "fundamentals": 0.4,
         "macro": 0.1, "sentiment": 0.1, "geopolitics": 0.1 },
       "conflicts": ["Technical bullish, fundamentals neutral"],
-      "sources": ["px:CAT:2025-09-30"],
+      "sources": ["px:CAT:2026-06-30"],
       "confidence": 0.6,
       "change_triggers": ["Close below the 200-day average"]
     }
@@ -398,7 +400,7 @@ Run down this list before the final run. Each item is something a skeptical judg
 | The model returns invalid JSON or bad weights | Ask for structured output with a forced tool call if the GPT profile supports it, otherwise ask for JSON only. Validate, re-prompt once, then repair deterministically. Check `stopReason` for truncated output. | B |
 | AgentCore deploy limits | The kit uses direct code deploy. Deploy its sample in the first hour, then confirm early that a multi-file package imports correctly. Keep the runtime's `requirements.txt` small and leave data-prep libraries out. Build evidence packs outside the runtime and ship them as files. If the full deploy fails, demo the local runner and show the deployed sample. | B |
 | Three separate environments | If each of you has your own workshop account, share code through GitHub and not through `/workshop`. If you share one account, give each person a unique `AGENTCORE_ROLE_NAME` and runtime name, because a second role with the same name fails with `EntityAlreadyExists`. Commit small derived files, not raw zips. One owner per directory. | A, B, C |
-| Integration is left to the end | Reach the walking skeleton by T+1:45. Merge to `main` at least hourly and keep it runnable. | A, B, C |
+| Integration is left to the end | Reach the walking skeleton by T+1:15. Merge to `main` at least hourly and keep it runnable. | A, B, C |
 | The portfolio trails SPY | Report it. The brief asks whether the agents can explain a result and test it against the market, and beating the market is not required. | A, B, C |
 
 ## Three-minute demo
