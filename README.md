@@ -8,7 +8,7 @@ Team build plan for Track 3 (Financial Portfolio Management) at the Austin Agent
 - **Model:** a Bedrock inference profile from the starter kit, default `us.openai.gpt-5.6-luna`, region `us-east-1`.
 - **Timeline:** assumes about 5.5 hours of build time. Scale it to the real deadline and drop the stretch items first.
 
-[Get started](#get-started) · [What to aim for](#what-to-aim-for) · [Lock first](#lock-these-in-the-first-30-minutes) · [Pipeline](#how-the-pieces-connect) · [Roles](#who-does-what) · [Timeline](#timeline) · [Contracts](#contracts-and-layout) · [Look-ahead checklist](#look-ahead-checklist) · [Risks](#risks-and-fallbacks) · [Demo](#three-minute-demo) · [Results](#results-and-limitations)
+[Get started](#get-started) · [What to aim for](#what-to-aim-for) · [Lock first](#lock-these-in-the-first-30-minutes) · [Pipeline](#how-the-pieces-connect) · [Risk management](#risk-management) · [Roles](#who-does-what) · [Timeline](#timeline) · [Contracts](#contracts-and-layout) · [Look-ahead checklist](#look-ahead-checklist) · [Risks](#risks-and-fallbacks) · [Demo](#three-minute-demo) · [Results](#results-and-limitations)
 
 ## Milestones
 
@@ -125,6 +125,35 @@ flowchart LR
 
 The cutoff works as a one-way valve. Agents read only evidence packs built through the point-in-time guard. The one thing that crosses is `decision.json`, frozen before any later price is loaded. Later prices come from the same price store and are read by the backtest alone. The dashboard also reads `decision.json` and the analyst reports for its reasoning view. The letters show who builds each piece.
 
+## Risk management
+
+A risk management agent sits on top of the portfolio manager and closes the loop. In the backtest it stands in for the live risk desk, so "live portfolio" means the positions as they are carried forward through the scored window. Keep it inside the same point-in-time discipline: it reads only data dated on or before the step it is acting on, and a leakage test covers it like every other agent.
+
+It does three things.
+
+1. **Monitors the live portfolio.** At each step it tracks the state the positions actually reach: drawdown, realised volatility, exposure by sector and name, and how far each weight has drifted from the frozen target. It compares that state against the `change_triggers` the portfolio manager already wrote per position, so a watch is only ever against a threshold the manager committed to beforehand.
+2. **Detects regime shifts.** It watches for the conditions that break the thesis, such as a rate-hike surprise from the FRED macro evidence, a geopolitical shock from the GDELT and event feeds, a volatility spike, or a trend break through the 200-day average. A shift is flagged only when the evidence crossing the line is dated on or before the current step, with its evidence ID, so the call is auditable.
+3. **Triggers rebalancing.** When a regime shift fires, it hands control back to the portfolio manager for a fresh decision at that step's cutoff, under the same constraints (long only, 25% cap per name, up to 20% cash, costs on traded value). This is the version 2 month-end path with an event-driven trigger on top, so in version 1 the agent still runs and reports, it just records the trigger rather than acting on it.
+
+The loop closes back to the portfolio manager. Each flagged shift and the rebalance it caused is logged as a dated lesson: which trigger fired, which thesis it broke, and what the manager changed in response. That log feeds back into the manager's next decision so the following portfolio avoids repeating the same mistake. Over a run this turns one-shot allocation into a system that learns from what the market did to it, within the point-in-time rules.
+
+```mermaid
+flowchart LR
+  PM["Portfolio manager<br/>weights, rationale, triggers"]
+  LIVE["Live portfolio<br/>carried through the window"]
+  RM["Risk management agent<br/>monitor · detect · trigger"]
+  LESSON["Lesson log<br/>trigger, broken thesis, response"]
+  PM -->|"decision.json"| LIVE
+  LIVE -->|"state vs triggers"| RM
+  RM -->|"regime shift, rebalance"| PM
+  RM -->|"dated lesson"| LESSON
+  LESSON -->|"feeds the next decision"| PM
+```
+
+Risk and limitations: an event-driven rebalance adds trades and cost, so count every rebalance against the 5 bps cost on traded value and report how many fired. The feedback log must stay point-in-time, a lesson can only use evidence dated on or before the step that produced it, or it becomes look-ahead. In version 1 keep the agent in report-only mode so the scored result stays a single frozen decision; promote it to acting only once the month-end path is in.
+
+Owner: B, alongside the portfolio manager and orchestration, with A wiring the monitored state out of the backtest.
+
 ## Who does what
 
 The split is by layer, so each person owns different directories and rarely edits the same file. Agree the contracts below first. After that everyone can build against fixtures before real data arrives.
@@ -235,7 +264,7 @@ Times count from the start of build time. Tasks are listed per person so you can
 **B**
 - [ ] Prompt tuning on the development cutoff only.
 - [ ] AgentCore handler adapted from the kit's `agent.py` into `agentcore/`, deployed with the kit's direct-code-deploy commands.
-- [ ] Stretch: a risk agent that challenges the manager's weights.
+- [ ] Stretch: a risk management agent (see [Risk management](#risk-management)) that monitors the portfolio, detects regime shifts, triggers rebalancing, and feeds what it learns back to the portfolio manager.
 
 **C**
 - [ ] Fill in [Results and limitations](#results-and-limitations).
@@ -388,7 +417,7 @@ Cut in this order:
 
 1. Month-end re-decisions. Keep one decision held to the end date.
 2. Analyst scorecard.
-3. Risk agent.
+3. Risk management agent. If kept, run it in report-only mode so the scored decision stays frozen.
 4. Full AgentCore deploy. Keep the starter kit sample as proof of the path.
 5. GDELT. Use the dated event log.
 6. Positron notebook. `positron.py` is already in the repo and can stay unrun.
