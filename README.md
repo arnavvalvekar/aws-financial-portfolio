@@ -353,7 +353,7 @@ Times count from the start of build time. Tasks are listed per person so you can
 
 ### Phase 4 · Demo (T+3:15 to 4:00, everyone)
 
-- [ ] **B:** AgentCore handler adapted from the kit's `agent.py` into `agentcore/`, deployed with the kit's direct-code-deploy commands. If it fails, demo the local runner and the kit's deployed sample.
+- [x] **B:** AgentCore handler adapted from the kit's `agent.py` into `agentcore/`, deployed with the kit's direct-code-deploy commands. If it fails, demo the local runner and the kit's deployed sample.
 - [ ] Rehearse twice against the checklist.
 - [ ] Load the cached run so the demo makes at most one live call.
 - [ ] Remove the AgentCore runtime and its dedicated role, following the kit's README.

@@ -38,3 +38,22 @@ export AGENTCORE_EXECUTION_ROLE_ARN=$(../../hackathon-kit/.venv/bin/python ../..
 ## Clean up when done
 
 Delete the runtime and the role, following the kit README's cleanup notes.
+
+## Demo invocation (deployed 2026-10-23)
+
+Runtime `portfolio_agent` in us-east-1. The default call returns the frozen final run, byte for byte, in about 5 seconds. Pass `"use_cache": false` for a live run (about a minute, and the answer varies slightly).
+
+```python
+import boto3, json, uuid
+c = boto3.client("bedrock-agentcore", region_name="us-east-1")
+# ARN: aws bedrock-agentcore-control list-agent-runtimes --query "agentRuntimes[?agentRuntimeName=='portfolio_agent'].agentRuntimeArn"
+r = c.invoke_agent_runtime(agentRuntimeArn=ARN, runtimeSessionId=str(uuid.uuid4()) + "-demo-session",
+                           payload=json.dumps({"run_id": "demo"}).encode())
+print(json.loads(r["response"].read())["decision"]["weights"])
+```
+
+Checked on deploy: the response's `decision` and `risk_review` equal `runs/final/decision.json` and `runs/final/risk_review.json`.
+
+## Created for this deploy (delete after the demo)
+
+- Runtime `portfolio_agent`, IAM role `portfolio-agentcore-role`, the S3 code bucket the toolkit created, and the runtime's CloudWatch log group.
