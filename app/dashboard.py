@@ -195,12 +195,123 @@ def _data_horizon(
     return f"through cutoff ({cutoff})"
 
 
+def _reasoning_text(value: Any) -> str:
+    """Convert an artifact value to escaped display text without interpreting it."""
+    if value is None or value == "":
+        return "—"
+    if isinstance(value, dict):
+        value = ", ".join(f"{key}: {item}" for key, item in value.items())
+    elif isinstance(value, (list, tuple)):
+        value = ", ".join(str(item) for item in value) or "—"
+    return html.escape(str(value))
+
+
+def _read_analyst_packs(run_dir: Path) -> dict[str, list[dict[str, Any]]]:
+    """Read optional analyst artifacts, indexed by ticker.
+
+    Analyst packs are presentation artifacts only. Invalid optional files are
+    skipped so an incomplete fallback run still produces a dashboard.
+    """
+    analyst_dir = run_dir / "analysts"
+    views_by_ticker: dict[str, list[dict[str, Any]]] = {}
+    if not analyst_dir.is_dir():
+        return views_by_ticker
+
+    for analyst_path in sorted(analyst_dir.glob("*.json")):
+        try:
+            payload = _read_json(analyst_path)
+        except (OSError, ValueError, json.JSONDecodeError):
+            continue
+        analyst_name = str(payload.get("analyst", analyst_path.stem))
+        views = payload.get("views")
+        if not isinstance(views, list):
+            continue
+        for view in views:
+            if not isinstance(view, dict) or not view.get("ticker"):
+                continue
+            ticker = str(view["ticker"])
+            views_by_ticker.setdefault(ticker, []).append(
+                {"analyst": analyst_name, "view": view}
+            )
+    return views_by_ticker
+
+
+def _reasoning_section(
+    decision: dict[str, Any] | None, analyst_views: dict[str, list[dict[str, Any]]]
+) -> str:
+    """Render decision and analyst reasoning without loading market data."""
+    decision = decision or {}
+    has_decision = bool(decision)
+    positions = decision.get("positions")
+    positions = positions if isinstance(positions, dict) else {}
+    weights = decision.get("weights")
+    weights = weights if isinstance(weights, dict) else {}
+    cards: list[str] = []
+
+    for ticker, raw_position in positions.items():
+        position = raw_position if isinstance(raw_position, dict) else {}
+        ticker_text = html.escape(str(ticker))
+        fields = [
+            f"<li><strong>Weight:</strong> {_reasoning_text(weights.get(ticker, position.get('weight')))}</li>",
+            f"<li><strong>Rationale:</strong> {_reasoning_text(position.get('rationale'))}</li>",
+            f"<li><strong>Analyst weighting:</strong> {_reasoning_text(position.get('analyst_weighting'))}</li>",
+            f"<li><strong>Conflicts:</strong> {_reasoning_text(position.get('conflicts'))}</li>",
+            f"<li><strong>Sources:</strong> {_reasoning_text(position.get('sources'))}</li>",
+            f"<li><strong>Confidence:</strong> {_reasoning_text(position.get('confidence'))}</li>",
+            f"<li><strong>Change triggers:</strong> {_reasoning_text(position.get('change_triggers'))}</li>",
+        ]
+        stance_entries: list[str] = []
+        for analyst_view in analyst_views.get(str(ticker), []):
+            view = analyst_view["view"]
+            stance_entries.append(
+                "<li>"
+                f"<strong>{html.escape(str(analyst_view['analyst']))}:</strong> "
+                f"stance {_reasoning_text(view.get('stance'))}; "
+                f"confidence {_reasoning_text(view.get('confidence'))}"
+                "</li>"
+            )
+        stance_html = ""
+        if stance_entries:
+            stance_html = (
+                '<p class="stance-label"><strong>Analyst stances</strong></p>'
+                f"<ul>{''.join(stance_entries)}</ul>"
+            )
+        cards.append(
+            f'<article class="reasoning-card"><h3>{ticker_text}</h3>'
+            f"<ul>{''.join(fields)}</ul>{stance_html}</article>"
+        )
+
+    missing_note = ""
+    if not has_decision or not analyst_views:
+        missing_note = (
+            '<p class="reasoning-note">No reasoning artifacts for this run '
+            "(technical-only run).</p>"
+        )
+    thesis = ""
+    regime = ""
+    if has_decision:
+        thesis = (
+            f"<p><strong>Portfolio thesis:</strong> "
+            f"{_reasoning_text(decision.get('portfolio_thesis'))}</p>"
+        )
+        regime = (
+            f"<p><strong>Regime view:</strong> "
+            f"{_reasoning_text(decision.get('regime_view'))}</p>"
+        )
+    positions_html = "".join(cards) or '<p class="reasoning-note">No positions in decision artifact.</p>'
+    return (
+        '<section class="reasoning"><h2>Reasoning</h2>'
+        f"{missing_note}{thesis}{regime}{positions_html}</section>"
+    )
+
+
 def _render_html(
     image_data: str,
     config: dict[str, Any],
     metrics_payload: dict[str, Any],
     decision: dict[str, Any] | None,
     run_dir: Path,
+    analyst_views: dict[str, list[dict[str, Any]]] | None = None,
 ) -> str:
     decision = decision or {}
     metrics = metrics_payload.get("metrics", metrics_payload)
@@ -210,6 +321,8 @@ def _render_html(
     end = metrics_payload.get("end", config.get("end", "unknown"))
     horizon = _data_horizon(run_dir, metrics_payload, decision, str(cutoff))
     regime = _regime_summary(run_dir)
+    analyst_views = analyst_views or {}
+    reasoning = _reasoning_section(decision, analyst_views)
     universe_text = ", ".join(str(item) for item in universe) if universe else "not specified"
     baselines_text = ", ".join(str(item) for item in baselines)
     table = _metrics_table(metrics if isinstance(metrics, dict) else {})
@@ -228,6 +341,13 @@ table {{ border-collapse: collapse; width: 100%; margin-top: 1.25rem; }}
 th, td {{ border-bottom: 1px solid #d6dce3; padding: .55rem .7rem; text-align: right; }}
 th:first-child, td:first-child {{ text-align: left; }}
 caption {{ font-size: 1.2rem; font-weight: 650; text-align: left; margin-bottom: .5rem; }}
+.reasoning {{ margin-top: 1.75rem; }}
+.reasoning-card {{ border: 1px solid #d6dce3; border-radius: .5rem; padding: .8rem 1rem; margin-top: 1rem; background: #fbfcfd; }}
+.reasoning-card h3 {{ margin: 0 0 .4rem; }}
+.reasoning-card ul {{ margin: .35rem 0; padding-left: 1.25rem; }}
+.reasoning-card li {{ margin: .25rem 0; }}
+.stance-label {{ margin: .75rem 0 .25rem; }}
+.reasoning-note {{ color: #536273; font-style: italic; }}
 </style>
 </head>
 <body>
@@ -244,6 +364,7 @@ caption {{ font-size: 1.2rem; font-weight: 650; text-align: left; margin-bottom:
 <h2>Equity curve</h2>
 <p>Series: <strong>portfolio</strong>, <strong>SPY</strong>, <strong>equal_weight</strong></p>
 <img class="curve" alt="Equity curve for portfolio, SPY, and equal_weight" src="data:image/png;base64,{image_data}">
+{reasoning}
 {table}
 </main>
 </body>
@@ -266,6 +387,7 @@ def build_dashboard(
     equity = _read_equity(equity_path)
     decision_path = run_path / "decision.json"
     decision = _read_json(decision_path) if decision_path.is_file() else None
+    analyst_views = _read_analyst_packs(run_path)
     config = _parse_config(config_path)
 
     output = Path(out_dir)
@@ -274,7 +396,7 @@ def build_dashboard(
     html_path = output / "dashboard.html"
     _plot_equity(equity, image_path)
     encoded = base64.b64encode(image_path.read_bytes()).decode("ascii")
-    page = _render_html(encoded, config, metrics_payload, decision, run_path)
+    page = _render_html(encoded, config, metrics_payload, decision, run_path, analyst_views)
     html_path.write_text(page, encoding="utf-8")
     return {"html": html_path, "image": image_path}
 

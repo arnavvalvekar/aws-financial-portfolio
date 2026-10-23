@@ -605,3 +605,61 @@ P2-2 (dashboard) can even start against the existing P1 run artifacts immediatel
 - [ ] Full suite green incl. extended leakage test covering macro + regime packs.
 - [ ] Dashboard shows the crash-risk score in the header (if decided).
 - [ ] `git status` audit: no session wrote outside its lane.
+
+---
+---
+
+# PHASE 3 — Inspectable and credible (Person A lane)  (README T+2:15 .. 3:15)
+
+A's README Phase 3 items: (1) leakage test wired into every run, (2) contribution
+by position, (3) reasoning view (stances/conflicts/sources/triggers), (4) stretch
+analyst scorecard. Same model: parallel agents for the two big pieces, A does the
+small integration pieces in the primary session.
+
+## Ownership map (avoid collisions)
+- P3-2 contribution-by-position: `src/backtest/engine.py` (extend BacktestResult)
+  + `src/backtest/attribution.py` (new) + `tests/test_attribution.py`.
+- P3-3 reasoning view: `app/dashboard.py` + `tests/test_dashboard.py`.
+  (P3-2 and P3-3 touch disjoint files → run in PARALLEL.)
+- P3-1 leakage-into-every-run + wire contribution into CLI output: A edits
+  `src/backtest/__main__.py` AFTER P3-2 lands (sequential, primary session).
+- P3-4 stretch analyst scorecard: `src/backtest/scorecard.py` + test. Only if time.
+
+## Contracts
+### C10. Contribution by position (P3-2)
+- `BacktestResult.contributions() -> dict[ticker -> float]`: each held name's
+  additive contribution to portfolio total return (sum over held names + CASH(0)
+  + cost drag ≈ portfolio total return, within tolerance). Buy-and-hold, so a
+  name's contribution = weight_i * (price_rel_i[end] - 1), scaled by (1-cost).
+- CLI writes `contributions` into metrics.json and prints a sorted breakdown.
+
+### C11. Reasoning view (P3-3)
+- Dashboard reads `runs/<id>/decision.json` + `runs/<id>/analysts/*.json` (+ the
+  evidence packs already handled). Renders per-position: weight, rationale,
+  analyst_weighting, conflicts, sources, change_triggers. Degrades gracefully
+  when decision.json/analysts are absent (M1 fallback has none). NEVER recompute.
+
+## Tasks
+- [ ] **P3-2 · Contribution by position** *(parallel)* — engine + attribution + test.
+  DECIDE FIRST (A, locked): additive buy-and-hold contribution as in C10; include
+  a CASH row (0) and a cost row; assert they reconcile to portfolio total return.
+- [ ] **P3-3 · Reasoning view** *(parallel)* — dashboard section per C11.
+  DECIDE FIRST (A, locked): read decision.json + analysts/*.json from run_dir;
+  graceful "no reasoning artifacts yet" note when absent; artifact-only.
+- [ ] **P3-1 · Leakage wired into every run + CLI contribution** *(A, after P3-2)* —
+  the backtest CLI runs the leakage test (or an inline guard) as part of the run
+  and refuses to write outputs if it fails; prints + persists contributions.
+- [ ] **P3-4 · Stretch analyst scorecard** — DEFERRED (time). Per README "If time
+      runs short", the analyst scorecard is an explicit cut. Not built.
+
+## Acceptance criteria
+### P3-2
+- [ ] contributions() sums (held + cash + cost) to portfolio total return ±1e-6.
+- [ ] sorted breakdown available; offline test on fixtures hand-checks one name.
+### P3-3
+- [ ] reasoning section renders weight/rationale/conflicts/sources/triggers from a
+      sample decision.json + analysts; missing artifacts degrade gracefully.
+- [ ] artifact-only (no price recompute, no network); offline test passes.
+### P3-1
+- [ ] a run with a leak (crafted) fails the command; a clean run writes outputs +
+      contributions; full suite green incl. leakage.

@@ -159,3 +159,45 @@ def test_cli_writes_outputs_and_prints_table(fixture_store_dir, tmp_path):
 
     df = pd.read_csv(equity_csv)
     assert {"date", "portfolio", "SPY", "equal_weight"}.issubset(df.columns)
+
+
+# --- P3-1: leakage gate wired into every run --------------------------------
+
+def test_leakage_check_passes_clean_decision(tmp_path):
+    """A decision whose dates are all <= asof produces no violations."""
+    from src.backtest.__main__ import leakage_check
+
+    decision = {
+        "asof": "2026-01-30",
+        "weights": {"AAPL": 0.5, "CASH": 0.5},
+        "positions": {"AAPL": {"sources": ["px:AAPL:2026-01-29"]}},
+    }
+    assert leakage_check(decision, tmp_path) == []
+
+
+def test_leakage_check_flags_future_date(tmp_path):
+    """A date after asof anywhere in the decision is reported as a violation."""
+    from src.backtest.__main__ import leakage_check
+
+    decision = {
+        "asof": "2026-01-30",
+        "weights": {"AAPL": 0.5, "CASH": 0.5},
+        "positions": {"AAPL": {"sources": ["px:AAPL:2026-05-01"]}},
+    }
+    violations = leakage_check(decision, tmp_path)
+    assert len(violations) == 1
+    assert "2026-05-01" in violations[0]
+
+
+def test_leakage_check_scans_evidence_packs(tmp_path):
+    """Evidence/analyst packs beside the run are scanned too."""
+    from src.backtest.__main__ import leakage_check
+
+    (tmp_path / "evidence").mkdir()
+    (tmp_path / "evidence" / "macro.json").write_text(
+        json.dumps({"asof": "2026-01-30",
+                    "items": [{"id": "x", "date": "2026-07-01", "text": "leak"}]})
+    )
+    decision = {"asof": "2026-01-30", "weights": {"CASH": 1.0}}
+    violations = leakage_check(decision, tmp_path)
+    assert any("2026-07-01" in v for v in violations)

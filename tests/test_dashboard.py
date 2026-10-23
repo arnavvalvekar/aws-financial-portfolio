@@ -59,6 +59,69 @@ def test_dashboard_renders_header_curve_and_metrics(tmp_path: Path):
     assert "data:image/png;base64," in page
 
 
+def test_dashboard_renders_reasoning_view(tmp_path: Path):
+    run_dir = _artifact_run(tmp_path)
+    decision = {
+        "asof": "2026-01-30",
+        "weights": {"AAPL": 0.25, "CASH": 0.75},
+        "positions": {
+            "AAPL": {
+                "rationale": "Durable growth supports the allocation.",
+                "analyst_weighting": {"technical": 0.6, "fundamentals": 0.4},
+                "conflicts": ["Momentum disagrees with valuation."],
+                "sources": ["px:AAPL:2026-01-30"],
+                "confidence": 0.8,
+                "change_triggers": ["Close below the 200-day average."],
+            }
+        },
+        "portfolio_thesis": "Favor durable growth while preserving cash.",
+        "regime_view": "Neutral regime with elevated uncertainty.",
+    }
+    (run_dir / "decision.json").write_text(json.dumps(decision), encoding="utf-8")
+    analysts_dir = run_dir / "analysts"
+    analysts_dir.mkdir()
+    (analysts_dir / "technical.json").write_text(
+        json.dumps(
+            {
+                "analyst": "technical",
+                "asof": "2026-01-30",
+                "views": [
+                    {
+                        "ticker": "AAPL",
+                        "stance": 0.5,
+                        "confidence": 0.7,
+                        "thesis": "Trend is constructive.",
+                        "evidence": ["px:AAPL:2026-01-30"],
+                        "change_triggers": ["Trend break"],
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    output = tmp_path / "reasoning" / "out"
+    build_dashboard(
+        run_dir,
+        config_path=ROOT / "tests/fixtures/config.yaml",
+        out_dir=output,
+    )
+
+    page = (output / "dashboard.html").read_text(encoding="utf-8")
+    assert "Reasoning" in page
+    for text in (
+        "Durable growth supports the allocation.",
+        "Momentum disagrees with valuation.",
+        "px:AAPL:2026-01-30",
+        "Close below the 200-day average.",
+        "Favor durable growth while preserving cash.",
+        "technical",
+        "stance 0.5",
+    ):
+        assert text in page
+
+
+
 def test_dashboard_degrades_without_optional_decision(tmp_path: Path):
     source_run = _artifact_run(tmp_path / "source")
     run_without_decision = tmp_path / "without-decision"
@@ -79,4 +142,5 @@ def test_dashboard_degrades_without_optional_decision(tmp_path: Path):
     assert (output / "equity.png").is_file()
     page = (output / "dashboard.html").read_text(encoding="utf-8")
     assert "Data horizon:" in page
+    assert "No reasoning artifacts for this run (technical-only run)." in page
     assert "portfolio" in page and "SPY" in page and "equal_weight" in page

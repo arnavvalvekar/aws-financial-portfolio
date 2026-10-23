@@ -16,10 +16,52 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 from pathlib import Path
 from typing import Any
 
+import pandas as pd
+
 from .engine import load_store, run_backtest
+
+# Any ISO date YYYY-MM-DD appearing in an agent-facing artifact.
+_DATE_RE = re.compile(r"\d{4}-\d{2}-\d{2}")
+
+
+def leakage_check(decision: dict, run_dir: Path) -> list[str]:
+    """Point-in-time gate run on EVERY backtest (README Phase 3: 'leakage test
+    wired into every run'). Returns a list of violations; empty == clean.
+
+    Checks agent-facing artifacts only (the decision and any evidence/analyst
+    packs beside the run). The backtest's own equity curve legitimately uses
+    post-cutoff prices and is NOT checked here.
+
+    Rule: no ISO date later than the decision's ``asof`` may appear in the
+    decision or in runs/<id>/evidence/*.json or runs/<id>/analysts/*.json.
+    """
+    violations: list[str] = []
+    asof = pd.Timestamp(decision["asof"]).normalize()
+
+    def scan(obj: Any, where: str) -> None:
+        for token in _DATE_RE.findall(json.dumps(obj, default=str)):
+            try:
+                d = pd.Timestamp(token).normalize()
+            except ValueError:
+                continue
+            if d > asof:
+                violations.append(f"{where}: date {token} > asof {asof.date()}")
+
+    scan(decision, "decision.json")
+    for sub in ("evidence", "analysts"):
+        d = run_dir / sub
+        if d.is_dir():
+            for p in sorted(d.glob("*.json")):
+                try:
+                    scan(json.loads(p.read_text()), f"{sub}/{p.name}")
+                except (OSError, ValueError):
+                    continue
+    return violations
+
 
 METRIC_ROWS = [
     ("Total return", "total_return", "pct"),
@@ -122,6 +164,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--run-id", default=None)
     parser.add_argument("--runs-dir", default="runs")
     parser.add_argument("--rf", type=float, default=0.0)
+    parser.add_argument(
+        "--skip-leakage-check",
+        action="store_true",
+        help="skip the point-in-time gate (not recommended; CI should never set it)",
+    )
     args = parser.parse_args(argv)
 
     config = load_config(args.config)
@@ -131,10 +178,20 @@ def main(argv: list[str] | None = None) -> int:
     prices = load_store(args.store_dir)
     result = run_backtest(decision, config, prices)
     metrics = result.metrics(rf=args.rf)
+    contributions = result.contributions()
 
     run_id = args.run_id or f"dev-{result.asof.date().isoformat()}"
     out_dir = Path(args.runs_dir) / run_id
     out_dir.mkdir(parents=True, exist_ok=True)
+
+    # Leakage gate — runs on EVERY run. Refuse to write outputs on a violation.
+    if not args.skip_leakage_check:
+        violations = leakage_check(decision, out_dir)
+        if violations:
+            print("LEAKAGE CHECK FAILED — outputs NOT written:")
+            for v in violations:
+                print(f"  - {v}")
+            return 2
 
     equity_path = out_dir / "equity.csv"
     result.equity.to_csv(equity_path)
@@ -149,6 +206,7 @@ def main(argv: list[str] | None = None) -> int:
         "tickers_used_equal_weight": result.tickers_used,
         "rf": args.rf,
         "metrics": metrics,
+        "contributions": contributions,
     }
     with metrics_path.open("w") as fh:
         json.dump(payload, fh, indent=2)
@@ -159,6 +217,14 @@ def main(argv: list[str] | None = None) -> int:
           f"{', '.join(result.tickers_used)}")
     print(f"Cost: {result.cost_bps} bps on {result.invested_fraction:.0%} invested\n")
     print(render_table(metrics))
+
+    # Contribution by position (sorted by magnitude), reconciling to portfolio.
+    print("\nContribution by position (to portfolio total return):")
+    ordered = sorted(contributions.items(), key=lambda kv: abs(kv[1]), reverse=True)
+    for name, val in ordered:
+        print(f"  {name:12} {val * 100:+7.2f}%")
+    print(f"  {'TOTAL':12} {sum(contributions.values()) * 100:+7.2f}%")
+
     print(f"\nWrote {equity_path}\nWrote {metrics_path}")
     return 0
 
