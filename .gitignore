@@ -16,3 +16,7 @@ agentcore/dist/
 # Generated dashboard output (regenerated from run artifacts; committed copy
 # lives under runs/final/ for the demo).
 app/out/
+
+# Scratch screenshots / local scratch images
+Screenshot*.png
+_shot.png

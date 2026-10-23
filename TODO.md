@@ -649,8 +649,12 @@ small integration pieces in the primary session.
 - [ ] **P3-1 · Leakage wired into every run + CLI contribution** *(A, after P3-2)* —
   the backtest CLI runs the leakage test (or an inline guard) as part of the run
   and refuses to write outputs if it fails; prints + persists contributions.
-- [ ] **P3-4 · Stretch analyst scorecard** — DEFERRED (time). Per README "If time
-      runs short", the analyst scorecard is an explicit cut. Not built.
+- [x] **P3-4 · Stretch analyst scorecard** — BUILT. `src/backtest/scorecard.py`
+      (+ tests/test_scorecard.py). Grades each analyst's per-ticker stance against
+      realized forward return over [asof,end]: hit_rate, stance_weighted_ret,
+      Spearman rank_ic. CLI: `python -m src.backtest.scorecard --run <dir>`. Works
+      on fixtures now; lights up with B's real analyst packs. Post-cutoff scoring
+      (reads prices directly, not via pit). 7 tests, offline.
 
 ## Acceptance criteria
 ### P3-2

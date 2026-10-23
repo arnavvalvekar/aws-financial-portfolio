@@ -93,14 +93,33 @@ def _read_equity(path: Path) -> pd.DataFrame:
 
 
 def _plot_equity(equity: pd.DataFrame, output: Path) -> None:
-    figure, axis = plt.subplots(figsize=(10, 5.5), constrained_layout=True)
+    # Deliberate series colors: portfolio is the subject (ink/teal, heaviest),
+    # baselines are quieter references. No default matplotlib tab10 palette.
+    style = {
+        "portfolio": {"color": "#0F7B8A", "lw": 2.6, "z": 3},
+        "SPY": {"color": "#8A98A8", "lw": 1.6, "z": 2},
+        "equal_weight": {"color": "#C2B280", "lw": 1.6, "z": 2},
+    }
+    figure, axis = plt.subplots(figsize=(10, 4.8), constrained_layout=True)
+    figure.patch.set_facecolor("#FFFFFF")
+    axis.set_facecolor("#FFFFFF")
     for name in SERIES:
-        axis.plot(equity.index, equity[name], linewidth=2, label=name)
-    axis.set_title("Portfolio equity curve")
-    axis.set_xlabel("Date")
-    axis.set_ylabel("Growth of $1")
-    axis.grid(True, alpha=0.25)
-    axis.legend()
+        s = style[name]
+        axis.plot(equity.index, equity[name], color=s["color"],
+                  linewidth=s["lw"], zorder=s["z"], label=name,
+                  solid_capstyle="round")
+    axis.axhline(1.0, color="#C8D1DC", linewidth=1, zorder=1)
+    axis.set_ylabel("Growth of $1", color="#5A6B7F", fontsize=11)
+    axis.grid(True, axis="y", color="#E6EBF1", linewidth=1)
+    axis.set_axisbelow(True)
+    for spine in ("top", "right"):
+        axis.spines[spine].set_visible(False)
+    for spine in ("left", "bottom"):
+        axis.spines[spine].set_color("#C8D1DC")
+    axis.tick_params(colors="#5A6B7F", labelsize=10)
+    legend = axis.legend(frameon=False, loc="upper left", fontsize=10)
+    for text in legend.get_texts():
+        text.set_color("#0E1726")
     figure.savefig(output, dpi=150, format="png")
     plt.close(figure)
 
@@ -121,20 +140,49 @@ def _metrics_table(metrics: dict[str, Any]) -> str:
         cells = [f"<th scope=\"row\">{html.escape(label)}</th>"]
         for series in SERIES:
             value = metrics.get(series, {}).get(key)
-            cells.append(f"<td>{html.escape(_format_value(value, kind))}</td>")
+            cls = "num"
+            if series == "portfolio":
+                cls += " col-portfolio"
+            # Sign coloring only for signed numeric kinds (returns, sharpe, dd).
+            if kind in ("percent", "number") and value not in (None, ""):
+                try:
+                    fv = float(value)
+                    cls += " pos" if fv > 0 else " neg" if fv < 0 else ""
+                except (TypeError, ValueError):
+                    pass
+            cells.append(
+                f'<td class="{cls.strip()}">{html.escape(_format_value(value, kind))}</td>'
+            )
         rows.append("<tr>" + "".join(cells) + "</tr>")
-    headers = "".join(f"<th scope=\"col\">{html.escape(name)}</th>" for name in SERIES)
+    headers = "".join(
+        f'<th scope="col" class="{"col-portfolio" if name == "portfolio" else ""}">'
+        f"{html.escape(name)}</th>"
+        for name in SERIES
+    )
     return (
-        '<table class="metrics"><caption>Performance metrics</caption>'
+        '<table class="metrics">'
         f"<thead><tr><th scope=\"col\">Metric</th>{headers}</tr></thead>"
         f"<tbody>{''.join(rows)}</tbody></table>"
     )
 
 
 def _regime_summary(run_dir: Path) -> str | None:
-    """Read the crash-risk / regime pack (if committed beside the run) and return
-    a short 'score (band)' string for the header. Artifact-only: reads
-    run_dir/evidence/regime.json, never recomputes. Returns None if absent."""
+    """Back-compat string form of the regime reading (kept for callers/tests)."""
+    data = _regime_reading(run_dir)
+    if not data:
+        return None
+    parts = []
+    if data.get("score") is not None:
+        parts.append(f"score {data['score']}")
+    if data.get("band") is not None:
+        parts.append(f"band {data['band']}")
+    return " · ".join(parts) or None
+
+
+def _regime_reading(run_dir: Path) -> dict[str, Any] | None:
+    """Read the crash-risk / regime pack beside the run and return its score and
+    band for the hero gauge. Artifact-only: reads run_dir/evidence/regime.json,
+    never recomputes. Returns None if absent."""
     pack_path = run_dir / "evidence" / "regime.json"
     if not pack_path.is_file():
         return None
@@ -149,17 +197,18 @@ def _regime_summary(run_dir: Path) -> str | None:
     score = band = None
     for token in text.replace(";", " ").split():
         if token.startswith("crash_risk_score="):
-            score = token.split("=", 1)[1]
+            try:
+                score = float(token.split("=", 1)[1])
+            except ValueError:
+                score = None
         elif token.startswith("band="):
             band = token.split("=", 1)[1]
     if score is None and band is None:
         return None
-    parts = []
-    if score is not None:
-        parts.append(f"score {score}")
-    if band is not None:
-        parts.append(f"band {band}")
-    return " · ".join(parts)
+    return {"score": score, "band": band}
+
+
+_BAND_COLOR = {"calm": "#1F9D6B", "elevated": "#D98A1F", "stressed": "#C8453B"}
 
 
 def _data_horizon(
@@ -320,52 +369,134 @@ def _render_html(
     cutoff = decision.get("asof", metrics_payload.get("asof", config.get("asof", "unknown")))
     end = metrics_payload.get("end", config.get("end", "unknown"))
     horizon = _data_horizon(run_dir, metrics_payload, decision, str(cutoff))
-    regime = _regime_summary(run_dir)
+    reading = _regime_reading(run_dir)
     analyst_views = analyst_views or {}
     reasoning = _reasoning_section(decision, analyst_views)
     universe_text = ", ".join(str(item) for item in universe) if universe else "not specified"
     baselines_text = ", ".join(str(item) for item in baselines)
     table = _metrics_table(metrics if isinstance(metrics, dict) else {})
+
+    # --- hero: crash-risk reading is the one bold element ------------------- #
+    pm = metrics.get("portfolio", {}) if isinstance(metrics, dict) else {}
+    port_return = _format_value(pm.get("total_return"), "percent")
+    port_sharpe = _format_value(pm.get("sharpe"), "number")
+    port_dd = _format_value(pm.get("max_drawdown"), "percent")
+
+    if reading:
+        band = (reading.get("band") or "unknown").lower()
+        color = _BAND_COLOR.get(band, "#5A6B7F")
+        score = reading.get("score")
+        pct = max(0.0, min(1.0, score)) * 100 if isinstance(score, (int, float)) else 0
+        score_text = f"{score:.3f}" if isinstance(score, (int, float)) else "—"
+        hero = f"""
+<section class="hero" style="--band:{color}">
+  <div class="hero-read">
+    <p class="hero-kicker">Crash-risk regime at cutoff</p>
+    <p class="hero-score">{html.escape(score_text)}</p>
+    <p class="hero-band">{html.escape(str(reading.get('band') or 'unknown'))}</p>
+  </div>
+  <div class="hero-gauge" role="img"
+       aria-label="Crash-risk score {html.escape(score_text)}, band {html.escape(str(reading.get('band') or 'unknown'))}">
+    <div class="gauge-track"><div class="gauge-fill" style="width:{pct:.1f}%"></div></div>
+    <div class="gauge-scale"><span>calm</span><span>elevated</span><span>stressed</span></div>
+  </div>
+</section>"""
+    else:
+        hero = """
+<section class="hero hero-muted">
+  <p class="hero-kicker">Crash-risk regime at cutoff</p>
+  <p class="hero-band">not available for this run</p>
+</section>"""
+
+    kpis = f"""
+<section class="kpis">
+  <div class="kpi"><span class="kpi-val">{html.escape(port_return)}</span><span class="kpi-lab">Portfolio total return</span></div>
+  <div class="kpi"><span class="kpi-val">{html.escape(port_sharpe)}</span><span class="kpi-lab">Sharpe ratio</span></div>
+  <div class="kpi"><span class="kpi-val">{html.escape(port_dd)}</span><span class="kpi-lab">Maximum drawdown</span></div>
+</section>"""
+
     return f"""<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Financial portfolio dashboard</title>
+<title>Portfolio risk &amp; performance</title>
 <style>
-body {{ font: 16px system-ui, sans-serif; max-width: 1100px; margin: 2rem auto; padding: 0 1rem; color: #17202a; }}
-header {{ border: 1px solid #c8d1dc; border-radius: .5rem; padding: 1rem 1.25rem; background: #f5f8fb; }}
-header p {{ margin: .35rem 0; }}
-.curve {{ width: 100%; height: auto; border: 1px solid #d6dce3; margin-top: 1.25rem; }}
-table {{ border-collapse: collapse; width: 100%; margin-top: 1.25rem; }}
-th, td {{ border-bottom: 1px solid #d6dce3; padding: .55rem .7rem; text-align: right; }}
-th:first-child, td:first-child {{ text-align: left; }}
-caption {{ font-size: 1.2rem; font-weight: 650; text-align: left; margin-bottom: .5rem; }}
-.reasoning {{ margin-top: 1.75rem; }}
-.reasoning-card {{ border: 1px solid #d6dce3; border-radius: .5rem; padding: .8rem 1rem; margin-top: 1rem; background: #fbfcfd; }}
-.reasoning-card h3 {{ margin: 0 0 .4rem; }}
-.reasoning-card ul {{ margin: .35rem 0; padding-left: 1.25rem; }}
+:root {{
+  --ink: #0E1726; --paper: #F7F9FC; --slate: #5A6B7F; --line: #D8DEE7;
+  --teal: #0F7B8A; --pos: #1F8A5B; --neg: #C8453B;
+}}
+* {{ box-sizing: border-box; }}
+body {{
+  font: 16px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--ink); background: var(--paper);
+  max-width: 980px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem;
+}}
+h1 {{ font: 600 1.55rem/1.2 Georgia, "Times New Roman", serif; margin: 0 0 .25rem; letter-spacing: -.01em; }}
+h2 {{ font: 600 1.15rem/1.2 Georgia, serif; margin: 2.25rem 0 .75rem; }}
+h3 {{ font: 600 1rem/1.2 Georgia, serif; margin: 0 0 .5rem; }}
+a {{ color: var(--teal); }}
+.lede {{ color: var(--slate); margin: 0 0 1.5rem; max-width: 60ch; }}
+.facts {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: .4rem 1.5rem; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: .9rem 0; margin-bottom: 1.75rem; }}
+.facts div {{ font-size: .9rem; }}
+.facts dt {{ color: var(--slate); font-size: .72rem; margin: 0; }}
+.facts dd {{ margin: .1rem 0 0; font-weight: 500; }}
+/* Hero: the one bold element. Band color drives the accent. */
+.hero {{ display: grid; grid-template-columns: minmax(140px, 220px) 1fr; gap: 1.75rem; align-items: center;
+  background: var(--ink); color: #EEF2F7; border-radius: 10px; padding: 1.6rem 1.9rem; }}
+.hero-kicker {{ margin: 0; color: #9AA8B8; font-size: .78rem; }}
+.hero-score {{ font: 700 3.4rem/1 Georgia, serif; margin: .2rem 0 0; color: var(--band, #fff); font-variant-numeric: tabular-nums; }}
+.hero-band {{ margin: .25rem 0 0; font-size: 1.1rem; font-weight: 600; color: var(--band, #fff); text-transform: capitalize; }}
+.hero-gauge {{ align-self: center; }}
+.gauge-track {{ height: 14px; border-radius: 7px; background: linear-gradient(90deg, #1F9D6B 0%, #D98A1F 50%, #C8453B 100%); position: relative; opacity: .9; }}
+.gauge-fill {{ position: absolute; top: -5px; bottom: -5px; left: 0; border-right: 3px solid #fff; }}
+.gauge-scale {{ display: flex; justify-content: space-between; margin-top: .5rem; font-size: .74rem; color: #9AA8B8; }}
+.hero-muted {{ grid-template-columns: 1fr; color: #9AA8B8; }}
+.hero-muted .hero-band {{ color: #9AA8B8; font-weight: 500; }}
+/* KPI strip */
+.kpis {{ display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; margin-top: 1rem; }}
+.kpi {{ background: #fff; padding: 1rem 1.1rem; display: flex; flex-direction: column; gap: .25rem; }}
+.kpi-val {{ font: 600 1.5rem/1 Georgia, serif; font-variant-numeric: tabular-nums; }}
+.kpi-lab {{ color: var(--slate); font-size: .8rem; }}
+.curve {{ width: 100%; height: auto; border: 1px solid var(--line); border-radius: 8px; margin-top: .5rem; }}
+/* Metrics table */
+table.metrics {{ border-collapse: collapse; width: 100%; font-variant-numeric: tabular-nums; }}
+.metrics caption {{ text-align: left; font: 600 1rem Georgia, serif; margin-bottom: .5rem; }}
+.metrics th, .metrics td {{ padding: .6rem .8rem; text-align: right; border-bottom: 1px solid var(--line); }}
+.metrics thead th {{ color: var(--slate); font-weight: 600; font-size: .85rem; border-bottom: 2px solid var(--ink); }}
+.metrics th[scope="row"] {{ text-align: left; font-weight: 500; color: var(--ink); }}
+.metrics .col-portfolio {{ background: #EEF5F6; }}
+.metrics td.pos {{ color: var(--pos); }}
+.metrics td.neg {{ color: var(--neg); }}
+/* Reasoning */
+.reasoning-card {{ border: 1px solid var(--line); border-left: 3px solid var(--teal); border-radius: 6px; padding: .85rem 1.1rem; margin-top: 1rem; background: #fff; }}
+.reasoning-card ul {{ margin: .4rem 0; padding-left: 1.2rem; }}
 .reasoning-card li {{ margin: .25rem 0; }}
-.stance-label {{ margin: .75rem 0 .25rem; }}
-.reasoning-note {{ color: #536273; font-style: italic; }}
+.stance-label {{ margin: .7rem 0 .2rem; }}
+.reasoning-note {{ color: var(--slate); font-style: italic; }}
+@media (max-width: 620px) {{ .hero, .kpis {{ grid-template-columns: 1fr; }} }}
 </style>
 </head>
 <body>
 <header>
-<h1>Financial portfolio dashboard</h1>
-<p><strong>Universe:</strong> {html.escape(universe_text)}</p>
-<p><strong>Cutoff (asof):</strong> {html.escape(str(cutoff))}</p>
-<p><strong>End:</strong> {html.escape(str(end))}</p>
-<p><strong>Baselines:</strong> {html.escape(baselines_text)}</p>
-<p><strong>Data horizon:</strong> {html.escape(horizon)}</p>
-{(f'<p><strong>Crash-risk (regime):</strong> {html.escape(regime)}</p>' if regime else '')}
+<h1>Portfolio risk &amp; performance</h1>
+<p class="lede">Historical experiment scored against SPY and an equal-weight basket of the same universe. Not financial advice.</p>
+<dl class="facts">
+  <div><dt>Universe</dt><dd>{html.escape(universe_text)}</dd></div>
+  <div><dt>Cutoff</dt><dd>{html.escape(str(cutoff))}</dd></div>
+  <div><dt>Scored through</dt><dd>{html.escape(str(end))}</dd></div>
+  <div><dt>Baselines</dt><dd>{html.escape(baselines_text)}</dd></div>
+  <div><dt>Data horizon</dt><dd>{html.escape(horizon)}</dd></div>
+</dl>
 </header>
 <main>
+{hero}
+{kpis}
 <h2>Equity curve</h2>
-<p>Series: <strong>portfolio</strong>, <strong>SPY</strong>, <strong>equal_weight</strong></p>
 <img class="curve" alt="Equity curve for portfolio, SPY, and equal_weight" src="data:image/png;base64,{image_data}">
-{reasoning}
+<h2>Performance metrics</h2>
 {table}
+{reasoning}
 </main>
 </body>
 </html>
