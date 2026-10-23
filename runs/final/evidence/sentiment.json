@@ -1,0 +1,70 @@
+{
+  "analyst": "sentiment",
+  "asof": "2026-01-30",
+  "source": "fallback",
+  "data_horizon": {
+    "events": "2026-01-30"
+  },
+  "items": [
+    {
+      "id": "event:sentiment:AAPL",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "Apple: Consumer-tech sentiment steady into the cutoff; no major pre-cutoff controversy in scope. (qualitative read as of 2026-01-30; GDELT tone unavailable)."
+    },
+    {
+      "id": "event:sentiment:MSFT",
+      "ticker": "MSFT",
+      "date": "2026-01-30",
+      "text": "Microsoft: Enterprise and cloud coverage broadly constructive; export-control headlines a modest overhang. (qualitative read as of 2026-01-30; GDELT tone unavailable)."
+    },
+    {
+      "id": "event:sentiment:NVDA",
+      "ticker": "NVDA",
+      "date": "2026-01-30",
+      "text": "Nvidia: Heavy coverage; export-control headlines are the dominant pre-cutoff sentiment driver. (qualitative read as of 2026-01-30; GDELT tone unavailable)."
+    },
+    {
+      "id": "event:sentiment:AMZN",
+      "ticker": "AMZN",
+      "date": "2026-01-30",
+      "text": "Amazon: Retail and cloud coverage mixed; tariff cost headlines weigh on the retail read. (qualitative read as of 2026-01-30; GDELT tone unavailable)."
+    },
+    {
+      "id": "event:sentiment:XOM",
+      "ticker": "XOM",
+      "date": "2026-01-30",
+      "text": "ExxonMobil: Energy coverage firmer on supply-tightness headlines into the cutoff. (qualitative read as of 2026-01-30; GDELT tone unavailable)."
+    },
+    {
+      "id": "event:sentiment:JNJ",
+      "ticker": "JNJ",
+      "date": "2026-01-30",
+      "text": "Johnson & Johnson: Healthcare coverage cautious on drug-pricing review headlines. (qualitative read as of 2026-01-30; GDELT tone unavailable)."
+    },
+    {
+      "id": "event:sentiment:PG",
+      "ticker": "PG",
+      "date": "2026-01-30",
+      "text": "Procter & Gamble: Staples coverage stable; input-cost and tariff headlines a mild negative. (qualitative read as of 2026-01-30; GDELT tone unavailable)."
+    },
+    {
+      "id": "event:sentiment:CAT",
+      "ticker": "CAT",
+      "date": "2026-01-30",
+      "text": "Caterpillar: Industrial coverage sensitive to tariff and global-demand headlines. (qualitative read as of 2026-01-30; GDELT tone unavailable)."
+    },
+    {
+      "id": "event:sentiment:NEE",
+      "ticker": "NEE",
+      "date": "2026-01-30",
+      "text": "NextEra Energy: Utility coverage supported by renewable-incentive headlines. (qualitative read as of 2026-01-30; GDELT tone unavailable)."
+    },
+    {
+      "id": "event:sentiment:KO",
+      "ticker": "KO",
+      "date": "2026-01-30",
+      "text": "Coca-Cola: Staples coverage stable; limited pre-cutoff controversy in scope. (qualitative read as of 2026-01-30; GDELT tone unavailable)."
+    }
+  ]
+}

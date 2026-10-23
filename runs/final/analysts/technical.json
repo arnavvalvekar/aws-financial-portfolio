@@ -1,0 +1,126 @@
+{
+  "analyst": "technical",
+  "asof": "2026-01-30",
+  "views": [
+    {
+      "ticker": "AAPL",
+      "change_triggers": [
+        "Flip/strengthen positive if close reclaims SMA50 with renewed positive 63d momentum; weaken if close falls below SMA200 or the golden cross reverses."
+      ],
+      "evidence": [
+        "px:AAPL:2026-01-30"
+      ],
+      "stance": 0.1,
+      "confidence": 0.84,
+      "thesis": "Mixed technical picture: the close remains above SMA200 and the golden cross persists, while 126d momentum is positive, but near-term momentum is negative and the 252d drawdown is deep. This supports only a slight overweight with caution."
+    },
+    {
+      "ticker": "MSFT",
+      "change_triggers": [
+        "Flip/strengthen if close reclaims SMA200 and SMA50 rises above SMA200; weaken further if negative momentum accelerates or volatility remains elevated."
+      ],
+      "evidence": [
+        "px:MSFT:2026-01-30"
+      ],
+      "stance": -0.85,
+      "confidence": 0.98,
+      "thesis": "Strong underweight: both 63d and 126d momentum are sharply negative, volatility is the highest in the group, and the close is below both SMA50 and SMA200 with a death cross. The sizable drawdown reinforces a persistent downtrend."
+    },
+    {
+      "ticker": "NVDA",
+      "change_triggers": [
+        "Flip/strengthen if 63d momentum turns positive and the drawdown contracts; weaken if the close falls below SMA50 or SMA200, especially with a death cross."
+      ],
+      "evidence": [
+        "px:NVDA:2026-01-30"
+      ],
+      "stance": 0.25,
+      "confidence": 0.87,
+      "thesis": "Moderate overweight: price is above both moving averages with a golden cross and 126d momentum remains positive, but recent momentum is negative and the 252d drawdown is the deepest in the universe. The trend is constructive but volatile and fragile."
+    },
+    {
+      "ticker": "AMZN",
+      "change_triggers": [
+        "Flip/strengthen if 63d and 126d momentum broaden upward; weaken if the close falls below SMA50 or SMA200 or the golden cross reverses."
+      ],
+      "evidence": [
+        "px:AMZN:2026-01-30"
+      ],
+      "stance": 0.45,
+      "confidence": 0.85,
+      "thesis": "Moderate overweight: both momentum horizons are positive and price is above SMA50 and SMA200 with a golden cross. The relatively high volatility and large drawdown argue against a stronger stance."
+    },
+    {
+      "ticker": "XOM",
+      "change_triggers": [
+        "Flip/strengthen if positive momentum persists while the close remains above SMA50 and SMA200; weaken if either moving-average support fails or the golden cross reverses."
+      ],
+      "evidence": [
+        "px:XOM:2026-01-30"
+      ],
+      "stance": 0.7,
+      "confidence": 0.92,
+      "thesis": "Overweight: XOM has the strongest positive momentum among the names, remains above both moving averages with a golden cross, and has a comparatively contained drawdown. Volatility is elevated but does not offset the broad trend strength."
+    },
+    {
+      "ticker": "JNJ",
+      "change_triggers": [
+        "Flip/strengthen if momentum remains positive and price holds above both averages; weaken if the close loses SMA50 or SMA200 or momentum turns negative."
+      ],
+      "evidence": [
+        "px:JNJ:2026-01-30"
+      ],
+      "stance": 0.9,
+      "confidence": 0.98,
+      "thesis": "Strong overweight: JNJ combines very strong 63d and 126d momentum with the lowest volatility in the universe, a relatively shallow drawdown, and price above SMA50 and SMA200 with a golden cross."
+    },
+    {
+      "ticker": "PG",
+      "change_triggers": [
+        "Flip/strengthen if the close reclaims SMA200 and SMA50 rises above SMA200; weaken if the close loses SMA50 or short-term momentum turns negative."
+      ],
+      "evidence": [
+        "px:PG:2026-01-30"
+      ],
+      "stance": -0.25,
+      "confidence": 0.82,
+      "thesis": "Slight underweight: momentum is modestly positive and price is above SMA50, but it remains below SMA200 with a death cross and has a material drawdown. The short-term rebound has not yet repaired the longer-term trend."
+    },
+    {
+      "ticker": "CAT",
+      "change_triggers": [
+        "Flip/strengthen if momentum stays positive and the drawdown contracts; weaken if the close falls below SMA50 or SMA200, or if elevated volatility expands further."
+      ],
+      "evidence": [
+        "px:CAT:2026-01-30"
+      ],
+      "stance": 0.65,
+      "confidence": 0.9,
+      "thesis": "Overweight: CAT shows strong multi-horizon momentum and price above both moving averages with a golden cross. High volatility and a substantial drawdown temper conviction despite the favorable trend."
+    },
+    {
+      "ticker": "NEE",
+      "change_triggers": [
+        "Flip/strengthen if positive momentum persists and price holds above both averages; weaken if the close loses SMA50 or SMA200 or the golden cross reverses."
+      ],
+      "evidence": [
+        "px:NEE:2026-01-30"
+      ],
+      "stance": 0.65,
+      "confidence": 0.91,
+      "thesis": "Overweight: positive 63d and 126d momentum, price above SMA50 and SMA200, and a golden cross indicate a healthy uptrend. Moderate volatility and a relatively contained drawdown support the view."
+    },
+    {
+      "ticker": "KO",
+      "change_triggers": [
+        "Flip/strengthen if momentum accelerates while price remains above both averages; weaken if the close loses SMA50 or SMA200 or the golden cross reverses."
+      ],
+      "evidence": [
+        "px:KO:2026-01-30"
+      ],
+      "stance": 0.75,
+      "confidence": 0.95,
+      "thesis": "Strong overweight: KO has positive momentum on both horizons, the shallowest drawdown in the universe, and price above SMA50 and SMA200 with a golden cross. Its relatively low volatility adds to the quality of the technical setup."
+    }
+  ]
+}

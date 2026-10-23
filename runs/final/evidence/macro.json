@@ -1,0 +1,33 @@
+{
+ "analyst": "macro",
+ "asof": "2026-01-30",
+ "data_horizon": {
+  "px": "2026-01-30"
+ },
+ "items": [
+  {
+   "id": "px:^IRX:2026-01-30",
+   "ticker": "^IRX",
+   "date": "2026-01-30",
+   "text": "3-month Treasury rate proxy ^IRX is 3.57%; 60-session change -0.21 percentage points."
+  },
+  {
+   "id": "px:^TNX:2026-01-30",
+   "ticker": "^TNX",
+   "date": "2026-01-30",
+   "text": "10-year Treasury yield proxy ^TNX is 4.24%; 60-session change +0.14 percentage points."
+  },
+  {
+   "id": "px:^VIX:2026-01-30",
+   "ticker": "^VIX",
+   "date": "2026-01-30",
+   "text": "VIX volatility proxy ^VIX is 17.44; 60-session change +0.27 points; volatility regime elevated."
+  },
+  {
+   "id": "regime:2026-01-30",
+   "ticker": "SPY",
+   "date": "2026-01-30",
+   "text": "Regime fragility at 2026-01-30 (latest price 2026-01-30): crash_risk_score=0.0757; band=calm; components[market_drawdown=0.0051, volatility_spike=0.0000, below_sma200=0.2000, vix=0.0976]; drawdown=-0.5061%; vol_spike_ratio=0.8473; vix=17.4400."
+  }
+ ]
+}

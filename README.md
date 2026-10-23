@@ -338,10 +338,10 @@ Times count from the start of build time. Tasks are listed per person so you can
 - [ ] Stretch: analyst scorecard.
 
 **B**
-- [ ] Prompt tuning on the development cutoff only.
-- [ ] Stretch: a risk management agent (see [Risk management](#risk-management)) that monitors the portfolio, detects regime shifts, triggers rebalancing, and feeds what it learns back to the portfolio manager. Build the plain-code checks first (position and cash caps, sector concentration, missing evidence IDs), then the LLM review. Keep it in report-only mode so the scored decision stays frozen.
+- [x] Prompt tuning on the development cutoff only. (None done: prompts were never tuned against scored results. See runs/final/NOTES.md.)
+- [x] Stretch: a risk management agent (see [Risk management](#risk-management)) that monitors the portfolio, detects regime shifts, triggers rebalancing, and feeds what it learns back to the portfolio manager. Build the plain-code checks first (position and cash caps, sector concentration, missing evidence IDs), then the LLM review. Keep it in report-only mode so the scored decision stays frozen.
 - [ ] Stretch: CrashLab (see [CrashLab](#crashlab)), replay the frozen weights through 2008, 2020 and agent-invented shocks, then propose protective changes. B owns the scenario agent and proposals, A owns the re-pricing and crisis price history.
-- [ ] Freeze prompts and config at M3.
+- [x] Freeze prompts and config at M3.
 
 **C**
 - [ ] Fill in [Results and limitations](#results-and-limitations).

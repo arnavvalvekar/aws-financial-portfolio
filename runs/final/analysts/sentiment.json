@@ -1,0 +1,126 @@
+{
+  "analyst": "sentiment",
+  "asof": "2026-01-30",
+  "views": [
+    {
+      "ticker": "AAPL",
+      "change_triggers": [
+        "A clear deterioration in consumer-tech coverage or a new controversy before the cutoff"
+      ],
+      "evidence": [
+        "event:sentiment:AAPL"
+      ],
+      "stance": 0,
+      "confidence": 0.35,
+      "thesis": "Sentiment is steady rather than washed out or euphoric, with no major controversy identified; this supports a neutral view. GDELT tone is unavailable, so evidence for a stronger sentiment call is insufficient."
+    },
+    {
+      "ticker": "MSFT",
+      "change_triggers": [
+        "Export-control headlines intensify materially or enterprise/cloud coverage turns broadly negative"
+      ],
+      "evidence": [
+        "event:sentiment:MSFT"
+      ],
+      "stance": 0.25,
+      "confidence": 0.55,
+      "thesis": "Constructive enterprise and cloud coverage gives Microsoft a modestly positive sentiment bias, while export-control headlines limit conviction. Sentiment does not appear clearly stretched or washed out."
+    },
+    {
+      "ticker": "NVDA",
+      "change_triggers": [
+        "Export-control coverage eases materially or shifts from a dominant overhang to a broader negative narrative"
+      ],
+      "evidence": [
+        "event:sentiment:NVDA"
+      ],
+      "stance": -0.2,
+      "confidence": 0.55,
+      "thesis": "Heavy coverage centered on export controls creates a modestly negative and potentially crowded sentiment overhang. The evidence does not establish capitulation or a washed-out extreme, so the underweight is limited."
+    },
+    {
+      "ticker": "AMZN",
+      "change_triggers": [
+        "Tariff-cost headlines fade and retail coverage improves, or cloud coverage turns decisively negative"
+      ],
+      "evidence": [
+        "event:sentiment:AMZN"
+      ],
+      "stance": -0.15,
+      "confidence": 0.5,
+      "thesis": "Mixed coverage with tariff-cost headlines weighing on retail produces a mildly negative sentiment view. The evidence is not strong enough to call sentiment washed out or materially stretched."
+    },
+    {
+      "ticker": "XOM",
+      "change_triggers": [
+        "Supply-tightness headlines reverse or energy coverage becomes broadly weaker"
+      ],
+      "evidence": [
+        "event:sentiment:XOM"
+      ],
+      "stance": 0.25,
+      "confidence": 0.5,
+      "thesis": "Firmer energy coverage on supply-tightness headlines supports a modest positive sentiment stance. There is no evidence that sentiment is sufficiently euphoric to warrant a stronger view."
+    },
+    {
+      "ticker": "JNJ",
+      "change_triggers": [
+        "Drug-pricing review coverage escalates or healthcare coverage becomes constructive"
+      ],
+      "evidence": [
+        "event:sentiment:JNJ"
+      ],
+      "stance": -0.2,
+      "confidence": 0.5,
+      "thesis": "Cautious healthcare coverage tied to drug-pricing review headlines is a modest negative sentiment signal. The evidence does not show a washed-out extreme or justify a stronger underweight."
+    },
+    {
+      "ticker": "PG",
+      "change_triggers": [
+        "Input-cost and tariff coverage worsens materially or the mild negative fades into clearly positive staples coverage"
+      ],
+      "evidence": [
+        "event:sentiment:PG"
+      ],
+      "stance": -0.1,
+      "confidence": 0.45,
+      "thesis": "Stable staples coverage is tempered by mild input-cost and tariff concerns, yielding a slight negative bias. Sentiment appears neither stretched nor washed out."
+    },
+    {
+      "ticker": "CAT",
+      "change_triggers": [
+        "Tariff and global-demand headlines become decisively more negative or turn supportive"
+      ],
+      "evidence": [
+        "event:sentiment:CAT"
+      ],
+      "stance": -0.15,
+      "confidence": 0.45,
+      "thesis": "Industrial coverage is sensitive to tariff and global-demand headlines, creating a mildly cautious sentiment view. The evidence is too limited to identify a clear fear extreme or capitulation."
+    },
+    {
+      "ticker": "NEE",
+      "change_triggers": [
+        "Renewable-incentive coverage reverses or broader utility coverage becomes negative"
+      ],
+      "evidence": [
+        "event:sentiment:NEE"
+      ],
+      "stance": 0.2,
+      "confidence": 0.45,
+      "thesis": "Renewable-incentive headlines support a modestly positive tone for NextEra Energy. No evidence indicates that sentiment is excessively euphoric or washed out."
+    },
+    {
+      "ticker": "KO",
+      "change_triggers": [
+        "A new controversy emerges or stable staples coverage deteriorates materially"
+      ],
+      "evidence": [
+        "event:sentiment:KO"
+      ],
+      "stance": 0,
+      "confidence": 0.35,
+      "thesis": "Stable staples coverage and limited controversy support a neutral view, but they do not indicate a stretched or washed-out sentiment setup. GDELT tone is unavailable, leaving insufficient evidence for a stronger call."
+    }
+  ]
+}

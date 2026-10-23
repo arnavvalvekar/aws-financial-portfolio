@@ -1,0 +1,67 @@
+{
+  "asof": "2026-01-30",
+  "mode": "report-only",
+  "verdict": "approve",
+  "checks": [
+    {
+      "name": "position_cap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "cash_cap",
+      "passed": true,
+      "detail": "cash 8.0%"
+    },
+    {
+      "name": "sector_concentration",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "top3_concentration",
+      "passed": true,
+      "detail": "top three positions hold 38.0%"
+    },
+    {
+      "name": "against_consensus",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "confidence_vs_size",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "sourced_positions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "regime_vs_cash",
+      "passed": true,
+      "detail": "crash risk score 0.08, cash 8.0%"
+    }
+  ],
+  "failed_checks": [],
+  "reasons": [
+    "MSFT's 8% allocation is supported by the passed confidence_vs_size and against_consensus checks, and its rationale explicitly explains the conflict between strong fundamentals and weak technicals.",
+    "NVDA's 12% allocation is supported by the passed position_cap and against_consensus checks, while its rationale acknowledges export-control risk and negative momentum.",
+    "AAPL's 14% allocation is supported by the passed position_cap and confidence_vs_size checks, and the rationale explains the incomplete technical rebound and elevated leverage.",
+    "KO's 10% allocation is consistent with the passed confidence_vs_size and sourced_positions checks, with cash-flow deterioration and tariff exposure explicitly recognized.",
+    "XOM's 12% allocation is within the passed position_cap and against_consensus checks, and the rationale directly addresses fundamental deterioration and dependence on supply tightness.",
+    "JNJ's 10% allocation is supported by the passed confidence_vs_size and sector_concentration checks, while pricing-policy and profitability risks are disclosed in the rationale.",
+    "PG's 5% allocation is consistent with the passed against_consensus check and the rationale correctly describes the broad modest-underweight consensus.",
+    "CAT's 7% allocation is within the passed position_cap and confidence_vs_size checks, with declining fundamentals and tariff sensitivity explicitly limiting its size.",
+    "AMZN's 8% allocation is supported by the passed against_consensus and sourced_positions checks, and the rationale addresses weak operating-profit growth and tariff exposure.",
+    "NEE's 6% allocation is consistent with the passed confidence_vs_size and against_consensus checks, while leverage and weak cash generation are explicitly acknowledged.",
+    "The portfolio passes the top3_concentration check at 38.0%, the cash_cap check at 8.0%, and the regime_vs_cash check with crash risk 0.08, so no mechanical concentration or liquidity adjustment is required."
+  ],
+  "concerns": [],
+  "adjusted_weights": null,
+  "lessons_used": [
+    "The manager sometimes cites sources that are not in any evidence pack. (seen 1 time in earlier development runs)",
+    "Citations sometimes arrive with small typos. Check that sources are real. (seen 2 times in earlier development runs)"
+  ]
+}
