@@ -1,0 +1,76 @@
+{
+ "analyst": "sentiment",
+ "asof": "2026-01-30",
+ "fixture": true,
+ "data_horizon": {
+  "gdelt": "2026-01-28"
+ },
+ "items": [
+  {
+   "id": "gdelt:AAPL:2026-01-28",
+   "ticker": "AAPL",
+   "date": "2026-01-28",
+   "text": "FIXTURE: average media tone about AAPL over 30 days -0.5, 619 articles."
+  },
+  {
+   "id": "gdelt:MSFT:2026-01-28",
+   "ticker": "MSFT",
+   "date": "2026-01-28",
+   "text": "FIXTURE: average media tone about MSFT over 30 days +0.8, 837 articles."
+  },
+  {
+   "id": "gdelt:NVDA:2026-01-28",
+   "ticker": "NVDA",
+   "date": "2026-01-28",
+   "text": "FIXTURE: average media tone about NVDA over 30 days +1.0, 384 articles."
+  },
+  {
+   "id": "gdelt:AMZN:2026-01-28",
+   "ticker": "AMZN",
+   "date": "2026-01-28",
+   "text": "FIXTURE: average media tone about AMZN over 30 days -2.5, 380 articles."
+  },
+  {
+   "id": "gdelt:XOM:2026-01-28",
+   "ticker": "XOM",
+   "date": "2026-01-28",
+   "text": "FIXTURE: average media tone about XOM over 30 days -2.9, 459 articles."
+  },
+  {
+   "id": "gdelt:JNJ:2026-01-28",
+   "ticker": "JNJ",
+   "date": "2026-01-28",
+   "text": "FIXTURE: average media tone about JNJ over 30 days +1.5, 160 articles."
+  },
+  {
+   "id": "gdelt:PG:2026-01-28",
+   "ticker": "PG",
+   "date": "2026-01-28",
+   "text": "FIXTURE: average media tone about PG over 30 days -2.2, 763 articles."
+  },
+  {
+   "id": "gdelt:CAT:2026-01-28",
+   "ticker": "CAT",
+   "date": "2026-01-28",
+   "text": "FIXTURE: average media tone about CAT over 30 days -2.4, 101 articles."
+  },
+  {
+   "id": "gdelt:NEE:2026-01-28",
+   "ticker": "NEE",
+   "date": "2026-01-28",
+   "text": "FIXTURE: average media tone about NEE over 30 days -0.2, 538 articles."
+  },
+  {
+   "id": "gdelt:KO:2026-01-28",
+   "ticker": "KO",
+   "date": "2026-01-28",
+   "text": "FIXTURE: average media tone about KO over 30 days -1.9, 612 articles."
+  },
+  {
+   "id": "gdelt:ECON_STOCKMARKET:2026-01-28",
+   "ticker": "ALL",
+   "date": "2026-01-28",
+   "text": "FIXTURE: market-wide tone neutral, article volume above average."
+  }
+ ]
+}

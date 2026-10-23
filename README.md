@@ -241,10 +241,10 @@ Times count from the start of build time. Tasks are listed per person so you can
 - [ ] Dashboard shell: header strip, equity curve, metrics table.
 
 **B**
-- [ ] Fundamentals, macro, sentiment and geopolitics analyst prompts.
-- [ ] Portfolio manager version 2: conflicts, analyst weighting, triggers.
-- [ ] Citation check: every cited ID must exist in the evidence pack.
-- [ ] Parallel analyst calls.
+- [x] Fundamentals, macro, sentiment and geopolitics analyst prompts.
+- [x] Portfolio manager version 2: conflicts, analyst weighting, triggers.
+- [x] Citation check: every cited ID must exist in the evidence pack.
+- [x] Parallel analyst calls.
 
 **C**
 - [ ] Fundamentals evidence for all tickers: growth, margins, leverage and return on equity, each with an ID.

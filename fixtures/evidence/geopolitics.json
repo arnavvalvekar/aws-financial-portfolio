@@ -1,0 +1,47 @@
+{
+ "analyst": "geopolitics",
+ "asof": "2026-01-30",
+ "fixture": true,
+ "data_horizon": {
+  "gdelt": "2026-01-27",
+  "events": "2026-01-22"
+ },
+ "items": [
+  {
+   "id": "event:trade-tariffs",
+   "ticker": "ALL",
+   "date": "2026-01-15",
+   "text": "FIXTURE: new tariff announcement affecting imported industrial inputs."
+  },
+  {
+   "id": "event:oil-supply",
+   "ticker": "XOM",
+   "date": "2026-01-20",
+   "text": "FIXTURE: supply disruption headline in a major oil-producing region."
+  },
+  {
+   "id": "event:export-controls",
+   "ticker": "NVDA",
+   "date": "2026-01-22",
+   "text": "FIXTURE: proposed export controls on advanced chips."
+  },
+  {
+   "id": "event:energy-policy",
+   "ticker": "NEE",
+   "date": "2026-01-12",
+   "text": "FIXTURE: federal renewable energy subsidy extended."
+  },
+  {
+   "id": "event:health-pricing",
+   "ticker": "JNJ",
+   "date": "2026-01-18",
+   "text": "FIXTURE: drug pricing proposal under congressional review."
+  },
+  {
+   "id": "gdelt:CONFLICT:2026-01-27",
+   "ticker": "ALL",
+   "date": "2026-01-27",
+   "text": "FIXTURE: conflict event counts 12% above the 90-day average."
+  }
+ ]
+}
