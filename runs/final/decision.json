@@ -1,0 +1,321 @@
+{
+  "asof": "2026-01-30",
+  "portfolio_thesis": "Favor high-quality businesses with either strong, corroborated operating momentum or defensive/low-volatility technical support, while limiting exposure where fundamentals and market structure conflict. The portfolio balances AAPL, NVDA and AMZN growth with KO, JNJ and PG defensiveness, and retains selective cyclical/energy exposure through XOM and CAT; NEE is kept modest because technical and policy support conflict with weak cash-flow and leverage evidence. MSFT is materially underweighted despite excellent fundamentals because the unusually strong technical downtrend is the clearest risk signal, while cash provides room to respond to elevated disagreement and fragile trends.",
+  "regime_view": "The reports indicate a mixed, risk-sensitive regime: several assets have supportive medium-term trends, but volatility, drawdowns, trade/export-control risks and disagreement between fundamentals and price action are significant. Position sizing therefore emphasizes diversification and keeps a modest cash reserve rather than concentrating in the strongest individual stances.",
+  "positions": {
+    "MSFT": {
+      "conflicts": [
+        "Fundamentals strongly favor MSFT on 16.7% revenue growth, 20.9% operating-income growth, 60.4% operating-cash-flow growth and a 47.1% margin, while technicals show a death cross, price below both moving averages, sharply negative momentum and elevated volatility.",
+        "Sentiment is modestly constructive, but its evidence and confidence are weaker than the technical evidence."
+      ],
+      "change_triggers": [
+        "Add if the close reclaims SMA200 and SMA50 rises above SMA200, with momentum stabilizing.",
+        "Cut if negative momentum accelerates or volatility remains elevated.",
+        "Cut if revenue growth falls below 10%, operating-income growth slows materially, operating margin falls below 45%, or operating cash-flow growth turns negative.",
+        "Cut if export controls broaden to affect advanced-chip access or overseas AI/cloud demand."
+      ],
+      "sources": [
+        "px:MSFT:2026-01-30",
+        "sec:MSFT:10-Q:2025-12-31:RevenueFromContractWithCustomerExcludingAssessedTax",
+        "sec:MSFT:10-Q:2025-12-31:OperatingIncomeLoss",
+        "sec:MSFT:10-Q:2025-12-31:NetCashProvidedByUsedInOperatingActivities",
+        "sec:MSFT:10-Q:2025-12-31:LongTermDebtNoncurrent",
+        "event:sentiment:MSFT",
+        "event:export-controls"
+      ],
+      "rationale": "Small position only: the fundamental quality is compelling, but the technical report has exceptionally high confidence and identifies a persistent downtrend. I give technicals more influence for near-term sizing, while retaining a starter position because fundamentals are unusually strong.",
+      "analyst_weighting": {
+        "fundamentals": 0.35,
+        "geopolitics": 0.05,
+        "macro": 0,
+        "sentiment": 0.05,
+        "technical": 0.55
+      },
+      "confidence": 0.84
+    },
+    "NVDA": {
+      "conflicts": [
+        "Fundamentals show exceptional growth, margins and low leverage, but geopolitics identifies direct export-control demand risk and sentiment is modestly negative.",
+        "Technicals remain constructive above both averages with a golden cross, but recent momentum is negative and the drawdown is the deepest in the universe."
+      ],
+      "change_triggers": [
+        "Add if 63d momentum turns positive and the drawdown contracts, with export restrictions easing or affected-market demand proving resilient.",
+        "Cut if the close falls below SMA50 or SMA200, especially with a death cross.",
+        "Cut if revenue or net-income growth falls below 20%, gross margin falls below 70%, or leverage rises substantially.",
+        "Cut if advanced-semiconductor export restrictions tighten further or overseas orders are lost."
+      ],
+      "sources": [
+        "px:NVDA:2026-01-30",
+        "sec:NVDA:10-Q:2025-10-26:Revenues",
+        "sec:NVDA:10-Q:2025-10-26:GrossProfit",
+        "sec:NVDA:10-Q:2025-10-26:NetIncomeLoss",
+        "sec:NVDA:10-Q:2025-10-26:StockholdersEquity",
+        "event:export-controls",
+        "event:sentiment:NVDA"
+      ],
+      "rationale": "Meaningful but capped position. The fundamental evidence is strongest, yet the direct geopolitical risk and fragile recent price momentum warrant less than a full overweight despite exceptional reported growth.",
+      "analyst_weighting": {
+        "fundamentals": 0.4,
+        "geopolitics": 0.3,
+        "macro": 0,
+        "sentiment": 0.1,
+        "technical": 0.2
+      },
+      "confidence": 0.78
+    },
+    "AAPL": {
+      "conflicts": [
+        "Fundamentals strongly support an overweight, while technicals are only mildly positive because near-term momentum is negative, price is below SMA50 and the long-term drawdown is deep.",
+        "Sentiment is neutral with low confidence and does not materially alter the decision."
+      ],
+      "change_triggers": [
+        "Add if the close reclaims SMA50 with renewed positive 63d momentum.",
+        "Cut if the close falls below SMA200 or the golden cross reverses.",
+        "Cut if revenue growth falls materially below 15.7%, operating-income growth turns negative, operating margin falls below 35%, or operating-cash-flow growth reverses materially.",
+        "Cut if new tariffs materially affect imported inputs or overseas sales."
+      ],
+      "sources": [
+        "px:AAPL:2026-01-30",
+        "sec:AAPL:10-Q:2025-12-27:RevenueFromContractWithCustomerExcludingAssessedTax",
+        "sec:AAPL:10-Q:2025-12-27:OperatingIncomeLoss",
+        "sec:AAPL:10-Q:2025-12-27:NetCashProvidedByUsedInOperatingActivities",
+        "sec:AAPL:10-Q:2025-12-27:StockholdersEquity",
+        "event:sentiment:AAPL",
+        "event:interest-rates"
+      ],
+      "rationale": "Above-neutral allocation reflects very strong operating evidence and reasonable long-term technical support, but not the full fundamental stance because the technical rebound is incomplete and leverage is elevated on the reported measure.",
+      "analyst_weighting": {
+        "fundamentals": 0.65,
+        "geopolitics": 0.05,
+        "macro": 0,
+        "sentiment": 0.05,
+        "technical": 0.25
+      },
+      "confidence": 0.85
+    },
+    "KO": {
+      "conflicts": [
+        "Technicals strongly favor KO on momentum, shallow drawdown, low volatility and a golden cross, while geopolitics flags tariff cost pressure.",
+        "Fundamentals show strong margins and operating-income growth but deeply negative cited operating cash flow, limiting confidence."
+      ],
+      "change_triggers": [
+        "Add if momentum accelerates while price remains above both averages and operating cash flow returns to sustained positive growth.",
+        "Cut if the close loses SMA50 or SMA200, the golden cross reverses, or revenue/gross-profit growth turns negative.",
+        "Cut if tariffs materially raise imported input costs without effective pass-through."
+      ],
+      "sources": [
+        "px:KO:2026-01-30",
+        "sec:KO:10-Q:2025-09-26:Revenues",
+        "sec:KO:10-Q:2025-09-26:GrossProfit",
+        "sec:KO:10-Q:2025-09-26:OperatingIncomeLoss",
+        "sec:KO:10-Q:2025-03-28:NetCashProvidedByUsedInOperatingActivities",
+        "sec:KO:10-Q:2025-09-26:StockholdersEquity",
+        "event:trade-tariffs"
+      ],
+      "rationale": "Core defensive holding because technical quality is unusually strong and business growth is steady, but sizing is restrained by the reported cash-flow deterioration and tariff exposure.",
+      "analyst_weighting": {
+        "fundamentals": 0.3,
+        "geopolitics": 0.15,
+        "macro": 0,
+        "sentiment": 0.05,
+        "technical": 0.5
+      },
+      "confidence": 0.76
+    },
+    "XOM": {
+      "conflicts": [
+        "Technicals and geopolitics strongly favor XOM on momentum and supply tightness, but fundamentals show declines in revenue, net income and operating cash flow with only 2.9% ROE.",
+        "Sentiment is modestly positive but low confidence and does not resolve the operating deterioration."
+      ],
+      "change_triggers": [
+        "Add if positive momentum persists above SMA50 and SMA200, while revenue and net-income declines reverse into sustained growth.",
+        "Cut if either moving-average support fails or the golden cross reverses.",
+        "Cut if operating cash-flow growth remains negative or ROE does not improve materially.",
+        "Cut if oil-supply tightness resolves or crude prices reverse sharply."
+      ],
+      "sources": [
+        "px:XOM:2026-01-30",
+        "sec:XOM:10-Q:2025-09-30:Revenues",
+        "sec:XOM:10-Q:2025-09-30:NetIncomeLoss",
+        "sec:XOM:10-Q:2025-03-31:NetCashProvidedByUsedInOperatingActivities",
+        "sec:XOM:10-Q:2025-09-30:StockholdersEquity",
+        "event:oil-supply",
+        "event:sentiment:XOM"
+      ],
+      "rationale": "Tactical and geopolitical tailwinds justify a moderate position, but the high-confidence fundamental deterioration prevents a larger allocation and makes this exposure dependent on continued supply tightness and price strength.",
+      "analyst_weighting": {
+        "fundamentals": 0.3,
+        "geopolitics": 0.3,
+        "macro": 0,
+        "sentiment": 0.05,
+        "technical": 0.35
+      },
+      "confidence": 0.72
+    },
+    "JNJ": {
+      "conflicts": [
+        "Technicals strongly favor JNJ with positive multi-horizon momentum, low volatility and a shallow drawdown, while fundamentals are only modestly positive due to low ROE and leverage.",
+        "Healthcare sentiment and geopolitics both flag drug-pricing risk, offsetting part of the technical strength."
+      ],
+      "change_triggers": [
+        "Add if momentum remains positive and price holds above both averages.",
+        "Cut if the close loses SMA50 or SMA200 or momentum turns negative.",
+        "Cut if revenue growth falls below 5%, net-income growth normalizes sharply without operating improvement, or leverage rises materially while ROE remains below 7%.",
+        "Cut if drug-price negotiations advance or expand."
+      ],
+      "sources": [
+        "px:JNJ:2026-01-30",
+        "sec:JNJ:10-Q:2025-09-28:RevenueFromContractWithCustomerExcludingAssessedTax",
+        "sec:JNJ:10-Q:2025-09-28:NetIncomeLoss",
+        "sec:JNJ:10-Q:2025-09-28:GrossProfit",
+        "sec:JNJ:10-Q:2025-09-28:StockholdersEquity",
+        "event:health-pricing",
+        "event:sentiment:JNJ"
+      ],
+      "rationale": "Defensive allocation led by the highest-confidence technical setup and relatively stable reported growth, but below the technical analyst's full overweight because pricing-policy and profitability risks are credible.",
+      "analyst_weighting": {
+        "fundamentals": 0.25,
+        "geopolitics": 0.2,
+        "macro": 0,
+        "sentiment": 0.1,
+        "technical": 0.45
+      },
+      "confidence": 0.8
+    },
+    "PG": {
+      "conflicts": [
+        "There is unusually close agreement across technicals, fundamentals, sentiment and geopolitics for a modest underweight: weak long-term trend, slowing earnings, tariff exposure and mild negative coverage.",
+        "The defensive margin and cited operating-cash-flow growth are offsets, but not enough to overcome weak revenue and earnings growth."
+      ],
+      "change_triggers": [
+        "Add if the close reclaims SMA200 and SMA50 rises above SMA200, with short-term momentum remaining positive.",
+        "Cut if the close loses SMA50, short-term momentum turns negative, revenue growth turns negative, or operating-income decline exceeds 6.5%.",
+        "Add if tariff relief or effective cost pass-through is demonstrated."
+      ],
+      "sources": [
+        "px:PG:2026-01-30",
+        "sec:PG:10-Q:2025-12-31:Revenues",
+        "sec:PG:10-Q:2025-12-31:OperatingIncomeLoss",
+        "sec:PG:10-Q:2025-12-31:NetIncomeLoss",
+        "sec:PG:10-Q:2025-09-30:NetCashProvidedByUsedInOperatingActivities",
+        "event:trade-tariffs",
+        "event:sentiment:PG"
+      ],
+      "rationale": "Small defensive position rather than zero: the business retains a 24.2% operating margin and cited cash-flow support, but broad analyst agreement points to limited upside and deteriorating earnings momentum.",
+      "analyst_weighting": {
+        "fundamentals": 0.4,
+        "geopolitics": 0.2,
+        "macro": 0,
+        "sentiment": 0.1,
+        "technical": 0.3
+      },
+      "confidence": 0.82
+    },
+    "CAT": {
+      "conflicts": [
+        "Technicals favor CAT on strong momentum and a golden cross, but fundamentals show falling operating income, net income and cash flow with high liabilities-to-equity.",
+        "Tariff exposure and cautious industrial sentiment reinforce the fundamental concerns."
+      ],
+      "change_triggers": [
+        "Add if momentum stays positive, the drawdown contracts, and operating income and net income return to year-on-year growth.",
+        "Cut if the close falls below SMA50 or SMA200, volatility expands, or operating-cash-flow decline does not reverse.",
+        "Cut if tariffs materially raise input costs or reduce customer demand."
+      ],
+      "sources": [
+        "px:CAT:2026-01-30",
+        "sec:CAT:10-Q:2025-09-30:Revenues",
+        "sec:CAT:10-Q:2025-09-30:OperatingIncomeLoss",
+        "sec:CAT:10-Q:2025-09-30:ProfitLoss",
+        "sec:CAT:10-Q:2025-03-31:NetCashProvidedByUsedInOperatingActivities",
+        "sec:CAT:10-Q:2025-09-30:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+        "event:trade-tariffs",
+        "event:sentiment:CAT"
+      ],
+      "rationale": "Kept as a small cyclical position to participate in the strong price trend, but the high-confidence fundamental evidence and tariff sensitivity argue against following technicals into a larger allocation.",
+      "analyst_weighting": {
+        "fundamentals": 0.35,
+        "geopolitics": 0.2,
+        "macro": 0,
+        "sentiment": 0.1,
+        "technical": 0.35
+      },
+      "confidence": 0.7
+    },
+    "AMZN": {
+      "conflicts": [
+        "Technicals support AMZN with positive momentum and a golden cross, while fundamentals are mixed because operating-income growth was only 0.1% and ROE was 5.7%.",
+        "Tariff exposure and mildly negative sentiment temper the otherwise constructive trend."
+      ],
+      "change_triggers": [
+        "Add if 63d and 126d momentum broaden upward and operating-income growth improves.",
+        "Cut if the close falls below SMA50 or SMA200 or the golden cross reverses.",
+        "Cut if operating-income growth remains near zero or turns negative, operating margin falls below 8%, or ROE does not improve.",
+        "Cut if tariffs materially raise merchandise or operating-input costs without pass-through."
+      ],
+      "sources": [
+        "px:AMZN:2026-01-30",
+        "sec:AMZN:10-Q:2025-09-30:RevenueFromContractWithCustomerExcludingAssessedTax",
+        "sec:AMZN:10-Q:2025-09-30:OperatingIncomeLoss",
+        "sec:AMZN:10-Q:2025-09-30:NetCashProvidedByUsedInOperatingActivities",
+        "sec:AMZN:10-Q:2025-09-30:StockholdersEquity",
+        "sec:AMZN:10-Q:2025-09-30:LongTermDebtNoncurrent",
+        "event:trade-tariffs",
+        "event:sentiment:AMZN"
+      ],
+      "rationale": "Moderate position balances a technically healthy trend and strong revenue/cash-flow growth against weak operating-profit growth, low ROE and tariff-sensitive retail exposure.",
+      "analyst_weighting": {
+        "fundamentals": 0.4,
+        "geopolitics": 0.2,
+        "macro": 0,
+        "sentiment": 0.1,
+        "technical": 0.3
+      },
+      "confidence": 0.74
+    },
+    "NEE": {
+      "conflicts": [
+        "Technicals and geopolitics favor NEE on trend and renewable incentives, while fundamentals show declining operating income and cash flow, low ROE and high leverage.",
+        "Sentiment is modestly positive but low confidence and cannot offset the balance-sheet and cash-flow concerns."
+      ],
+      "change_triggers": [
+        "Add if positive momentum persists above both averages and operating-income growth turns positive with operating cash flow recovering.",
+        "Cut if the close loses SMA50 or SMA200 or the golden cross reverses.",
+        "Cut if long-term debt remains above 35% of assets, leverage fails to decline, or operating cash flow continues to fall.",
+        "Cut if federal renewable-energy incentives are withdrawn or reduced."
+      ],
+      "sources": [
+        "px:NEE:2026-01-30",
+        "sec:NEE:10-Q:2025-09-30:RevenueFromContractWithCustomerIncludingAssessedTax",
+        "sec:NEE:10-Q:2025-09-30:OperatingIncomeLoss",
+        "sec:NEE:10-Q:2025-09-30:NetIncomeLoss",
+        "sec:NEE:10-Q:2025-03-31:NetCashProvidedByUsedInOperatingActivities",
+        "sec:NEE:10-Q:2025-09-30:Assets",
+        "sec:NEE:10-Q:2025-09-30:StockholdersEquity",
+        "event:energy-policy",
+        "event:sentiment:NEE"
+      ],
+      "rationale": "Small allocation reflects a favorable technical and policy setup but acknowledges that the higher-confidence fundamental evidence points to weak cash generation, leverage and operating profitability.",
+      "analyst_weighting": {
+        "fundamentals": 0.35,
+        "geopolitics": 0.25,
+        "macro": 0,
+        "sentiment": 0.1,
+        "technical": 0.3
+      },
+      "confidence": 0.7
+    }
+  },
+  "weights": {
+    "MSFT": 0.08,
+    "NVDA": 0.12,
+    "AAPL": 0.14,
+    "KO": 0.1,
+    "XOM": 0.12,
+    "JNJ": 0.1,
+    "PG": 0.05,
+    "CAT": 0.07,
+    "CASH": 0.08,
+    "AMZN": 0.08,
+    "NEE": 0.06
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "run_id": "final",
+  "asof": "2026-01-30",
+  "model": "us.openai.gpt-5.6-luna",
+  "region": "us-east-1",
+  "analysts": [
+    "technical",
+    "fundamentals",
+    "macro",
+    "sentiment",
+    "geopolitics"
+  ],
+  "warnings": [],
+  "risk_verdict": "approve",
+  "fixture": false
+}

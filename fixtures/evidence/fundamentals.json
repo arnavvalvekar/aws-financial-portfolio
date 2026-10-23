@@ -1,0 +1,250 @@
+{
+ "analyst": "fundamentals",
+ "asof": "2026-01-30",
+ "fixture": true,
+ "data_horizon": {
+  "sec": "2025-11-03"
+ },
+ "items": [
+  {
+   "id": "sec:AAPL:10-Q:2025-09-30:Revenues",
+   "ticker": "AAPL",
+   "date": "2025-10-30",
+   "text": "FIXTURE: quarterly revenue growth +16.8% year on year."
+  },
+  {
+   "id": "sec:AAPL:10-Q:2025-09-30:OperatingIncomeLoss",
+   "ticker": "AAPL",
+   "date": "2025-10-30",
+   "text": "FIXTURE: operating margin 37.1%, +1.7 points year on year."
+  },
+  {
+   "id": "sec:AAPL:10-Q:2025-09-30:LongTermDebt",
+   "ticker": "AAPL",
+   "date": "2025-10-30",
+   "text": "FIXTURE: debt to equity 0.96."
+  },
+  {
+   "id": "sec:AAPL:10-Q:2025-09-30:NetCashProvidedByOperatingActivities",
+   "ticker": "AAPL",
+   "date": "2025-10-30",
+   "text": "FIXTURE: operating cash flow covers capex 3.5 times."
+  },
+  {
+   "id": "sec:MSFT:10-Q:2025-09-30:Revenues",
+   "ticker": "MSFT",
+   "date": "2025-10-24",
+   "text": "FIXTURE: quarterly revenue growth +0.4% year on year."
+  },
+  {
+   "id": "sec:MSFT:10-Q:2025-09-30:OperatingIncomeLoss",
+   "ticker": "MSFT",
+   "date": "2025-10-24",
+   "text": "FIXTURE: operating margin 25.4%, +0.8 points year on year."
+  },
+  {
+   "id": "sec:MSFT:10-Q:2025-09-30:LongTermDebt",
+   "ticker": "MSFT",
+   "date": "2025-10-24",
+   "text": "FIXTURE: debt to equity 1.61."
+  },
+  {
+   "id": "sec:MSFT:10-Q:2025-09-30:NetCashProvidedByOperatingActivities",
+   "ticker": "MSFT",
+   "date": "2025-10-24",
+   "text": "FIXTURE: operating cash flow covers capex 1.1 times."
+  },
+  {
+   "id": "sec:NVDA:10-Q:2025-09-30:Revenues",
+   "ticker": "NVDA",
+   "date": "2025-10-30",
+   "text": "FIXTURE: quarterly revenue growth -0.6% year on year."
+  },
+  {
+   "id": "sec:NVDA:10-Q:2025-09-30:OperatingIncomeLoss",
+   "ticker": "NVDA",
+   "date": "2025-10-30",
+   "text": "FIXTURE: operating margin 26.3%, +2.3 points year on year."
+  },
+  {
+   "id": "sec:NVDA:10-Q:2025-09-30:LongTermDebt",
+   "ticker": "NVDA",
+   "date": "2025-10-30",
+   "text": "FIXTURE: debt to equity 1.31."
+  },
+  {
+   "id": "sec:NVDA:10-Q:2025-09-30:NetCashProvidedByOperatingActivities",
+   "ticker": "NVDA",
+   "date": "2025-10-30",
+   "text": "FIXTURE: operating cash flow covers capex 2.7 times."
+  },
+  {
+   "id": "sec:AMZN:10-Q:2025-09-30:Revenues",
+   "ticker": "AMZN",
+   "date": "2025-10-30",
+   "text": "FIXTURE: quarterly revenue growth +19.2% year on year."
+  },
+  {
+   "id": "sec:AMZN:10-Q:2025-09-30:OperatingIncomeLoss",
+   "ticker": "AMZN",
+   "date": "2025-10-30",
+   "text": "FIXTURE: operating margin 30.2%, +0.7 points year on year."
+  },
+  {
+   "id": "sec:AMZN:10-Q:2025-09-30:LongTermDebt",
+   "ticker": "AMZN",
+   "date": "2025-10-30",
+   "text": "FIXTURE: debt to equity 0.40."
+  },
+  {
+   "id": "sec:AMZN:10-Q:2025-09-30:NetCashProvidedByOperatingActivities",
+   "ticker": "AMZN",
+   "date": "2025-10-30",
+   "text": "FIXTURE: operating cash flow covers capex 0.8 times."
+  },
+  {
+   "id": "sec:XOM:10-Q:2025-09-30:Revenues",
+   "ticker": "XOM",
+   "date": "2025-11-03",
+   "text": "FIXTURE: quarterly revenue growth -2.5% year on year."
+  },
+  {
+   "id": "sec:XOM:10-Q:2025-09-30:OperatingIncomeLoss",
+   "ticker": "XOM",
+   "date": "2025-11-03",
+   "text": "FIXTURE: operating margin 9.2%, +2.3 points year on year."
+  },
+  {
+   "id": "sec:XOM:10-Q:2025-09-30:LongTermDebt",
+   "ticker": "XOM",
+   "date": "2025-11-03",
+   "text": "FIXTURE: debt to equity 1.24."
+  },
+  {
+   "id": "sec:XOM:10-Q:2025-09-30:NetCashProvidedByOperatingActivities",
+   "ticker": "XOM",
+   "date": "2025-11-03",
+   "text": "FIXTURE: operating cash flow covers capex 3.3 times."
+  },
+  {
+   "id": "sec:JNJ:10-Q:2025-09-30:Revenues",
+   "ticker": "JNJ",
+   "date": "2025-10-30",
+   "text": "FIXTURE: quarterly revenue growth +6.6% year on year."
+  },
+  {
+   "id": "sec:JNJ:10-Q:2025-09-30:OperatingIncomeLoss",
+   "ticker": "JNJ",
+   "date": "2025-10-30",
+   "text": "FIXTURE: operating margin 36.6%, +0.1 points year on year."
+  },
+  {
+   "id": "sec:JNJ:10-Q:2025-09-30:LongTermDebt",
+   "ticker": "JNJ",
+   "date": "2025-10-30",
+   "text": "FIXTURE: debt to equity 1.32."
+  },
+  {
+   "id": "sec:JNJ:10-Q:2025-09-30:NetCashProvidedByOperatingActivities",
+   "ticker": "JNJ",
+   "date": "2025-10-30",
+   "text": "FIXTURE: operating cash flow covers capex 2.4 times."
+  },
+  {
+   "id": "sec:PG:10-Q:2025-09-30:Revenues",
+   "ticker": "PG",
+   "date": "2025-11-03",
+   "text": "FIXTURE: quarterly revenue growth -2.0% year on year."
+  },
+  {
+   "id": "sec:PG:10-Q:2025-09-30:OperatingIncomeLoss",
+   "ticker": "PG",
+   "date": "2025-11-03",
+   "text": "FIXTURE: operating margin 30.3%, -0.6 points year on year."
+  },
+  {
+   "id": "sec:PG:10-Q:2025-09-30:LongTermDebt",
+   "ticker": "PG",
+   "date": "2025-11-03",
+   "text": "FIXTURE: debt to equity 1.15."
+  },
+  {
+   "id": "sec:PG:10-Q:2025-09-30:NetCashProvidedByOperatingActivities",
+   "ticker": "PG",
+   "date": "2025-11-03",
+   "text": "FIXTURE: operating cash flow covers capex 3.8 times."
+  },
+  {
+   "id": "sec:CAT:10-Q:2025-09-30:Revenues",
+   "ticker": "CAT",
+   "date": "2025-10-24",
+   "text": "FIXTURE: quarterly revenue growth +13.0% year on year."
+  },
+  {
+   "id": "sec:CAT:10-Q:2025-09-30:OperatingIncomeLoss",
+   "ticker": "CAT",
+   "date": "2025-10-24",
+   "text": "FIXTURE: operating margin 18.7%, -1.6 points year on year."
+  },
+  {
+   "id": "sec:CAT:10-Q:2025-09-30:LongTermDebt",
+   "ticker": "CAT",
+   "date": "2025-10-24",
+   "text": "FIXTURE: debt to equity 0.65."
+  },
+  {
+   "id": "sec:CAT:10-Q:2025-09-30:NetCashProvidedByOperatingActivities",
+   "ticker": "CAT",
+   "date": "2025-10-24",
+   "text": "FIXTURE: operating cash flow covers capex 1.0 times."
+  },
+  {
+   "id": "sec:NEE:10-Q:2025-09-30:Revenues",
+   "ticker": "NEE",
+   "date": "2025-10-24",
+   "text": "FIXTURE: quarterly revenue growth +5.6% year on year."
+  },
+  {
+   "id": "sec:NEE:10-Q:2025-09-30:OperatingIncomeLoss",
+   "ticker": "NEE",
+   "date": "2025-10-24",
+   "text": "FIXTURE: operating margin 36.8%, -0.7 points year on year."
+  },
+  {
+   "id": "sec:NEE:10-Q:2025-09-30:LongTermDebt",
+   "ticker": "NEE",
+   "date": "2025-10-24",
+   "text": "FIXTURE: debt to equity 1.92."
+  },
+  {
+   "id": "sec:NEE:10-Q:2025-09-30:NetCashProvidedByOperatingActivities",
+   "ticker": "NEE",
+   "date": "2025-10-24",
+   "text": "FIXTURE: operating cash flow covers capex 3.5 times."
+  },
+  {
+   "id": "sec:KO:10-Q:2025-09-30:Revenues",
+   "ticker": "KO",
+   "date": "2025-10-24",
+   "text": "FIXTURE: quarterly revenue growth +1.1% year on year."
+  },
+  {
+   "id": "sec:KO:10-Q:2025-09-30:OperatingIncomeLoss",
+   "ticker": "KO",
+   "date": "2025-10-24",
+   "text": "FIXTURE: operating margin 39.5%, -2.7 points year on year."
+  },
+  {
+   "id": "sec:KO:10-Q:2025-09-30:LongTermDebt",
+   "ticker": "KO",
+   "date": "2025-10-24",
+   "text": "FIXTURE: debt to equity 0.81."
+  },
+  {
+   "id": "sec:KO:10-Q:2025-09-30:NetCashProvidedByOperatingActivities",
+   "ticker": "KO",
+   "date": "2025-10-24",
+   "text": "FIXTURE: operating cash flow covers capex 3.1 times."
+  }
+ ]
+}

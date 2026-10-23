@@ -1,0 +1,168 @@
+{
+ "request": {
+  "model": "us.openai.gpt-5.6-luna",
+  "tool_name": "submit_macro_views",
+  "max_tokens": 8000
+ },
+ "usage": {
+  "inputTokens": 757,
+  "outputTokens": 1365,
+  "totalTokens": 2122,
+  "cacheReadInputTokens": 0,
+  "cacheWriteInputTokens": 0
+ },
+ "output": {
+  "views": [
+   {
+    "ticker": "AAPL",
+    "change_triggers": [
+     "Company-specific sensitivity to rates, inflation, unemployment, oil, or volatility becomes available."
+    ],
+    "evidence": [
+     "px:^IRX:2026-01-30",
+     "px:^TNX:2026-01-30",
+     "px:^VIX:2026-01-30",
+     "regime:2026-01-30"
+    ],
+    "stance": 0,
+    "confidence": 0,
+    "thesis": "insufficient data: the evidence describes the macro and market regime but provides no AAPL-specific exposure or operating information."
+   },
+   {
+    "ticker": "MSFT",
+    "change_triggers": [
+     "Company-specific sensitivity to rates, inflation, unemployment, oil, or volatility becomes available."
+    ],
+    "evidence": [
+     "px:^IRX:2026-01-30",
+     "px:^TNX:2026-01-30",
+     "px:^VIX:2026-01-30",
+     "regime:2026-01-30"
+    ],
+    "stance": 0,
+    "confidence": 0,
+    "thesis": "insufficient data: the evidence describes the macro and market regime but provides no MSFT-specific exposure or operating information."
+   },
+   {
+    "ticker": "NVDA",
+    "change_triggers": [
+     "Company-specific sensitivity to rates, inflation, unemployment, oil, or volatility becomes available."
+    ],
+    "evidence": [
+     "px:^IRX:2026-01-30",
+     "px:^TNX:2026-01-30",
+     "px:^VIX:2026-01-30",
+     "regime:2026-01-30"
+    ],
+    "stance": 0,
+    "confidence": 0,
+    "thesis": "insufficient data: the evidence describes the macro and market regime but provides no NVDA-specific exposure or operating information."
+   },
+   {
+    "ticker": "AMZN",
+    "change_triggers": [
+     "Company-specific sensitivity to rates, inflation, unemployment, oil, or volatility becomes available."
+    ],
+    "evidence": [
+     "px:^IRX:2026-01-30",
+     "px:^TNX:2026-01-30",
+     "px:^VIX:2026-01-30",
+     "regime:2026-01-30"
+    ],
+    "stance": 0,
+    "confidence": 0,
+    "thesis": "insufficient data: the evidence describes the macro and market regime but provides no AMZN-specific exposure or operating information."
+   },
+   {
+    "ticker": "XOM",
+    "change_triggers": [
+     "Company-specific sensitivity to oil prices, rates, inflation, unemployment, or volatility becomes available."
+    ],
+    "evidence": [
+     "px:^IRX:2026-01-30",
+     "px:^TNX:2026-01-30",
+     "px:^VIX:2026-01-30",
+     "regime:2026-01-30"
+    ],
+    "stance": 0,
+    "confidence": 0,
+    "thesis": "insufficient data: the evidence describes rates and market volatility but provides no oil-price or XOM-specific operating information."
+   },
+   {
+    "ticker": "JNJ",
+    "change_triggers": [
+     "Company-specific sensitivity to rates, inflation, unemployment, oil, or volatility becomes available."
+    ],
+    "evidence": [
+     "px:^IRX:2026-01-30",
+     "px:^TNX:2026-01-30",
+     "px:^VIX:2026-01-30",
+     "regime:2026-01-30"
+    ],
+    "stance": 0,
+    "confidence": 0,
+    "thesis": "insufficient data: the evidence describes the macro and market regime but provides no JNJ-specific exposure or operating information."
+   },
+   {
+    "ticker": "PG",
+    "change_triggers": [
+     "Company-specific sensitivity to rates, inflation, unemployment, oil, or volatility becomes available."
+    ],
+    "evidence": [
+     "px:^IRX:2026-01-30",
+     "px:^TNX:2026-01-30",
+     "px:^VIX:2026-01-30",
+     "regime:2026-01-30"
+    ],
+    "stance": 0,
+    "confidence": 0,
+    "thesis": "insufficient data: the evidence describes the macro and market regime but provides no PG-specific exposure or operating information."
+   },
+   {
+    "ticker": "CAT",
+    "change_triggers": [
+     "Company-specific sensitivity to rates, inflation, unemployment, oil, or volatility becomes available."
+    ],
+    "evidence": [
+     "px:^IRX:2026-01-30",
+     "px:^TNX:2026-01-30",
+     "px:^VIX:2026-01-30",
+     "regime:2026-01-30"
+    ],
+    "stance": 0,
+    "confidence": 0,
+    "thesis": "insufficient data: the evidence describes the macro and market regime but provides no CAT-specific exposure or operating information."
+   },
+   {
+    "ticker": "NEE",
+    "change_triggers": [
+     "Company-specific sensitivity to rates, inflation, unemployment, oil, or volatility becomes available."
+    ],
+    "evidence": [
+     "px:^IRX:2026-01-30",
+     "px:^TNX:2026-01-30",
+     "px:^VIX:2026-01-30",
+     "regime:2026-01-30"
+    ],
+    "stance": 0,
+    "confidence": 0,
+    "thesis": "insufficient data: the evidence describes the macro and market regime but provides no NEE-specific exposure or operating information."
+   },
+   {
+    "ticker": "KO",
+    "change_triggers": [
+     "Company-specific sensitivity to rates, inflation, unemployment, oil, or volatility becomes available."
+    ],
+    "evidence": [
+     "px:^IRX:2026-01-30",
+     "px:^TNX:2026-01-30",
+     "px:^VIX:2026-01-30",
+     "regime:2026-01-30"
+    ],
+    "stance": 0,
+    "confidence": 0,
+    "thesis": "insufficient data: the evidence describes the macro and market regime but provides no KO-specific exposure or operating information."
+   }
+  ]
+ }
+}

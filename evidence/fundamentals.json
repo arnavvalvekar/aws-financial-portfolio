@@ -1,0 +1,825 @@
+{
+  "analyst": "fundamentals",
+  "asof": "2026-01-30",
+  "data_horizon": {
+    "sec": "2026-01-30"
+  },
+  "items": [
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:RevenueFromContractWithCustomerExcludingAssessedTax",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "Revenues for the quarter ended 2025-12-27: 143.76B (10-Q filed 2026-01-30). Year on year +15.7%."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:GrossProfit",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "GrossProfit for the quarter ended 2025-12-27: 69.23B (10-Q filed 2026-01-30). Year on year +18.8%."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:OperatingIncomeLoss",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "OperatingIncomeLoss for the quarter ended 2025-12-27: 50.85B (10-Q filed 2026-01-30). Year on year +18.7%."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:NetIncomeLoss",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "NetIncomeLoss for the quarter ended 2025-12-27: 42.10B (10-Q filed 2026-01-30). Year on year +15.9%."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:Assets",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "Assets as of 2025-12-27: 379.30B (10-Q filed 2026-01-30)."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:Liabilities",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "Liabilities as of 2025-12-27: 291.11B (10-Q filed 2026-01-30)."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:StockholdersEquity",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "StockholdersEquity as of 2025-12-27: 88.19B (10-Q filed 2026-01-30)."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:NetCashProvidedByUsedInOperatingActivities",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "NetCashProvidedByUsedInOperatingActivities for the quarter ended 2025-12-27: 53.92B (10-Q filed 2026-01-30). Year on year +80.1%."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:LongTermDebtNoncurrent",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "LongTermDebt as of 2025-12-27: 76.69B (10-Q filed 2026-01-30)."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:CashAndCashEquivalentsAtCarryingValue",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "CashAndCashEquivalentsAtCarryingValue as of 2025-12-27: 45.32B (10-Q filed 2026-01-30)."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:OperatingIncomeLoss",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "Operating margin 35.4% (operating income over revenue, period ended 2025-12-27)."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:NetIncomeLoss",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "Net margin 29.3% (net income over revenue, period ended 2025-12-27)."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:GrossProfit",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "Gross margin 48.2% (period ended 2025-12-27)."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:StockholdersEquity",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "Return on equity 47.7% (net income over shareholders' equity, as of 2025-12-27)."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:StockholdersEquity",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "Leverage: total liabilities / equity 3.30x (as of 2025-12-27)."
+    },
+    {
+      "id": "sec:AAPL:10-Q:2025-12-27:Assets",
+      "ticker": "AAPL",
+      "date": "2026-01-30",
+      "text": "Long-term debt is 20.2% of total assets (as of 2025-12-27)."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:RevenueFromContractWithCustomerExcludingAssessedTax",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "Revenues for the quarter ended 2025-12-31: 81.27B (10-Q filed 2026-01-28). Year on year +16.7%."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:GrossProfit",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "GrossProfit for the quarter ended 2025-12-31: 55.30B (10-Q filed 2026-01-28). Year on year +15.6%."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:OperatingIncomeLoss",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "OperatingIncomeLoss for the quarter ended 2025-12-31: 38.27B (10-Q filed 2026-01-28). Year on year +20.9%."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:NetIncomeLoss",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "NetIncomeLoss for the quarter ended 2025-12-31: 38.46B (10-Q filed 2026-01-28). Year on year +59.5%."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:Assets",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "Assets as of 2025-12-31: 665.30B (10-Q filed 2026-01-28)."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:Liabilities",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "Liabilities as of 2025-12-31: 274.43B (10-Q filed 2026-01-28)."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:StockholdersEquity",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "StockholdersEquity as of 2025-12-31: 390.88B (10-Q filed 2026-01-28)."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:NetCashProvidedByUsedInOperatingActivities",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "NetCashProvidedByUsedInOperatingActivities for the quarter ended 2025-12-31: 35.76B (10-Q filed 2026-01-28). Year on year +60.4%."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:LongTermDebtNoncurrent",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "LongTermDebt as of 2025-12-31: 35.42B (10-Q filed 2026-01-28)."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:CashAndCashEquivalentsAtCarryingValue",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "CashAndCashEquivalentsAtCarryingValue as of 2025-12-31: 24.30B (10-Q filed 2026-01-28)."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:OperatingIncomeLoss",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "Operating margin 47.1% (operating income over revenue, period ended 2025-12-31)."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:NetIncomeLoss",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "Net margin 47.3% (net income over revenue, period ended 2025-12-31)."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:GrossProfit",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "Gross margin 68.0% (period ended 2025-12-31)."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:StockholdersEquity",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "Return on equity 9.8% (net income over shareholders' equity, as of 2025-12-31)."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:StockholdersEquity",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "Leverage: total liabilities / equity 0.70x (as of 2025-12-31)."
+    },
+    {
+      "id": "sec:MSFT:10-Q:2025-12-31:Assets",
+      "ticker": "MSFT",
+      "date": "2026-01-28",
+      "text": "Long-term debt is 5.3% of total assets (as of 2025-12-31)."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:Revenues",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "Revenues for the quarter ended 2025-10-26: 57.01B (10-Q filed 2025-11-19). Year on year +62.5%."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:GrossProfit",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "GrossProfit for the quarter ended 2025-10-26: 41.85B (10-Q filed 2025-11-19). Year on year +60.0%."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:OperatingIncomeLoss",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "OperatingIncomeLoss for the quarter ended 2025-10-26: 36.01B (10-Q filed 2025-11-19). Year on year +64.7%."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:NetIncomeLoss",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "NetIncomeLoss for the quarter ended 2025-10-26: 31.91B (10-Q filed 2025-11-19). Year on year +65.3%."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:Assets",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "Assets as of 2025-10-26: 161.15B (10-Q filed 2025-11-19)."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:Liabilities",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "Liabilities as of 2025-10-26: 42.25B (10-Q filed 2025-11-19)."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:StockholdersEquity",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "StockholdersEquity as of 2025-10-26: 118.90B (10-Q filed 2025-11-19)."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-04-27:NetCashProvidedByUsedInOperatingActivities",
+      "ticker": "NVDA",
+      "date": "2025-05-28",
+      "text": "NetCashProvidedByUsedInOperatingActivities for the quarter ended 2025-04-27: 27.41B (10-Q filed 2025-05-28). Year on year +78.7%."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:LongTermDebtNoncurrent",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "LongTermDebt as of 2025-10-26: 7.47B (10-Q filed 2025-11-19)."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:CashAndCashEquivalentsAtCarryingValue",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "CashAndCashEquivalentsAtCarryingValue as of 2025-10-26: 11.49B (10-Q filed 2025-11-19)."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:OperatingIncomeLoss",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "Operating margin 63.2% (operating income over revenue, period ended 2025-10-26)."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:NetIncomeLoss",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "Net margin 56.0% (net income over revenue, period ended 2025-10-26)."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:GrossProfit",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "Gross margin 73.4% (period ended 2025-10-26)."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:StockholdersEquity",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "Return on equity 26.8% (net income over shareholders' equity, as of 2025-10-26)."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:StockholdersEquity",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "Leverage: total liabilities / equity 0.36x (as of 2025-10-26)."
+    },
+    {
+      "id": "sec:NVDA:10-Q:2025-10-26:Assets",
+      "ticker": "NVDA",
+      "date": "2025-11-19",
+      "text": "Long-term debt is 4.6% of total assets (as of 2025-10-26)."
+    },
+    {
+      "id": "sec:AMZN:10-Q:2025-09-30:RevenueFromContractWithCustomerExcludingAssessedTax",
+      "ticker": "AMZN",
+      "date": "2025-10-31",
+      "text": "Revenues for the quarter ended 2025-09-30: 180.17B (10-Q filed 2025-10-31). Year on year +13.4%."
+    },
+    {
+      "id": "sec:AMZN:10-Q:2025-09-30:OperatingIncomeLoss",
+      "ticker": "AMZN",
+      "date": "2025-10-31",
+      "text": "OperatingIncomeLoss for the quarter ended 2025-09-30: 17.42B (10-Q filed 2025-10-31). Year on year +0.1%."
+    },
+    {
+      "id": "sec:AMZN:10-Q:2025-09-30:NetIncomeLoss",
+      "ticker": "AMZN",
+      "date": "2025-10-31",
+      "text": "NetIncomeLoss for the quarter ended 2025-09-30: 21.19B (10-Q filed 2025-10-31). Year on year +38.2%."
+    },
+    {
+      "id": "sec:AMZN:10-Q:2025-09-30:Assets",
+      "ticker": "AMZN",
+      "date": "2025-10-31",
+      "text": "Assets as of 2025-09-30: 727.92B (10-Q filed 2025-10-31)."
+    },
+    {
+      "id": "sec:AMZN:10-Q:2025-09-30:StockholdersEquity",
+      "ticker": "AMZN",
+      "date": "2025-10-31",
+      "text": "StockholdersEquity as of 2025-09-30: 369.63B (10-Q filed 2025-10-31)."
+    },
+    {
+      "id": "sec:AMZN:10-Q:2025-09-30:NetCashProvidedByUsedInOperatingActivities",
+      "ticker": "AMZN",
+      "date": "2025-10-31",
+      "text": "NetCashProvidedByUsedInOperatingActivities for the quarter ended 2025-09-30: 35.52B (10-Q filed 2025-10-31). Year on year +36.8%."
+    },
+    {
+      "id": "sec:AMZN:10-Q:2025-09-30:LongTermDebtNoncurrent",
+      "ticker": "AMZN",
+      "date": "2025-10-31",
+      "text": "LongTermDebt as of 2025-09-30: 50.74B (10-Q filed 2025-10-31)."
+    },
+    {
+      "id": "sec:AMZN:10-Q:2025-09-30:CashAndCashEquivalentsAtCarryingValue",
+      "ticker": "AMZN",
+      "date": "2025-10-31",
+      "text": "CashAndCashEquivalentsAtCarryingValue as of 2025-09-30: 66.92B (10-Q filed 2025-10-31)."
+    },
+    {
+      "id": "sec:AMZN:10-Q:2025-09-30:OperatingIncomeLoss",
+      "ticker": "AMZN",
+      "date": "2025-10-31",
+      "text": "Operating margin 9.7% (operating income over revenue, period ended 2025-09-30)."
+    },
+    {
+      "id": "sec:AMZN:10-Q:2025-09-30:NetIncomeLoss",
+      "ticker": "AMZN",
+      "date": "2025-10-31",
+      "text": "Net margin 11.8% (net income over revenue, period ended 2025-09-30)."
+    },
+    {
+      "id": "sec:AMZN:10-Q:2025-09-30:StockholdersEquity",
+      "ticker": "AMZN",
+      "date": "2025-10-31",
+      "text": "Return on equity 5.7% (net income over shareholders' equity, as of 2025-09-30)."
+    },
+    {
+      "id": "sec:AMZN:10-Q:2025-09-30:Assets",
+      "ticker": "AMZN",
+      "date": "2025-10-31",
+      "text": "Long-term debt is 7.0% of total assets (as of 2025-09-30)."
+    },
+    {
+      "id": "sec:XOM:10-Q:2025-09-30:Revenues",
+      "ticker": "XOM",
+      "date": "2025-11-03",
+      "text": "Revenues for the quarter ended 2025-09-30: 85.29B (10-Q filed 2025-11-03). Year on year -5.2%."
+    },
+    {
+      "id": "sec:XOM:10-Q:2025-09-30:NetIncomeLoss",
+      "ticker": "XOM",
+      "date": "2025-11-03",
+      "text": "NetIncomeLoss for the quarter ended 2025-09-30: 7.55B (10-Q filed 2025-11-03). Year on year -12.3%."
+    },
+    {
+      "id": "sec:XOM:10-Q:2025-09-30:Assets",
+      "ticker": "XOM",
+      "date": "2025-11-03",
+      "text": "Assets as of 2025-09-30: 454.34B (10-Q filed 2025-11-03)."
+    },
+    {
+      "id": "sec:XOM:10-Q:2025-09-30:Liabilities",
+      "ticker": "XOM",
+      "date": "2025-11-03",
+      "text": "Liabilities as of 2025-09-30: 186.12B (10-Q filed 2025-11-03)."
+    },
+    {
+      "id": "sec:XOM:10-Q:2025-09-30:StockholdersEquity",
+      "ticker": "XOM",
+      "date": "2025-11-03",
+      "text": "StockholdersEquity as of 2025-09-30: 260.56B (10-Q filed 2025-11-03)."
+    },
+    {
+      "id": "sec:XOM:10-Q:2025-03-31:NetCashProvidedByUsedInOperatingActivities",
+      "ticker": "XOM",
+      "date": "2025-05-05",
+      "text": "NetCashProvidedByUsedInOperatingActivities for the quarter ended 2025-03-31: 12.95B (10-Q filed 2025-05-05). Year on year -11.7%."
+    },
+    {
+      "id": "sec:XOM:10-Q:2025-09-30:CashAndCashEquivalentsAtCarryingValue",
+      "ticker": "XOM",
+      "date": "2025-11-03",
+      "text": "CashAndCashEquivalentsAtCarryingValue as of 2025-09-30: 13.81B (10-Q filed 2025-11-03)."
+    },
+    {
+      "id": "sec:XOM:10-Q:2025-09-30:NetIncomeLoss",
+      "ticker": "XOM",
+      "date": "2025-11-03",
+      "text": "Net margin 8.8% (net income over revenue, period ended 2025-09-30)."
+    },
+    {
+      "id": "sec:XOM:10-Q:2025-09-30:StockholdersEquity",
+      "ticker": "XOM",
+      "date": "2025-11-03",
+      "text": "Return on equity 2.9% (net income over shareholders' equity, as of 2025-09-30)."
+    },
+    {
+      "id": "sec:XOM:10-Q:2025-09-30:StockholdersEquity",
+      "ticker": "XOM",
+      "date": "2025-11-03",
+      "text": "Leverage: total liabilities / equity 0.71x (as of 2025-09-30)."
+    },
+    {
+      "id": "sec:JNJ:10-Q:2025-09-28:RevenueFromContractWithCustomerExcludingAssessedTax",
+      "ticker": "JNJ",
+      "date": "2025-10-22",
+      "text": "Revenues for the quarter ended 2025-09-28: 23.99B (10-Q filed 2025-10-22). Year on year +6.8%."
+    },
+    {
+      "id": "sec:JNJ:10-Q:2025-09-28:GrossProfit",
+      "ticker": "JNJ",
+      "date": "2025-10-22",
+      "text": "GrossProfit for the quarter ended 2025-09-28: 16.69B (10-Q filed 2025-10-22). Year on year +7.6%."
+    },
+    {
+      "id": "sec:JNJ:10-Q:2025-09-28:NetIncomeLoss",
+      "ticker": "JNJ",
+      "date": "2025-10-22",
+      "text": "NetIncomeLoss for the quarter ended 2025-09-28: 5.15B (10-Q filed 2025-10-22). Year on year +91.2%."
+    },
+    {
+      "id": "sec:JNJ:10-Q:2025-09-28:Assets",
+      "ticker": "JNJ",
+      "date": "2025-10-22",
+      "text": "Assets as of 2025-09-28: 192.82B (10-Q filed 2025-10-22)."
+    },
+    {
+      "id": "sec:JNJ:10-Q:2025-09-28:Liabilities",
+      "ticker": "JNJ",
+      "date": "2025-10-22",
+      "text": "Liabilities as of 2025-09-28: 113.54B (10-Q filed 2025-10-22)."
+    },
+    {
+      "id": "sec:JNJ:10-Q:2025-09-28:StockholdersEquity",
+      "ticker": "JNJ",
+      "date": "2025-10-22",
+      "text": "StockholdersEquity as of 2025-09-28: 79.28B (10-Q filed 2025-10-22)."
+    },
+    {
+      "id": "sec:JNJ:10-Q:2025-03-30:NetCashProvidedByUsedInOperatingActivities",
+      "ticker": "JNJ",
+      "date": "2025-04-23",
+      "text": "NetCashProvidedByUsedInOperatingActivities for the quarter ended 2025-03-30: 4.17B (10-Q filed 2025-04-23). Year on year +14.1%."
+    },
+    {
+      "id": "sec:JNJ:10-Q:2025-09-28:LongTermDebtNoncurrent",
+      "ticker": "JNJ",
+      "date": "2025-10-22",
+      "text": "LongTermDebt as of 2025-09-28: 39.41B (10-Q filed 2025-10-22)."
+    },
+    {
+      "id": "sec:JNJ:10-Q:2025-09-28:CashAndCashEquivalentsAtCarryingValue",
+      "ticker": "JNJ",
+      "date": "2025-10-22",
+      "text": "CashAndCashEquivalentsAtCarryingValue as of 2025-09-28: 18.23B (10-Q filed 2025-10-22)."
+    },
+    {
+      "id": "sec:JNJ:10-Q:2025-09-28:NetIncomeLoss",
+      "ticker": "JNJ",
+      "date": "2025-10-22",
+      "text": "Net margin 21.5% (net income over revenue, period ended 2025-09-28)."
+    },
+    {
+      "id": "sec:JNJ:10-Q:2025-09-28:GrossProfit",
+      "ticker": "JNJ",
+      "date": "2025-10-22",
+      "text": "Gross margin 69.6% (period ended 2025-09-28)."
+    },
+    {
+      "id": "sec:JNJ:10-Q:2025-09-28:StockholdersEquity",
+      "ticker": "JNJ",
+      "date": "2025-10-22",
+      "text": "Return on equity 6.5% (net income over shareholders' equity, as of 2025-09-28)."
+    },
+    {
+      "id": "sec:JNJ:10-Q:2025-09-28:StockholdersEquity",
+      "ticker": "JNJ",
+      "date": "2025-10-22",
+      "text": "Leverage: total liabilities / equity 1.43x (as of 2025-09-28)."
+    },
+    {
+      "id": "sec:JNJ:10-Q:2025-09-28:Assets",
+      "ticker": "JNJ",
+      "date": "2025-10-22",
+      "text": "Long-term debt is 20.4% of total assets (as of 2025-09-28)."
+    },
+    {
+      "id": "sec:PG:10-Q:2025-12-31:Revenues",
+      "ticker": "PG",
+      "date": "2026-01-23",
+      "text": "Revenues for the quarter ended 2025-12-31: 22.21B (10-Q filed 2026-01-23). Year on year +1.5%."
+    },
+    {
+      "id": "sec:PG:10-Q:2025-12-31:OperatingIncomeLoss",
+      "ticker": "PG",
+      "date": "2026-01-23",
+      "text": "OperatingIncomeLoss for the quarter ended 2025-12-31: 5.37B (10-Q filed 2026-01-23). Year on year -6.5%."
+    },
+    {
+      "id": "sec:PG:10-Q:2025-12-31:NetIncomeLoss",
+      "ticker": "PG",
+      "date": "2026-01-23",
+      "text": "NetIncomeLoss for the quarter ended 2025-12-31: 4.32B (10-Q filed 2026-01-23). Year on year -6.7%."
+    },
+    {
+      "id": "sec:PG:10-Q:2025-12-31:Assets",
+      "ticker": "PG",
+      "date": "2026-01-23",
+      "text": "Assets as of 2025-12-31: 127.29B (10-Q filed 2026-01-23)."
+    },
+    {
+      "id": "sec:PG:10-Q:2025-12-31:Liabilities",
+      "ticker": "PG",
+      "date": "2026-01-23",
+      "text": "Liabilities as of 2025-12-31: 73.97B (10-Q filed 2026-01-23)."
+    },
+    {
+      "id": "sec:PG:10-Q:2025-12-31:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "ticker": "PG",
+      "date": "2026-01-23",
+      "text": "StockholdersEquity as of 2025-12-31: 53.32B (10-Q filed 2026-01-23)."
+    },
+    {
+      "id": "sec:PG:10-Q:2025-09-30:NetCashProvidedByUsedInOperatingActivities",
+      "ticker": "PG",
+      "date": "2025-10-24",
+      "text": "NetCashProvidedByUsedInOperatingActivities for the quarter ended 2025-09-30: 5.41B (10-Q filed 2025-10-24). Year on year +25.7%."
+    },
+    {
+      "id": "sec:PG:10-Q:2025-12-31:LongTermDebtNoncurrent",
+      "ticker": "PG",
+      "date": "2026-01-23",
+      "text": "LongTermDebt as of 2025-12-31: 25.58B (10-Q filed 2026-01-23)."
+    },
+    {
+      "id": "sec:PG:10-Q:2025-12-31:OperatingIncomeLoss",
+      "ticker": "PG",
+      "date": "2026-01-23",
+      "text": "Operating margin 24.2% (operating income over revenue, period ended 2025-12-31)."
+    },
+    {
+      "id": "sec:PG:10-Q:2025-12-31:NetIncomeLoss",
+      "ticker": "PG",
+      "date": "2026-01-23",
+      "text": "Net margin 19.4% (net income over revenue, period ended 2025-12-31)."
+    },
+    {
+      "id": "sec:PG:10-Q:2025-12-31:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "ticker": "PG",
+      "date": "2026-01-23",
+      "text": "Return on equity 8.1% (net income over shareholders' equity, as of 2025-12-31)."
+    },
+    {
+      "id": "sec:PG:10-Q:2025-12-31:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "ticker": "PG",
+      "date": "2026-01-23",
+      "text": "Leverage: total liabilities / equity 1.39x (as of 2025-12-31)."
+    },
+    {
+      "id": "sec:PG:10-Q:2025-12-31:Assets",
+      "ticker": "PG",
+      "date": "2026-01-23",
+      "text": "Long-term debt is 20.1% of total assets (as of 2025-12-31)."
+    },
+    {
+      "id": "sec:CAT:10-Q:2025-09-30:Revenues",
+      "ticker": "CAT",
+      "date": "2025-11-03",
+      "text": "Revenues for the quarter ended 2025-09-30: 17.64B (10-Q filed 2025-11-03). Year on year +9.5%."
+    },
+    {
+      "id": "sec:CAT:10-Q:2025-09-30:OperatingIncomeLoss",
+      "ticker": "CAT",
+      "date": "2025-11-03",
+      "text": "OperatingIncomeLoss for the quarter ended 2025-09-30: 3.05B (10-Q filed 2025-11-03). Year on year -3.0%."
+    },
+    {
+      "id": "sec:CAT:10-Q:2025-09-30:ProfitLoss",
+      "ticker": "CAT",
+      "date": "2025-11-03",
+      "text": "NetIncomeLoss for the quarter ended 2025-09-30: 2.30B (10-Q filed 2025-11-03). Year on year -6.7%."
+    },
+    {
+      "id": "sec:CAT:10-Q:2025-09-30:Assets",
+      "ticker": "CAT",
+      "date": "2025-11-03",
+      "text": "Assets as of 2025-09-30: 93.72B (10-Q filed 2025-11-03)."
+    },
+    {
+      "id": "sec:CAT:10-Q:2025-09-30:Liabilities",
+      "ticker": "CAT",
+      "date": "2025-11-03",
+      "text": "Liabilities as of 2025-09-30: 73.06B (10-Q filed 2025-11-03)."
+    },
+    {
+      "id": "sec:CAT:10-Q:2025-09-30:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "ticker": "CAT",
+      "date": "2025-11-03",
+      "text": "StockholdersEquity as of 2025-09-30: 20.66B (10-Q filed 2025-11-03)."
+    },
+    {
+      "id": "sec:CAT:10-Q:2025-03-31:NetCashProvidedByUsedInOperatingActivities",
+      "ticker": "CAT",
+      "date": "2025-05-07",
+      "text": "NetCashProvidedByUsedInOperatingActivities for the quarter ended 2025-03-31: 1.29B (10-Q filed 2025-05-07). Year on year -37.2%."
+    },
+    {
+      "id": "sec:CAT:10-K:2024-12-31:LongTermDebtNoncurrent",
+      "ticker": "CAT",
+      "date": "2025-02-14",
+      "text": "LongTermDebt as of 2024-12-31: 27.35B (10-K filed 2025-02-14)."
+    },
+    {
+      "id": "sec:CAT:10-Q:2025-09-30:CashAndCashEquivalentsAtCarryingValue",
+      "ticker": "CAT",
+      "date": "2025-11-03",
+      "text": "CashAndCashEquivalentsAtCarryingValue as of 2025-09-30: 7.54B (10-Q filed 2025-11-03)."
+    },
+    {
+      "id": "sec:CAT:10-Q:2025-09-30:OperatingIncomeLoss",
+      "ticker": "CAT",
+      "date": "2025-11-03",
+      "text": "Operating margin 17.3% (operating income over revenue, period ended 2025-09-30)."
+    },
+    {
+      "id": "sec:CAT:10-Q:2025-09-30:ProfitLoss",
+      "ticker": "CAT",
+      "date": "2025-11-03",
+      "text": "Net margin 13.0% (net income over revenue, period ended 2025-09-30)."
+    },
+    {
+      "id": "sec:CAT:10-Q:2025-09-30:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "ticker": "CAT",
+      "date": "2025-11-03",
+      "text": "Return on equity 11.1% (net income over shareholders' equity, as of 2025-09-30)."
+    },
+    {
+      "id": "sec:CAT:10-Q:2025-09-30:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest",
+      "ticker": "CAT",
+      "date": "2025-11-03",
+      "text": "Leverage: total liabilities / equity 3.54x (as of 2025-09-30)."
+    },
+    {
+      "id": "sec:NEE:10-Q:2025-09-30:RevenueFromContractWithCustomerIncludingAssessedTax",
+      "ticker": "NEE",
+      "date": "2025-10-28",
+      "text": "Revenues for the quarter ended 2025-09-30: 7.40B (10-Q filed 2025-10-28). Year on year +10.4%."
+    },
+    {
+      "id": "sec:NEE:10-Q:2025-09-30:OperatingIncomeLoss",
+      "ticker": "NEE",
+      "date": "2025-10-28",
+      "text": "OperatingIncomeLoss for the quarter ended 2025-09-30: 2.53B (10-Q filed 2025-10-28). Year on year -11.5%."
+    },
+    {
+      "id": "sec:NEE:10-Q:2025-09-30:NetIncomeLoss",
+      "ticker": "NEE",
+      "date": "2025-10-28",
+      "text": "NetIncomeLoss for the quarter ended 2025-09-30: 2.44B (10-Q filed 2025-10-28). Year on year +31.6%."
+    },
+    {
+      "id": "sec:NEE:10-Q:2025-09-30:Assets",
+      "ticker": "NEE",
+      "date": "2025-10-28",
+      "text": "Assets as of 2025-09-30: 204.35B (10-Q filed 2025-10-28)."
+    },
+    {
+      "id": "sec:NEE:10-Q:2025-09-30:Liabilities",
+      "ticker": "NEE",
+      "date": "2025-10-28",
+      "text": "Liabilities as of 2025-09-30: 139.76B (10-Q filed 2025-10-28)."
+    },
+    {
+      "id": "sec:NEE:10-Q:2025-09-30:StockholdersEquity",
+      "ticker": "NEE",
+      "date": "2025-10-28",
+      "text": "StockholdersEquity as of 2025-09-30: 54.18B (10-Q filed 2025-10-28)."
+    },
+    {
+      "id": "sec:NEE:10-Q:2025-03-31:NetCashProvidedByUsedInOperatingActivities",
+      "ticker": "NEE",
+      "date": "2025-04-23",
+      "text": "NetCashProvidedByUsedInOperatingActivities for the quarter ended 2025-03-31: 2.77B (10-Q filed 2025-04-23). Year on year -10.0%."
+    },
+    {
+      "id": "sec:NEE:10-Q:2025-09-30:LongTermDebtNoncurrent",
+      "ticker": "NEE",
+      "date": "2025-10-28",
+      "text": "LongTermDebt as of 2025-09-30: 84.17B (10-Q filed 2025-10-28)."
+    },
+    {
+      "id": "sec:NEE:10-Q:2025-09-30:CashAndCashEquivalentsAtCarryingValue",
+      "ticker": "NEE",
+      "date": "2025-10-28",
+      "text": "CashAndCashEquivalentsAtCarryingValue as of 2025-09-30: 2.39B (10-Q filed 2025-10-28)."
+    },
+    {
+      "id": "sec:NEE:10-Q:2025-09-30:OperatingIncomeLoss",
+      "ticker": "NEE",
+      "date": "2025-10-28",
+      "text": "Operating margin 34.1% (operating income over revenue, period ended 2025-09-30)."
+    },
+    {
+      "id": "sec:NEE:10-Q:2025-09-30:NetIncomeLoss",
+      "ticker": "NEE",
+      "date": "2025-10-28",
+      "text": "Net margin 32.9% (net income over revenue, period ended 2025-09-30)."
+    },
+    {
+      "id": "sec:NEE:10-Q:2025-09-30:StockholdersEquity",
+      "ticker": "NEE",
+      "date": "2025-10-28",
+      "text": "Return on equity 4.5% (net income over shareholders' equity, as of 2025-09-30)."
+    },
+    {
+      "id": "sec:NEE:10-Q:2025-09-30:StockholdersEquity",
+      "ticker": "NEE",
+      "date": "2025-10-28",
+      "text": "Leverage: total liabilities / equity 2.58x (as of 2025-09-30)."
+    },
+    {
+      "id": "sec:NEE:10-Q:2025-09-30:Assets",
+      "ticker": "NEE",
+      "date": "2025-10-28",
+      "text": "Long-term debt is 41.2% of total assets (as of 2025-09-30)."
+    },
+    {
+      "id": "sec:KO:10-Q:2025-09-26:Revenues",
+      "ticker": "KO",
+      "date": "2025-10-23",
+      "text": "Revenues for the quarter ended 2025-09-26: 12.46B (10-Q filed 2025-10-23). Year on year +5.1%."
+    },
+    {
+      "id": "sec:KO:10-Q:2025-09-26:GrossProfit",
+      "ticker": "KO",
+      "date": "2025-10-23",
+      "text": "GrossProfit for the quarter ended 2025-09-26: 7.66B (10-Q filed 2025-10-23). Year on year +6.5%."
+    },
+    {
+      "id": "sec:KO:10-Q:2025-09-26:OperatingIncomeLoss",
+      "ticker": "KO",
+      "date": "2025-10-23",
+      "text": "OperatingIncomeLoss for the quarter ended 2025-09-26: 3.98B (10-Q filed 2025-10-23). Year on year +58.6%."
+    },
+    {
+      "id": "sec:KO:10-Q:2025-09-26:NetIncomeLoss",
+      "ticker": "KO",
+      "date": "2025-10-23",
+      "text": "NetIncomeLoss for the quarter ended 2025-09-26: 3.70B (10-Q filed 2025-10-23). Year on year +29.8%."
+    },
+    {
+      "id": "sec:KO:10-Q:2025-09-26:Assets",
+      "ticker": "KO",
+      "date": "2025-10-23",
+      "text": "Assets as of 2025-09-26: 106.05B (10-Q filed 2025-10-23)."
+    },
+    {
+      "id": "sec:KO:10-Q:2025-09-26:StockholdersEquity",
+      "ticker": "KO",
+      "date": "2025-10-23",
+      "text": "StockholdersEquity as of 2025-09-26: 31.25B (10-Q filed 2025-10-23)."
+    },
+    {
+      "id": "sec:KO:10-Q:2025-03-28:NetCashProvidedByUsedInOperatingActivities",
+      "ticker": "KO",
+      "date": "2025-05-01",
+      "text": "NetCashProvidedByUsedInOperatingActivities for the quarter ended 2025-03-28: -5.20B (10-Q filed 2025-05-01). Year on year -1085.2%."
+    },
+    {
+      "id": "sec:KO:10-Q:2025-09-26:CashAndCashEquivalentsAtCarryingValue",
+      "ticker": "KO",
+      "date": "2025-10-23",
+      "text": "CashAndCashEquivalentsAtCarryingValue as of 2025-09-26: 12.73B (10-Q filed 2025-10-23)."
+    },
+    {
+      "id": "sec:KO:10-Q:2025-09-26:OperatingIncomeLoss",
+      "ticker": "KO",
+      "date": "2025-10-23",
+      "text": "Operating margin 32.0% (operating income over revenue, period ended 2025-09-26)."
+    },
+    {
+      "id": "sec:KO:10-Q:2025-09-26:NetIncomeLoss",
+      "ticker": "KO",
+      "date": "2025-10-23",
+      "text": "Net margin 29.7% (net income over revenue, period ended 2025-09-26)."
+    },
+    {
+      "id": "sec:KO:10-Q:2025-09-26:GrossProfit",
+      "ticker": "KO",
+      "date": "2025-10-23",
+      "text": "Gross margin 61.5% (period ended 2025-09-26)."
+    },
+    {
+      "id": "sec:KO:10-Q:2025-09-26:StockholdersEquity",
+      "ticker": "KO",
+      "date": "2025-10-23",
+      "text": "Return on equity 11.8% (net income over shareholders' equity, as of 2025-09-26)."
+    }
+  ]
+}

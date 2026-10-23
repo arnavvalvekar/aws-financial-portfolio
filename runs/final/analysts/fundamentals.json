@@ -1,0 +1,179 @@
+{
+  "analyst": "fundamentals",
+  "asof": "2026-01-30",
+  "views": [
+    {
+      "ticker": "AAPL",
+      "change_triggers": [
+        "Revenue growth falls materially below 15.7% or operating-income growth turns negative.",
+        "Operating margin falls below 35% or operating cash-flow growth reverses materially."
+      ],
+      "evidence": [
+        "sec:AAPL:10-Q:2025-12-27:RevenueFromContractWithCustomerExcludingAssessedTax",
+        "sec:AAPL:10-Q:2025-12-27:OperatingIncomeLoss",
+        "sec:AAPL:10-Q:2025-12-27:NetCashProvidedByUsedInOperatingActivities",
+        "sec:AAPL:10-Q:2025-12-27:OperatingIncomeLoss",
+        "sec:AAPL:10-Q:2025-12-27:StockholdersEquity"
+      ],
+      "stance": 0.85,
+      "confidence": 0.97,
+      "thesis": "Strong revenue, operating-profit and operating-cash-flow growth, supported by a 35.4% operating margin and 47.7% ROE, merits a strong overweight. The main offset is 3.30x liabilities-to-equity leverage, although long-term debt is only 20.2% of assets."
+    },
+    {
+      "ticker": "MSFT",
+      "change_triggers": [
+        "Revenue growth falls below 10% or operating-income growth slows materially.",
+        "Operating margin falls below 45% or operating cash-flow growth turns negative."
+      ],
+      "evidence": [
+        "sec:MSFT:10-Q:2025-12-31:RevenueFromContractWithCustomerExcludingAssessedTax",
+        "sec:MSFT:10-Q:2025-12-31:OperatingIncomeLoss",
+        "sec:MSFT:10-Q:2025-12-31:NetCashProvidedByUsedInOperatingActivities",
+        "sec:MSFT:10-Q:2025-12-31:OperatingIncomeLoss",
+        "sec:MSFT:10-Q:2025-12-31:LongTermDebtNoncurrent"
+      ],
+      "stance": 0.9,
+      "confidence": 0.98,
+      "thesis": "MSFT combines 16.7% revenue growth with 20.9% operating-income growth, 60.4% operating-cash-flow growth and a 47.1% operating margin, while long-term debt is just 5.3% of assets. Despite the reported 9.8% ROE, the operating and balance-sheet profile supports a strong overweight."
+    },
+    {
+      "ticker": "NVDA",
+      "change_triggers": [
+        "Revenue or net-income growth falls below 20%, or gross-profit growth materially trails revenue.",
+        "Gross margin falls below 70% or leverage rises substantially from 0.36x liabilities-to-equity."
+      ],
+      "evidence": [
+        "sec:NVDA:10-Q:2025-10-26:Revenues",
+        "sec:NVDA:10-Q:2025-10-26:GrossProfit",
+        "sec:NVDA:10-Q:2025-10-26:NetIncomeLoss",
+        "sec:NVDA:10-Q:2025-10-26:GrossProfit",
+        "sec:NVDA:10-Q:2025-10-26:StockholdersEquity"
+      ],
+      "stance": 0.95,
+      "confidence": 0.96,
+      "thesis": "NVDA shows exceptional 62.5% revenue and 65.3% net-income growth, with a 73.4% gross margin, 63.2% operating margin and only 0.36x liabilities-to-equity leverage. The strong fundamentals justify a strong overweight, subject to evidence that this growth and margin profile persists."
+    },
+    {
+      "ticker": "AMZN",
+      "change_triggers": [
+        "Operating-income growth remains near zero or turns negative despite continued revenue growth.",
+        "Operating margin falls below 8% or ROE does not improve from 5.7%."
+      ],
+      "evidence": [
+        "sec:AMZN:10-Q:2025-09-30:RevenueFromContractWithCustomerExcludingAssessedTax",
+        "sec:AMZN:10-Q:2025-09-30:OperatingIncomeLoss",
+        "sec:AMZN:10-Q:2025-09-30:NetCashProvidedByUsedInOperatingActivities",
+        "sec:AMZN:10-Q:2025-09-30:OperatingIncomeLoss",
+        "sec:AMZN:10-Q:2025-09-30:StockholdersEquity",
+        "sec:AMZN:10-Q:2025-09-30:LongTermDebtNoncurrent"
+      ],
+      "stance": 0.35,
+      "confidence": 0.9,
+      "thesis": "Revenue grew 13.4% and operating cash flow 36.8%, with modest leverage and $66.92B cash against $50.74B long-term debt. However, operating income grew only 0.1%, the 9.7% operating margin is limited, and ROE is 5.7%, supporting only a modest overweight."
+    },
+    {
+      "ticker": "XOM",
+      "change_triggers": [
+        "Revenue and net-income year-on-year declines reverse into sustained growth.",
+        "ROE rises materially above 2.9% or operating cash-flow growth turns positive."
+      ],
+      "evidence": [
+        "sec:XOM:10-Q:2025-09-30:Revenues",
+        "sec:XOM:10-Q:2025-09-30:NetIncomeLoss",
+        "sec:XOM:10-Q:2025-03-31:NetCashProvidedByUsedInOperatingActivities",
+        "sec:XOM:10-Q:2025-09-30:StockholdersEquity",
+        "sec:XOM:10-Q:2025-09-30:StockholdersEquity"
+      ],
+      "stance": -0.55,
+      "confidence": 0.92,
+      "thesis": "XOM has weakening fundamentals: revenue fell 5.2%, net income fell 12.3%, operating cash flow fell 11.7% in the cited quarter, and ROE is only 2.9%. The 0.71x liabilities-to-equity leverage is reasonable, but insufficient to offset declining growth and profitability."
+    },
+    {
+      "ticker": "JNJ",
+      "change_triggers": [
+        "Revenue growth falls below 5% or net-income growth normalizes sharply without corresponding operating improvement.",
+        "ROE remains below 7% while leverage rises materially."
+      ],
+      "evidence": [
+        "sec:JNJ:10-Q:2025-09-28:RevenueFromContractWithCustomerExcludingAssessedTax",
+        "sec:JNJ:10-Q:2025-09-28:NetIncomeLoss",
+        "sec:JNJ:10-Q:2025-09-28:GrossProfit",
+        "sec:JNJ:10-Q:2025-09-28:StockholdersEquity",
+        "sec:JNJ:10-Q:2025-09-28:StockholdersEquity"
+      ],
+      "stance": 0.3,
+      "confidence": 0.86,
+      "thesis": "JNJ delivered 6.8% revenue growth, 7.6% gross-profit growth and 91.2% net-income growth, with a 69.6% gross margin. The low 6.5% ROE and 1.43x liabilities-to-equity leverage temper the case, resulting in a modest overweight."
+    },
+    {
+      "ticker": "PG",
+      "change_triggers": [
+        "Revenue growth turns negative or operating-income decline exceeds the current 6.5%.",
+        "Operating margin falls below 23% or operating cash-flow growth reverses."
+      ],
+      "evidence": [
+        "sec:PG:10-Q:2025-12-31:Revenues",
+        "sec:PG:10-Q:2025-12-31:OperatingIncomeLoss",
+        "sec:PG:10-Q:2025-12-31:NetIncomeLoss",
+        "sec:PG:10-Q:2025-09-30:NetCashProvidedByUsedInOperatingActivities",
+        "sec:PG:10-Q:2025-12-31:OperatingIncomeLoss"
+      ],
+      "stance": -0.3,
+      "confidence": 0.93,
+      "thesis": "PG offers defensive profitability with a 24.2% operating margin and cited operating-cash-flow growth of 25.7%, but revenue growth is only 1.5% while operating income and net income decline 6.5% and 6.7%. This deteriorating earnings trend supports a modest underweight."
+    },
+    {
+      "ticker": "CAT",
+      "change_triggers": [
+        "Operating income and net income return to year-on-year growth.",
+        "Liabilities-to-equity falls materially below 3.54x or operating cash-flow decline reverses."
+      ],
+      "evidence": [
+        "sec:CAT:10-Q:2025-09-30:Revenues",
+        "sec:CAT:10-Q:2025-09-30:OperatingIncomeLoss",
+        "sec:CAT:10-Q:2025-09-30:ProfitLoss",
+        "sec:CAT:10-Q:2025-03-31:NetCashProvidedByUsedInOperatingActivities",
+        "sec:CAT:10-Q:2025-09-30:StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest"
+      ],
+      "stance": -0.55,
+      "confidence": 0.94,
+      "thesis": "CAT revenue grew 9.5%, but operating income fell 3.0%, net income fell 6.7%, and cited operating cash flow fell 37.2%; liabilities-to-equity is also high at 3.54x. The 17.3% operating margin and 11.1% ROE do not offset the weakening earnings and cash profile."
+    },
+    {
+      "ticker": "NEE",
+      "change_triggers": [
+        "Operating-income growth turns positive and operating cash-flow decline reverses.",
+        "Long-term debt falls below 35% of assets or liabilities-to-equity declines materially from 2.58x."
+      ],
+      "evidence": [
+        "sec:NEE:10-Q:2025-09-30:RevenueFromContractWithCustomerIncludingAssessedTax",
+        "sec:NEE:10-Q:2025-09-30:OperatingIncomeLoss",
+        "sec:NEE:10-Q:2025-09-30:NetIncomeLoss",
+        "sec:NEE:10-Q:2025-03-31:NetCashProvidedByUsedInOperatingActivities",
+        "sec:NEE:10-Q:2025-09-30:Assets",
+        "sec:NEE:10-Q:2025-09-30:StockholdersEquity"
+      ],
+      "stance": -0.4,
+      "confidence": 0.91,
+      "thesis": "NEE has 10.4% revenue growth and 31.6% net-income growth, but operating income declined 11.5% and cited operating cash flow declined 10.0%. Low 4.5% ROE, 2.58x liabilities-to-equity leverage and long-term debt at 41.2% of assets support a moderate underweight."
+    },
+    {
+      "ticker": "KO",
+      "change_triggers": [
+        "Revenue or gross-profit growth turns negative, or operating-income growth falls materially below revenue growth.",
+        "Operating cash flow returns to sustained positive growth."
+      ],
+      "evidence": [
+        "sec:KO:10-Q:2025-09-26:Revenues",
+        "sec:KO:10-Q:2025-09-26:GrossProfit",
+        "sec:KO:10-Q:2025-09-26:OperatingIncomeLoss",
+        "sec:KO:10-Q:2025-03-28:NetCashProvidedByUsedInOperatingActivities",
+        "sec:KO:10-Q:2025-09-26:OperatingIncomeLoss",
+        "sec:KO:10-Q:2025-09-26:StockholdersEquity"
+      ],
+      "stance": 0.15,
+      "confidence": 0.88,
+      "thesis": "KO shows steady 5.1% revenue and 6.5% gross-profit growth, while operating income rose 58.6% and margins are strong at 32.0%; however, the cited operating-cash-flow result was deeply negative and down 1085.2% year on year. This supports only a slight overweight pending cash-generation confirmation."
+    }
+  ]
+}

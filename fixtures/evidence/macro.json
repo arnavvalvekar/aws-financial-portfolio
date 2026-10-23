@@ -1,0 +1,52 @@
+{
+ "analyst": "macro",
+ "asof": "2026-01-30",
+ "fixture": true,
+ "data_horizon": {
+  "fred": "2026-01-29"
+ },
+ "items": [
+  {
+   "id": "fred:DGS10:2026-01-29",
+   "ticker": "ALL",
+   "date": "2026-01-29",
+   "text": "FIXTURE: 10-year Treasury yield 4.3%, up 0.2 points in a month."
+  },
+  {
+   "id": "fred:T10Y2Y:2026-01-29",
+   "ticker": "ALL",
+   "date": "2026-01-29",
+   "text": "FIXTURE: 10-year minus 2-year spread +0.4 points, curve no longer inverted."
+  },
+  {
+   "id": "fred:DFF:2026-01-29",
+   "ticker": "ALL",
+   "date": "2026-01-29",
+   "text": "FIXTURE: policy rate 3.6%, unchanged at the last meeting."
+  },
+  {
+   "id": "fred:CPIAUCSL:2025-12-31",
+   "ticker": "ALL",
+   "date": "2025-12-31",
+   "text": "FIXTURE: CPI inflation 2.8% year on year, latest release for December."
+  },
+  {
+   "id": "fred:UNRATE:2025-12-31",
+   "ticker": "ALL",
+   "date": "2025-12-31",
+   "text": "FIXTURE: unemployment rate 4.5%, up 0.1 points."
+  },
+  {
+   "id": "fred:VIXCLS:2026-01-29",
+   "ticker": "ALL",
+   "date": "2026-01-29",
+   "text": "FIXTURE: VIX at 17, below its one-year average."
+  },
+  {
+   "id": "fred:DCOILWTICO:2026-01-29",
+   "ticker": "ALL",
+   "date": "2026-01-29",
+   "text": "FIXTURE: WTI crude $68 a barrel, down 6% in a month."
+  }
+ ]
+}

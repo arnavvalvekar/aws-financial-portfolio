@@ -1,0 +1,75 @@
+{
+ "analyst": "regime",
+ "asof": "2026-01-30",
+ "data_horizon": {
+  "px": "2026-01-30"
+ },
+ "items": [
+  {
+   "id": "regime:2026-01-30",
+   "ticker": "SPY",
+   "date": "2026-01-30",
+   "text": "Regime fragility at 2026-01-30 (latest price 2026-01-30): crash_risk_score=0.0757; band=calm; components[market_drawdown=0.0051, volatility_spike=0.0000, below_sma200=0.2000, vix=0.0976]; drawdown=-0.5061%; vol_spike_ratio=0.8473; vix=17.4400."
+  },
+  {
+   "id": "px:AAPL:2026-01-30",
+   "ticker": "AAPL",
+   "date": "2026-01-30",
+   "text": "AAPL: close is above or at 200-day SMA (close=258.7757, sma200=235.7369); trend_break=False."
+  },
+  {
+   "id": "px:MSFT:2026-01-30",
+   "ticker": "MSFT",
+   "date": "2026-01-30",
+   "text": "MSFT: close is below 200-day SMA (close=427.5774, sma200=481.7705); trend_break=True."
+  },
+  {
+   "id": "px:NVDA:2026-01-30",
+   "ticker": "NVDA",
+   "date": "2026-01-30",
+   "text": "NVDA: close is above or at 200-day SMA (close=190.6838, sma200=167.3516); trend_break=False."
+  },
+  {
+   "id": "px:AMZN:2026-01-30",
+   "ticker": "AMZN",
+   "date": "2026-01-30",
+   "text": "AMZN: close is above or at 200-day SMA (close=239.3000, sma200=221.7847); trend_break=False."
+  },
+  {
+   "id": "px:XOM:2026-01-30",
+   "ticker": "XOM",
+   "date": "2026-01-30",
+   "text": "XOM: close is above or at 200-day SMA (close=138.6192, sma200=110.0364); trend_break=False."
+  },
+  {
+   "id": "px:JNJ:2026-01-30",
+   "ticker": "JNJ",
+   "date": "2026-01-30",
+   "text": "JNJ: close is above or at 200-day SMA (close=223.6527, sma200=175.3396); trend_break=False."
+  },
+  {
+   "id": "px:PG:2026-01-30",
+   "ticker": "PG",
+   "date": "2026-01-30",
+   "text": "PG: close is below 200-day SMA (close=149.5195, sma200=149.6172); trend_break=True."
+  },
+  {
+   "id": "px:CAT:2026-01-30",
+   "ticker": "CAT",
+   "date": "2026-01-30",
+   "text": "CAT: close is above or at 200-day SMA (close=654.8960, sma200=462.1288); trend_break=False."
+  },
+  {
+   "id": "px:NEE:2026-01-30",
+   "ticker": "NEE",
+   "date": "2026-01-30",
+   "text": "NEE: close is above or at 200-day SMA (close=86.0230, sma200=74.0184); trend_break=False."
+  },
+  {
+   "id": "px:KO:2026-01-30",
+   "ticker": "KO",
+   "date": "2026-01-30",
+   "text": "KO: close is above or at 200-day SMA (close=73.3846, sma200=67.9064); trend_break=False."
+  }
+ ]
+}
