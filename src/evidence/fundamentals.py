@@ -363,10 +363,12 @@ def _main(argv=None):
 
     ap = argparse.ArgumentParser(description="Build the fundamentals evidence pack and CSV from SEC filings.")
     ap.add_argument("--config", default=str(ROOT / "config.yaml"))
-    ap.add_argument("--out", default=str(ROOT / "data" / "fundamentals.json"),
-                    help="evidence pack JSON path")
+    ap.add_argument("--out", default=str(ROOT / "evidence" / "fundamentals.json"),
+                    help="evidence pack JSON. Lives in evidence/ (real packs), named as the "
+                         "agents' runner loads it: point run.py at this dir with --evidence. "
+                         "Kept apart from fixtures/, which holds fake fixture packs.")
     ap.add_argument("--csv", default=str(ROOT / "data" / "fundamentals.csv"),
-                    help="flat CSV path")
+                    help="flat human-auditable CSV path")
     ap.add_argument("--annual", action="store_true", help="use annual (10-K) periods instead of quarterly")
     args = ap.parse_args(argv)
 
@@ -377,6 +379,7 @@ def _main(argv=None):
 
     late = [i["id"] for i in pack["items"] if str(i["date"]) > asof]
     covered = sorted({i["ticker"] for i in pack["items"]})
+    ev_dir = Path(args.out).parent
     print(f"cutoff {asof}")
     print(f"evidence items: {len(pack['items'])}  (csv rows: {n_rows})")
     print(f"data horizon (sec): {pack['data_horizon']['sec']}")
@@ -384,7 +387,7 @@ def _main(argv=None):
     if pack.get("missing_tickers"):
         print(f"MISSING: {pack['missing_tickers']}")
     print(f"look-ahead violations: {len(late)} (must be 0)")
-    print(f"wrote {args.out}")
+    print(f"wrote {args.out}  (run: python run.py --evidence {ev_dir})")
     print(f"wrote {args.csv}")
     if late:
         raise SystemExit("look-ahead detected")
