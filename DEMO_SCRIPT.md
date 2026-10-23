@@ -34,7 +34,7 @@ Have three things open: the deck (`presentation/portfolio-pitch.pptx`), the dash
 
 ### 0:20 to 0:45, how it thinks (B)
 
-> "Five specialist agents read different evidence: prices, filings, rates, news and world events. Each scores every stock and cites its data. A portfolio manager combines them, and a risk reviewer checks the result. It all runs on Amazon Bedrock, hosted on AWS AgentCore."
+> "Five specialist agents read different evidence: prices, filings, rates, news and world events. Each scores every stock and cites its data. A portfolio manager combines them, and a risk reviewer checks the result. Every model call goes through Amazon Bedrock, and the whole pipeline is deployed as an agent on AWS AgentCore, with its IAM role and its code in S3."
 
 ### 0:45 to 1:40, one decision, opened up (B)
 
@@ -103,6 +103,8 @@ Never cut the Microsoft walkthrough, the baselines comparison or the leak attack
 
 **What if the market crashes?** CrashLab stress-tests the frozen weights. It is a simple sector-beta model, not a forecast. Its assumptions are in `runs/final/crashlab.json`.
 
-**Which AWS services?** Amazon Bedrock for every model call, AWS AgentCore Runtime to host the agent, IAM for its role and S3 for the deployed code.
+**How did you use AWS?** Four services. Amazon Bedrock: every model call uses the Converse API, with a forced tool call so each agent returns structured JSON. We tested all five GPT inference profiles it offers, found they all work and that none accept a temperature setting, and used `us.openai.gpt-5.6-luna`. AWS AgentCore Runtime: the whole pipeline is deployed as a hosted agent, and invoking it returns the frozen result in a few seconds. IAM: a dedicated execution role limited to that one model. S3 and CloudWatch: the toolkit stores the deployed code in S3 and the runtime logs to CloudWatch.
+
+**Why Bedrock and not calling a model directly?** One managed API for several models, access through the workshop's IAM role with no API keys in the code, and it let us compare five model profiles by changing one setting.
 
 **Is this investment advice?** No. It's a historical experiment on past data.
