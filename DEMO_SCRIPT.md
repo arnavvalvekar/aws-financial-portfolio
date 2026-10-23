@@ -40,11 +40,11 @@ Have three things open: the deck (`presentation/portfolio-pitch.pptx`), the dash
 
 Run `python show_position.py MSFT` and scroll as you talk.
 
-> "The code finds where the analysts disagree most, and that's Microsoft. Technical says strongly underweight, minus 0.85, because the stock sits below both moving averages. Fundamentals says strongly overweight, plus 0.90: revenue up 17 percent, operating income up 21. Both are 98 percent confident.
+> "Our system found the stock the analysts argued about most: Microsoft. The chart analyst said avoid it, because the price was falling. The business analyst said buy it, because sales and profit were growing. Both were very confident.
 >
-> The manager takes a small 8 percent position, gives technicals 55 percent of the weight, and writes down what would change its mind.
+> The manager split the difference with a small 8 percent bet and wrote down what would change its mind.
 >
-> Honest note: Microsoft rose 24 percent, so fundamentals were right and the hedge cost us a little."
+> Later, Microsoft rose 24 percent, so the business analyst was right and our caution cost us a little. That's the point: you can see exactly why it did what it did."
 
 ### 1:40 to 2:15, what happened (A)
 
