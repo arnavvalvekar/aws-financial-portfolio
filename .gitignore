@@ -11,3 +11,7 @@ data/raw/
 runs/*
 !runs/final/
 
+# Generated dashboard output (regenerated from run artifacts; committed copy
+# lives under runs/final/ for the demo).
+app/out/
+

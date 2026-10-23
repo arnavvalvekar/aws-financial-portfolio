@@ -13,7 +13,9 @@
     "NEE",
     "KO",
     "SPY",
-    "^IRX"
+    "^IRX",
+    "^TNX",
+    "^VIX"
   ],
   "date_min": "2024-10-23",
   "date_max": "2026-10-23",
