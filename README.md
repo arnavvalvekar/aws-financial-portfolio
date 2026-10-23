@@ -203,9 +203,9 @@ Times count from the start of build time. Tasks are listed per person so you can
 - [ ] Can Stooq and FRED files be pulled from this network? Commit the price store layout.
 
 **B**
-- [ ] Which of the kit's five GPT profiles work in this account?
-- [ ] Does a forced tool call return clean JSON on the one you pick? If not, ask for JSON only and lean on the validator.
-- [ ] Write `SCHEMAS.md`.
+- [x] Which of the kit's five GPT profiles work in this account?
+- [x] Does a forced tool call return clean JSON on the one you pick? If not, ask for JSON only and lean on the validator.
+- [x] Write `SCHEMAS.md`.
 
 **C**
 - [ ] Can an SEC quarterly zip be downloaded with a User-Agent header, and is GDELT reachable?
@@ -222,10 +222,10 @@ Times count from the start of build time. Tasks are listed per person so you can
 - [ ] Backtest engine with both baselines and metrics.
 
 **B**
-- [ ] Converse wrapper grown from the kit's `infer.py`: JSON output, a disk cache, retry with backoff, and a `maxTokens` far above the kit's 128 with a `stopReason` check.
-- [ ] Technical analyst and portfolio manager prompts, run on fixture evidence.
-- [ ] Validator: weights sum to 1, caps hold, tickers are in the universe. One re-prompt, then a deterministic repair.
-- [ ] Orchestrator: analysts in parallel, then the manager, with every input and output saved under `runs/<run_id>/`. It writes `decision.json`.
+- [x] Converse wrapper grown from the kit's `infer.py`: JSON output, a disk cache, retry with backoff, and a `maxTokens` far above the kit's 128 with a `stopReason` check.
+- [x] Technical analyst and portfolio manager prompts, run on fixture evidence.
+- [x] Validator: weights sum to 1, caps hold, tickers are in the universe. One re-prompt, then a deterministic repair.
+- [x] Orchestrator: analysts in parallel, then the manager, with every input and output saved under `runs/<run_id>/`. It writes `decision.json`.
 
 **C**
 - [ ] SEC extraction for three tickers first, then all ten: ticker to CIK, quarterly zips up to the cutoff, only filings with a `filed` date on or before it, about ten tags with two or three candidate names each.

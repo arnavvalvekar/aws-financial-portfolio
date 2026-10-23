@@ -14,7 +14,7 @@ Probed on Oct 23: all five profiles (`us.openai.gpt-5.4`, `gpt-5.5`, `gpt-5.6-lu
 ## Evidence IDs
 
 ```text
-px:<TICKER>:<date>
+px:<TICKER>:<date>[:<metric>]
 sec:<TICKER>:<form>:<period-end>:<tag>
 fred:<SERIES>:<date>
 gdelt:<theme>:<date>

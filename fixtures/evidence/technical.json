@@ -1,0 +1,310 @@
+{
+ "analyst": "technical",
+ "asof": "2026-01-30",
+ "fixture": true,
+ "data_horizon": {
+  "px": "2026-01-30"
+ },
+ "items": [
+  {
+   "id": "px:AAPL:2026-01-30:ret_3m",
+   "ticker": "AAPL",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 3-month return -2.3%."
+  },
+  {
+   "id": "px:AAPL:2026-01-30:ret_12m",
+   "ticker": "AAPL",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 12-month return -7.9%."
+  },
+  {
+   "id": "px:AAPL:2026-01-30:vol_60d",
+   "ticker": "AAPL",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 60-day annualised volatility 34%."
+  },
+  {
+   "id": "px:AAPL:2026-01-30:drawdown",
+   "ticker": "AAPL",
+   "date": "2026-01-30",
+   "text": "FIXTURE: drawdown from the 52-week high -4.6%."
+  },
+  {
+   "id": "px:AAPL:2026-01-30:trend",
+   "ticker": "AAPL",
+   "date": "2026-01-30",
+   "text": "FIXTURE: price is above its 200-day average."
+  },
+  {
+   "id": "px:MSFT:2026-01-30:ret_3m",
+   "ticker": "MSFT",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 3-month return -1.0%."
+  },
+  {
+   "id": "px:MSFT:2026-01-30:ret_12m",
+   "ticker": "MSFT",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 12-month return -15.4%."
+  },
+  {
+   "id": "px:MSFT:2026-01-30:vol_60d",
+   "ticker": "MSFT",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 60-day annualised volatility 30%."
+  },
+  {
+   "id": "px:MSFT:2026-01-30:drawdown",
+   "ticker": "MSFT",
+   "date": "2026-01-30",
+   "text": "FIXTURE: drawdown from the 52-week high -3.8%."
+  },
+  {
+   "id": "px:MSFT:2026-01-30:trend",
+   "ticker": "MSFT",
+   "date": "2026-01-30",
+   "text": "FIXTURE: price is below its 200-day average."
+  },
+  {
+   "id": "px:NVDA:2026-01-30:ret_3m",
+   "ticker": "NVDA",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 3-month return +0.5%."
+  },
+  {
+   "id": "px:NVDA:2026-01-30:ret_12m",
+   "ticker": "NVDA",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 12-month return -0.7%."
+  },
+  {
+   "id": "px:NVDA:2026-01-30:vol_60d",
+   "ticker": "NVDA",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 60-day annualised volatility 31%."
+  },
+  {
+   "id": "px:NVDA:2026-01-30:drawdown",
+   "ticker": "NVDA",
+   "date": "2026-01-30",
+   "text": "FIXTURE: drawdown from the 52-week high -4.3%."
+  },
+  {
+   "id": "px:NVDA:2026-01-30:trend",
+   "ticker": "NVDA",
+   "date": "2026-01-30",
+   "text": "FIXTURE: price is above its 200-day average."
+  },
+  {
+   "id": "px:AMZN:2026-01-30:ret_3m",
+   "ticker": "AMZN",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 3-month return +16.4%."
+  },
+  {
+   "id": "px:AMZN:2026-01-30:ret_12m",
+   "ticker": "AMZN",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 12-month return +30.5%."
+  },
+  {
+   "id": "px:AMZN:2026-01-30:vol_60d",
+   "ticker": "AMZN",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 60-day annualised volatility 32%."
+  },
+  {
+   "id": "px:AMZN:2026-01-30:drawdown",
+   "ticker": "AMZN",
+   "date": "2026-01-30",
+   "text": "FIXTURE: drawdown from the 52-week high -4.4%."
+  },
+  {
+   "id": "px:AMZN:2026-01-30:trend",
+   "ticker": "AMZN",
+   "date": "2026-01-30",
+   "text": "FIXTURE: price is below its 200-day average."
+  },
+  {
+   "id": "px:XOM:2026-01-30:ret_3m",
+   "ticker": "XOM",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 3-month return -10.5%."
+  },
+  {
+   "id": "px:XOM:2026-01-30:ret_12m",
+   "ticker": "XOM",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 12-month return -2.3%."
+  },
+  {
+   "id": "px:XOM:2026-01-30:vol_60d",
+   "ticker": "XOM",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 60-day annualised volatility 31%."
+  },
+  {
+   "id": "px:XOM:2026-01-30:drawdown",
+   "ticker": "XOM",
+   "date": "2026-01-30",
+   "text": "FIXTURE: drawdown from the 52-week high -5.9%."
+  },
+  {
+   "id": "px:XOM:2026-01-30:trend",
+   "ticker": "XOM",
+   "date": "2026-01-30",
+   "text": "FIXTURE: price is below its 200-day average."
+  },
+  {
+   "id": "px:JNJ:2026-01-30:ret_3m",
+   "ticker": "JNJ",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 3-month return -7.7%."
+  },
+  {
+   "id": "px:JNJ:2026-01-30:ret_12m",
+   "ticker": "JNJ",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 12-month return -10.6%."
+  },
+  {
+   "id": "px:JNJ:2026-01-30:vol_60d",
+   "ticker": "JNJ",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 60-day annualised volatility 24%."
+  },
+  {
+   "id": "px:JNJ:2026-01-30:drawdown",
+   "ticker": "JNJ",
+   "date": "2026-01-30",
+   "text": "FIXTURE: drawdown from the 52-week high -21.0%."
+  },
+  {
+   "id": "px:JNJ:2026-01-30:trend",
+   "ticker": "JNJ",
+   "date": "2026-01-30",
+   "text": "FIXTURE: price is above its 200-day average."
+  },
+  {
+   "id": "px:PG:2026-01-30:ret_3m",
+   "ticker": "PG",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 3-month return -8.9%."
+  },
+  {
+   "id": "px:PG:2026-01-30:ret_12m",
+   "ticker": "PG",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 12-month return +25.7%."
+  },
+  {
+   "id": "px:PG:2026-01-30:vol_60d",
+   "ticker": "PG",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 60-day annualised volatility 20%."
+  },
+  {
+   "id": "px:PG:2026-01-30:drawdown",
+   "ticker": "PG",
+   "date": "2026-01-30",
+   "text": "FIXTURE: drawdown from the 52-week high -5.1%."
+  },
+  {
+   "id": "px:PG:2026-01-30:trend",
+   "ticker": "PG",
+   "date": "2026-01-30",
+   "text": "FIXTURE: price is above its 200-day average."
+  },
+  {
+   "id": "px:CAT:2026-01-30:ret_3m",
+   "ticker": "CAT",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 3-month return +4.9%."
+  },
+  {
+   "id": "px:CAT:2026-01-30:ret_12m",
+   "ticker": "CAT",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 12-month return +29.5%."
+  },
+  {
+   "id": "px:CAT:2026-01-30:vol_60d",
+   "ticker": "CAT",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 60-day annualised volatility 29%."
+  },
+  {
+   "id": "px:CAT:2026-01-30:drawdown",
+   "ticker": "CAT",
+   "date": "2026-01-30",
+   "text": "FIXTURE: drawdown from the 52-week high -14.7%."
+  },
+  {
+   "id": "px:CAT:2026-01-30:trend",
+   "ticker": "CAT",
+   "date": "2026-01-30",
+   "text": "FIXTURE: price is below its 200-day average."
+  },
+  {
+   "id": "px:NEE:2026-01-30:ret_3m",
+   "ticker": "NEE",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 3-month return +2.0%."
+  },
+  {
+   "id": "px:NEE:2026-01-30:ret_12m",
+   "ticker": "NEE",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 12-month return +53.9%."
+  },
+  {
+   "id": "px:NEE:2026-01-30:vol_60d",
+   "ticker": "NEE",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 60-day annualised volatility 25%."
+  },
+  {
+   "id": "px:NEE:2026-01-30:drawdown",
+   "ticker": "NEE",
+   "date": "2026-01-30",
+   "text": "FIXTURE: drawdown from the 52-week high -8.5%."
+  },
+  {
+   "id": "px:NEE:2026-01-30:trend",
+   "ticker": "NEE",
+   "date": "2026-01-30",
+   "text": "FIXTURE: price is above its 200-day average."
+  },
+  {
+   "id": "px:KO:2026-01-30:ret_3m",
+   "ticker": "KO",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 3-month return +9.0%."
+  },
+  {
+   "id": "px:KO:2026-01-30:ret_12m",
+   "ticker": "KO",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 12-month return -0.5%."
+  },
+  {
+   "id": "px:KO:2026-01-30:vol_60d",
+   "ticker": "KO",
+   "date": "2026-01-30",
+   "text": "FIXTURE: 60-day annualised volatility 32%."
+  },
+  {
+   "id": "px:KO:2026-01-30:drawdown",
+   "ticker": "KO",
+   "date": "2026-01-30",
+   "text": "FIXTURE: drawdown from the 52-week high -14.6%."
+  },
+  {
+   "id": "px:KO:2026-01-30:trend",
+   "ticker": "KO",
+   "date": "2026-01-30",
+   "text": "FIXTURE: price is below its 200-day average."
+  }
+ ]
+}
