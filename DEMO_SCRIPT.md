@@ -1,6 +1,6 @@
 # Demo script (3 minutes)
 
-The spoken text is about 380 words, which is roughly 2:30 at a normal pace. The rest of the 3:00 is the live commands. Rehearse once with a stopwatch.
+The spoken text is about 320 words, which is roughly 2:10 at a normal pace. The rest of the 3:00 is the live commands and pauses. Rehearse once with a stopwatch.
 
 Numbers come from the frozen final run in `runs/final`. If it is ever re-frozen, update them from `runs/final/NOTES.md`. Say the team name where you see `[team name]`.
 
