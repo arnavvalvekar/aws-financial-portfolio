@@ -27,7 +27,7 @@ Have three things open: the deck (`presentation/portfolio-pitch.pptx`, five slid
 | 1:50 to 2:25 | A | Slide 4 (what happened), then the dashboard |
 | 2:25 to 2:55 | B | Terminal: `python demo_leak_attack.py` |
 | 2:55 to 3:10 | B | Terminal: `python agentcore/invoke_demo.py` |
-| 3:10 to 3:30 | C | Slide 5 (credibility and what's next) |
+| 3:10 to 3:35 | C | Slide 5 (credibility and what's next) |
 
 ### 0:00 to 0:20, frame it (C)
 
@@ -69,7 +69,7 @@ Run `python agentcore/invoke_demo.py`. If it fails, skip it and say the same age
 
 > "And that same agent is deployed on AWS AgentCore. Calling it returns the identical decision in a few seconds."
 
-### 3:10 to 3:30, close (C)
+### 3:10 to 3:35, close (C)
 
 > "A risk reviewer approved the final weights, and CrashLab stress-tests them: a simple model says a 2008-style shock would cost about 52 percent, so it suggests trimming Apple and NVIDIA into cash. Limits: 180 days, ten stocks, the model may remember 2026, and our event data is hand-curated. This is a method for testing AI investing honestly, not advice. Thank you."
 
