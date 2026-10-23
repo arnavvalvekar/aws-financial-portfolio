@@ -51,7 +51,7 @@ Run `python show_position.py MSFT`. Scroll as you talk.
 
 ### 1:50 to 2:25, what happened (A)
 
-> "Over the 180 days the portfolio returned 16.7 percent. SPY returned 11.2. Equal weight returned 15.6. The Sharpe ratio, which is return for the risk taken, was 2.37 against 1.19 and 2.02. The worst drop was 5.3 percent, against 8.9 for SPY and 6.1 for equal weight. The biggest contributors were Apple, Exxon and Coca-Cola.
+> "Over the 180 days the portfolio returned 16.7 percent. SPY returned 11.2. Equal weight returned 15.5. The Sharpe ratio, which is return for the risk taken, was 2.37 against 1.19 and 2.02. The worst drop was 5.3 percent, against 8.9 for SPY and 6.1 for equal weight. The biggest contributors were Apple, Exxon and Coca-Cola.
 >
 > We reran the whole pipeline five times from scratch. It beat SPY every time. It beat equal weight in only three of the five, with returns between 14.9 and 16.4 percent. So the honest summary: it beats the market and it's close to equal weight. The real value here is the explanation, not outperformance."
 
