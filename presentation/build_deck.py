@@ -193,10 +193,12 @@ text(s2, 0.7, 3.2, 12, 0.6, [[("Open one decision ", 22, INK, True),
 
 card(s2, 0.7, 3.95, 5.9, 2.6, edge=MAGENTA, edge_w=2)
 text(s2, 0.95, 4.15, 5.4, 2.3,
-     [[("[TICKER]", 16, GOLD, True), ("  deep-dive position", 12, MUTED)],
-      [("Technical: ", 13, INK), ("[stance]", 13, GOLD), ("   Fundamentals: ", 13, INK), ("[stance]", 13, GOLD)],
-      [("Conflict: ", 13, INK), ("[what they disagreed on]", 13, GOLD)],
-      [("Manager's call: ", 13, INK), ("[weight]", 13, GOLD), (" because ", 13, INK), ("[one line]", 13, GOLD)]],
+     [[("MSFT", 16, GOLD, True), ("  most contested (spread 0.78)", 12, MUTED)],
+      [("Technical: ", 13, INK), ("-0.85", 13, GOLD), ("   Fundamentals: ", 13, INK), ("+0.90", 13, GOLD)],
+      [("Conflict: ", 13, INK),
+       ("weak price trend vs strong growth & margins", 13, GOLD)],
+      [("Manager's call: ", 13, INK), ("8%", 13, GOLD),
+       (" — sized down, not cut, until the trend confirms", 13, INK)]],
      space=8)
 
 card(s2, 6.73, 3.95, 5.9, 2.6, edge=BLUE, edge_w=2)
@@ -208,9 +210,10 @@ text(s2, 6.98, 4.15, 5.4, 2.3,
      space=8)
 
 notes(s2, "~1:40. One sentence on the pipeline, one per analyst if time. Then open ONE "
-          "decision, picked by largest disagreement, not by which analyst won. Fill the "
-          "[placeholders] from the final run first. Stress traceability: sources and the "
-          "validator, not vibes.")
+          "decision: MSFT is the most contested (spread 0.78) - technical bearish (-0.85) "
+          "on a weak trend, fundamentals bullish (+0.90) on growth/margins. Manager sized "
+          "it to 8% rather than cutting. Picked by largest disagreement, not by which "
+          "analyst won. Stress traceability: sources and the validator, not vibes.")
 
 # ================= SLIDE 3 — WHAT HAPPENED + WHY TRUST IT ====================
 s3 = slide()
@@ -223,19 +226,25 @@ table.columns[0].width = in_(3.8)
 for c in (1, 2, 3):
     table.columns[c].width = in_(2.71)
 headers = ["Metric", "Portfolio", "SPY", "Equal weight"]
-metrics = ["Total return", "Sharpe", "Max drawdown"]
+# from runs/final/metrics.json (frozen final run, cutoff 2026-01-30 -> 2026-10-16)
+data = [
+    ["Total return", "16.7%", "11.2%", "15.5%"],
+    ["Sharpe",       "2.37",  "1.19",  "2.02"],
+    ["Max drawdown", "-5.3%", "-8.9%", "-6.1%"],
+]
 for ci, h in enumerate(headers):
     table.cell(0, ci).text = h
-for ri, m in enumerate(metrics, start=1):
-    table.cell(ri, 0).text = m
-    for ci in (1, 2, 3):
-        table.cell(ri, ci).text = "[  _  ]"
-ph = {(r, c) for r in (1, 2, 3) for c in (1, 2, 3)}
+for ri, row in enumerate(data, start=1):
+    for ci, val in enumerate(row):
+        table.cell(ri, ci).text = val
+# highlight the portfolio column in gold
+ph = {(1, 1), (2, 1), (3, 1)}
 style_table(table, BLUE, placeholder_cells=ph)
 
 text(s3, 0.7, 3.5, 11.93, 0.5,
-     [[("Fill from the final cached run. Beating the market isn't required — explaining the "
-        "result and testing it against the baselines is the point.", 11.5, MUTED, False, True)]])
+     [[("Beats SPY on every measure, statistically close to equal weight. Beating the market "
+        "isn't required - explaining the result and testing it against the baselines is.",
+        11.5, MUTED, False, True)]])
 
 card(s3, 0.7, 4.15, 5.9, 2.2, edge=BLUE, edge_w=2)
 text(s3, 0.95, 4.33, 5.4, 1.9,
@@ -258,10 +267,12 @@ text(s3, 0.7, 6.55, 11.93, 0.5,
      [[("Historical experiment, not financial advice.  Thanks — questions?",
         12, MUTED, False, True)]], align=PP_ALIGN.CENTER)
 
-notes(s3, "~1:00. Walk the metrics table vs both baselines (fill before presenting), add "
-          "contribution by position if built. Close on credibility: leakage test, cached "
-          "reproducible run, limitations. Stretch items are 'what's next' — only show as "
-          "results once actually built.")
+notes(s3, "~1:00. Portfolio 16.7% vs SPY 11.2% vs equal weight 15.5%, Sharpe 2.37 and the "
+          "shallowest drawdown (-5.3%). Honest line: beats SPY in 5/5 uncached runs, beats "
+          "equal weight in only 3/5 - say it's statistically close to equal weight, not a "
+          "clear win. Top contributors AAPL and XOM. Close on credibility: leakage test, "
+          "cached reproducible run, limitations (model memory, 180-day window). Risk "
+          "management and CrashLab are built/in progress - frame as what's next.")
 
 out = Path(__file__).resolve().parent / "portfolio-pitch.pptx"
 prs.save(str(out))
