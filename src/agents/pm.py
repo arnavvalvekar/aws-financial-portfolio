@@ -20,15 +20,20 @@ Rules:
 - regime_view is your read of the overall market conditions in one or two sentences. portfolio_thesis is one paragraph."""
 
 
-def run_pm(reports, known_ids, cfg, use_cache=True):
-    """Returns (decision, warnings)."""
+def run_pm(reports, known_ids, cfg, use_cache=True, agreement=None):
+    """Returns (decision, warnings). `agreement` is the code-computed analyst consensus table."""
     universe, asof = cfg["universe"], str(cfg["asof"])
     c = cfg["constraints"]
     analysts = [r["analyst"] for r in reports]
     system = SYSTEM.format(asof=asof, analysts=len(analysts), n=len(universe),
                            max_weight=c["max_weight"], max_cash=c["max_cash"])
+    table = ""
+    if agreement:
+        table = ("Analyst agreement, computed in code (spread is the confidence-weighted standard deviation "
+                 "of stances; a high spread means the analysts disagree):\n"
+                 f"{json.dumps(agreement['by_ticker'], indent=1)}\n\n")
     user = (f"Universe: {', '.join(universe)}\n\nAnalyst reports:\n{json.dumps(reports, indent=1)}\n\n"
-            "Submit the portfolio decision.")
+            f"{table}Submit the portfolio decision.")
     schema = pm_schema(universe, analysts)
 
     def ask(prompt):

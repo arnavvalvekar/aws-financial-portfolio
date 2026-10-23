@@ -9,6 +9,7 @@ from pathlib import Path
 import yaml
 
 from .analysts import run_analyst
+from .consensus import disagreement
 from .pm import run_pm
 from .schemas import ANALYSTS
 
@@ -58,7 +59,9 @@ def run(config_path, evidence_dir, run_id=None, only=None, use_cache=True):
         warnings += warn
 
     known_ids = {i["id"] for p in packs.values() for i in p["items"]}
-    decision, warn = run_pm(reports, known_ids, cfg, use_cache)
+    agreement = disagreement(reports)
+    (out / "disagreement.json").write_text(json.dumps(agreement, indent=2))
+    decision, warn = run_pm(reports, known_ids, cfg, use_cache, agreement)
     warnings += warn
     (out / "decision.json").write_text(json.dumps(decision, indent=2))
     (out / "meta.json").write_text(json.dumps(
