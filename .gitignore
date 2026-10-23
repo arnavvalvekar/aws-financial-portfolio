@@ -6,3 +6,8 @@ __pycache__/
 .llm_cache/
 data/raw/
 runs/dev-*/
+
+# Backtest run outputs: dev runs are throwaway; the frozen final run
+# (runs/final/) is committed for the fresh-clone reproducibility test.
+runs/*
+!runs/final/

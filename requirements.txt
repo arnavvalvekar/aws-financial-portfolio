@@ -1,0 +1,6 @@
+# Person A (data & backtest) lane dependencies.
+# Install into a project venv (not the kit's): python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+# Pinned for fresh-clone reproducibility (README M3/fresh-clone test).
+pandas==2.3.3
+requests==2.32.5
+pytest==8.4.2
