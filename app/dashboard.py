@@ -354,6 +354,77 @@ def _reasoning_section(
     )
 
 
+def _crashlab_section(run_dir: Path) -> str:
+    """Render CrashLab's stress report if crashlab.json is beside the run.
+
+    Artifact-only (like the rest of this module): reads run_dir/crashlab.json,
+    never recomputes, returns "" when absent. Shows the stress scenarios
+    worst-first and the protective-change proposals. CrashLab is a what-if on
+    the frozen weights, so this is clearly a separate section, not the headline.
+    """
+    path = run_dir / "crashlab.json"
+    if not path.is_file():
+        return ""
+    try:
+        data = json.loads(path.read_text())
+    except (OSError, ValueError, json.JSONDecodeError):
+        return ""
+    stress = data.get("stress") or []
+    if not stress:
+        return ""
+
+    rows = []
+    for r in stress:
+        shock = r.get("portfolio_shock")
+        shock_txt = f"{shock * 100:.1f}%" if isinstance(shock, (int, float)) else "—"
+        culprits = ", ".join(
+            f"{c.get('ticker')} {c.get('contribution', 0) * 100:+.1f}%"
+            for c in (r.get("culprits") or [])[:3]
+        )
+        rows.append(
+            "<tr>"
+            f'<th scope="row">{html.escape(str(r.get("label", r.get("scenario", ""))))}</th>'
+            f'<td>{html.escape(str(r.get("kind", "")))}</td>'
+            f'<td class="neg">{html.escape(shock_txt)}</td>'
+            f"<td>{html.escape(culprits)}</td>"
+            "</tr>"
+        )
+    table = (
+        '<table class="metrics crashlab"><thead><tr>'
+        '<th scope="col">Scenario</th><th scope="col">Kind</th>'
+        '<th scope="col">Portfolio shock</th><th scope="col">Worst culprits</th>'
+        f"</tr></thead><tbody>{''.join(rows)}</tbody></table>"
+    )
+
+    prop_html = ""
+    pc = data.get("protective_changes") or {}
+    proposals = pc.get("proposals") or []
+    if proposals:
+        items = []
+        for p in proposals:
+            removed = p.get("shock_drawdown_removed", 0) * 100
+            giveup = p.get("base_case_return_given_up", 0) * 100
+            items.append(
+                f"<li>{html.escape(str(p.get('change', '')))} "
+                f'<span class="cl-trade">removes {removed:+.2f}% shock drawdown · '
+                f"gives up {giveup:+.2f}% base-case return</span></li>"
+            )
+        prop_html = (
+            "<h3>Protective proposals</h3>"
+            f"<ul class=\"cl-proposals\">{''.join(items)}</ul>"
+            '<p class="reasoning-note">Proposals only — the frozen decision is unchanged.</p>'
+        )
+
+    return (
+        '<section class="crashlab-section"><h2>CrashLab stress test</h2>'
+        '<p class="reasoning-note">What-if on the frozen weights under crisis '
+        "scenarios. Historical shocks apply each crisis's documented market drop "
+        "via sector betas (the price store has no 2008/2020 history); single beta, "
+        "no correlation or liquidity modelling.</p>"
+        f"{table}{prop_html}</section>"
+    )
+
+
 def _render_html(
     image_data: str,
     config: dict[str, Any],
@@ -372,6 +443,7 @@ def _render_html(
     reading = _regime_reading(run_dir)
     analyst_views = analyst_views or {}
     reasoning = _reasoning_section(decision, analyst_views)
+    crashlab = _crashlab_section(run_dir)
     universe_text = ", ".join(str(item) for item in universe) if universe else "not specified"
     baselines_text = ", ".join(str(item) for item in baselines)
     table = _metrics_table(metrics if isinstance(metrics, dict) else {})
@@ -474,6 +546,10 @@ table.metrics {{ border-collapse: collapse; width: 100%; font-variant-numeric: t
 .reasoning-card li {{ margin: .25rem 0; }}
 .stance-label {{ margin: .7rem 0 .2rem; }}
 .reasoning-note {{ color: var(--slate); font-style: italic; }}
+.crashlab-section {{ margin-top: 2.25rem; }}
+.crashlab-section .cl-proposals {{ margin: .5rem 0; padding-left: 1.2rem; }}
+.crashlab-section .cl-proposals li {{ margin: .35rem 0; }}
+.cl-trade {{ color: var(--slate); font-size: .85rem; }}
 @media (max-width: 620px) {{ .hero, .kpis {{ grid-template-columns: 1fr; }} }}
 </style>
 </head>
@@ -497,6 +573,7 @@ table.metrics {{ border-collapse: collapse; width: 100%; font-variant-numeric: t
 <h2>Performance metrics</h2>
 {table}
 {reasoning}
+{crashlab}
 </main>
 </body>
 </html>
