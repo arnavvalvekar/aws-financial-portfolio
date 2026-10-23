@@ -1,0 +1,359 @@
+{
+  "asof": "2026-01-30",
+  "n_scenarios": 7,
+  "stress": [
+    {
+      "scenario": "gfc_2008",
+      "label": "2008 global financial crisis",
+      "kind": "historical",
+      "market_shock": -0.568,
+      "portfolio_shock": -0.5236,
+      "cash_weight": 0.08,
+      "cost_drag": -0.0005,
+      "culprits": [
+        {
+          "ticker": "AAPL",
+          "weight": 0.14,
+          "position_return": -0.71,
+          "contribution": -0.0994
+        },
+        {
+          "ticker": "NVDA",
+          "weight": 0.12,
+          "position_return": -0.71,
+          "contribution": -0.0852
+        },
+        {
+          "ticker": "XOM",
+          "weight": 0.12,
+          "position_return": -0.568,
+          "contribution": -0.0682
+        },
+        {
+          "ticker": "MSFT",
+          "weight": 0.08,
+          "position_return": -0.71,
+          "contribution": -0.0568
+        },
+        {
+          "ticker": "AMZN",
+          "weight": 0.08,
+          "position_return": -0.6532,
+          "contribution": -0.0523
+        }
+      ],
+      "mechanism": "Credit crisis and bank failures; cyclicals and leverage punished hardest, staples and health defensive.",
+      "assumptions": "single sector beta to the market shock; no correlation or liquidity modelling; today's universe stood in for its sector.",
+      "source": "S&P 500 peak-to-trough Oct-2007 to Mar-2009 ~= -56.8%"
+    },
+    {
+      "scenario": "covid_2020",
+      "label": "2020 COVID crash",
+      "kind": "historical",
+      "market_shock": -0.339,
+      "portfolio_shock": -0.2655,
+      "cash_weight": 0.08,
+      "cost_drag": -0.0005,
+      "culprits": [
+        {
+          "ticker": "AAPL",
+          "weight": 0.14,
+          "position_return": -0.4238,
+          "contribution": -0.0593
+        },
+        {
+          "ticker": "NVDA",
+          "weight": 0.12,
+          "position_return": -0.4238,
+          "contribution": -0.0508
+        },
+        {
+          "ticker": "MSFT",
+          "weight": 0.08,
+          "position_return": -0.4238,
+          "contribution": -0.0339
+        },
+        {
+          "ticker": "AMZN",
+          "weight": 0.08,
+          "position_return": -0.3898,
+          "contribution": -0.0312
+        },
+        {
+          "ticker": "CAT",
+          "weight": 0.07,
+          "position_return": -0.3729,
+          "contribution": -0.0261
+        }
+      ],
+      "mechanism": "Pandemic demand shock and an oil-price war; travel/energy hit hardest, mega-cap tech relatively resilient.",
+      "assumptions": "single sector beta to the market shock; no correlation or liquidity modelling; today's universe stood in for its sector.",
+      "source": "S&P 500 peak-to-trough Feb-2020 to Mar-2020 ~= -33.9%; WTI crude ~ -65%"
+    },
+    {
+      "scenario": "liquidity_crunch",
+      "label": "Broad liquidity crunch",
+      "kind": "invented",
+      "market_shock": -0.25,
+      "portfolio_shock": -0.2565,
+      "cash_weight": 0.08,
+      "cost_drag": -0.0005,
+      "culprits": [
+        {
+          "ticker": "AAPL",
+          "weight": 0.14,
+          "position_return": -0.3125,
+          "contribution": -0.0438
+        },
+        {
+          "ticker": "NVDA",
+          "weight": 0.12,
+          "position_return": -0.3125,
+          "contribution": -0.0375
+        },
+        {
+          "ticker": "XOM",
+          "weight": 0.12,
+          "position_return": -0.25,
+          "contribution": -0.03
+        },
+        {
+          "ticker": "MSFT",
+          "weight": 0.08,
+          "position_return": -0.3125,
+          "contribution": -0.025
+        },
+        {
+          "ticker": "KO",
+          "weight": 0.1,
+          "position_return": -0.25,
+          "contribution": -0.025
+        }
+      ],
+      "mechanism": "A funding freeze forces indiscriminate selling; correlations go to one and defensives stop protecting.",
+      "assumptions": "hypothetical; single sector beta; no correlation/liquidity modelling. Does not encode any knowledge of the scored window.",
+      "expected_casualties": [
+        "all names move together"
+      ]
+    },
+    {
+      "scenario": "rate_spike_200bps",
+      "label": "Rate spike +200bps",
+      "kind": "invented",
+      "market_shock": -0.18,
+      "portfolio_shock": -0.188,
+      "cash_weight": 0.08,
+      "cost_drag": -0.0005,
+      "culprits": [
+        {
+          "ticker": "AAPL",
+          "weight": 0.14,
+          "position_return": -0.27,
+          "contribution": -0.0378
+        },
+        {
+          "ticker": "NVDA",
+          "weight": 0.12,
+          "position_return": -0.27,
+          "contribution": -0.0324
+        },
+        {
+          "ticker": "MSFT",
+          "weight": 0.08,
+          "position_return": -0.27,
+          "contribution": -0.0216
+        },
+        {
+          "ticker": "XOM",
+          "weight": 0.12,
+          "position_return": -0.18,
+          "contribution": -0.0216
+        },
+        {
+          "ticker": "AMZN",
+          "weight": 0.08,
+          "position_return": -0.207,
+          "contribution": -0.0166
+        }
+      ],
+      "mechanism": "A sudden 200bp jump in long rates re-prices long-duration equity; high-multiple tech and rate-sensitive utilities fall most.",
+      "assumptions": "hypothetical; single sector beta; no correlation/liquidity modelling. Does not encode any knowledge of the scored window.",
+      "expected_casualties": [
+        "NVDA",
+        "MSFT",
+        "AAPL",
+        "NEE"
+      ]
+    },
+    {
+      "scenario": "tech_selloff",
+      "label": "Tech-led selloff",
+      "kind": "invented",
+      "market_shock": -0.12,
+      "portfolio_shock": -0.1389,
+      "cash_weight": 0.08,
+      "cost_drag": -0.0005,
+      "culprits": [
+        {
+          "ticker": "AAPL",
+          "weight": 0.14,
+          "position_return": -0.228,
+          "contribution": -0.0319
+        },
+        {
+          "ticker": "NVDA",
+          "weight": 0.12,
+          "position_return": -0.228,
+          "contribution": -0.0274
+        },
+        {
+          "ticker": "MSFT",
+          "weight": 0.08,
+          "position_return": -0.228,
+          "contribution": -0.0182
+        },
+        {
+          "ticker": "XOM",
+          "weight": 0.12,
+          "position_return": -0.12,
+          "contribution": -0.0144
+        },
+        {
+          "ticker": "AMZN",
+          "weight": 0.08,
+          "position_return": -0.156,
+          "contribution": -0.0125
+        }
+      ],
+      "mechanism": "A concentrated de-rating of mega-cap tech after an AI-capex disappointment; defensives hold up.",
+      "assumptions": "hypothetical; single sector beta; no correlation/liquidity modelling. Does not encode any knowledge of the scored window.",
+      "expected_casualties": [
+        "NVDA",
+        "AAPL",
+        "MSFT"
+      ]
+    },
+    {
+      "scenario": "geopolitical_break",
+      "label": "Geopolitical break",
+      "kind": "invented",
+      "market_shock": -0.15,
+      "portfolio_shock": -0.1173,
+      "cash_weight": 0.08,
+      "cost_drag": -0.0005,
+      "culprits": [
+        {
+          "ticker": "AAPL",
+          "weight": 0.14,
+          "position_return": -0.195,
+          "contribution": -0.0273
+        },
+        {
+          "ticker": "NVDA",
+          "weight": 0.12,
+          "position_return": -0.195,
+          "contribution": -0.0234
+        },
+        {
+          "ticker": "MSFT",
+          "weight": 0.08,
+          "position_return": -0.195,
+          "contribution": -0.0156
+        },
+        {
+          "ticker": "CAT",
+          "weight": 0.07,
+          "position_return": -0.21,
+          "contribution": -0.0147
+        },
+        {
+          "ticker": "AMZN",
+          "weight": 0.08,
+          "position_return": -0.1725,
+          "contribution": -0.0138
+        }
+      ],
+      "mechanism": "A conflict/sanctions shock lifts energy, hurts globally-exposed industrials and chip supply chains.",
+      "assumptions": "hypothetical; single sector beta; no correlation/liquidity modelling. Does not encode any knowledge of the scored window.",
+      "expected_casualties": [
+        "CAT",
+        "NVDA",
+        "AMZN"
+      ]
+    },
+    {
+      "scenario": "oil_shock_up",
+      "label": "Oil supply shock (crude +40%)",
+      "kind": "invented",
+      "market_shock": -0.08,
+      "portfolio_shock": -0.0596,
+      "cash_weight": 0.08,
+      "cost_drag": -0.0005,
+      "culprits": [
+        {
+          "ticker": "AAPL",
+          "weight": 0.14,
+          "position_return": -0.1,
+          "contribution": -0.014
+        },
+        {
+          "ticker": "NVDA",
+          "weight": 0.12,
+          "position_return": -0.1,
+          "contribution": -0.012
+        },
+        {
+          "ticker": "AMZN",
+          "weight": 0.08,
+          "position_return": -0.112,
+          "contribution": -0.009
+        },
+        {
+          "ticker": "MSFT",
+          "weight": 0.08,
+          "position_return": -0.1,
+          "contribution": -0.008
+        },
+        {
+          "ticker": "CAT",
+          "weight": 0.07,
+          "position_return": -0.104,
+          "contribution": -0.0073
+        }
+      ],
+      "mechanism": "A crude spike lifts energy producers but squeezes consumer and industrial margins via input costs.",
+      "assumptions": "hypothetical; single sector beta; no correlation/liquidity modelling. Does not encode any knowledge of the scored window.",
+      "expected_casualties": [
+        "AMZN",
+        "CAT",
+        "PG"
+      ]
+    }
+  ],
+  "protective_changes": {
+    "worst_scenario": "gfc_2008",
+    "baseline_shock": -0.5236,
+    "proposals": [
+      {
+        "change": "Trim NVDA by 5% into CASH (12% -> 7%; CASH -> 13%)",
+        "ticker": "NVDA",
+        "trim": 0.05,
+        "shock_drawdown_removed": 0.0355,
+        "base_case_return_given_up": 0.0061,
+        "sector": "tech",
+        "note": "Proposal only; goes through the manager and validator. Respects long-only, 25% name cap and 20% cash cap."
+      },
+      {
+        "change": "Trim AAPL by 7% into CASH (14% -> 7%; CASH -> 15%)",
+        "ticker": "AAPL",
+        "trim": 0.07,
+        "shock_drawdown_removed": 0.0497,
+        "base_case_return_given_up": 0.0229,
+        "sector": "tech",
+        "note": "Proposal only; goes through the manager and validator. Respects long-only, 25% name cap and 20% cash cap."
+      }
+    ],
+    "disclaimer": "CrashLab proposals are a separate, clearly-labelled variant. The frozen decision.json is unchanged."
+  },
+  "note": "Analysis beside the main result. The frozen decision is unchanged."
+}
