@@ -54,8 +54,8 @@ def test_dashboard_renders_header_curve_and_metrics(tmp_path: Path):
         assert series in page
     for label in ("Total return", "CAGR", "Volatility", "Sharpe", "Max drawdown"):
         assert label in page
-    for header in ("Universe:", "Cutoff (asof):", "End:", "Baselines:", "Data horizon:"):
-        assert header in page
+    for header in ("Universe", "Cutoff", "Scored through", "Baselines", "Data horizon"):
+        assert f"<dt>{header}</dt>" in page
     assert "data:image/png;base64," in page
 
 
@@ -141,6 +141,6 @@ def test_dashboard_degrades_without_optional_decision(tmp_path: Path):
     assert (output / "dashboard.html").stat().st_size > 0
     assert (output / "equity.png").is_file()
     page = (output / "dashboard.html").read_text(encoding="utf-8")
-    assert "Data horizon:" in page
+    assert "<dt>Data horizon</dt>" in page
     assert "No reasoning artifacts for this run (technical-only run)." in page
     assert "portfolio" in page and "SPY" in page and "equal_weight" in page
