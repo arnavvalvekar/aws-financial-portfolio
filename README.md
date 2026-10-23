@@ -17,7 +17,7 @@ Tick these off by editing this file.
 
 - [ ] **M0 · T+0:20.** Config and schemas committed. Three go or no-go answers reported.
 - [x] **M1 · T+1:15.** One command runs end to end on technical evidence alone. This is your fallback demo.
-- [ ] **M2 · T+2:15.** All five analysts run on real evidence. The manager's output carries rationale, sources and triggers.
+- [x] **M2 · T+2:15.** All five analysts run on real evidence. The manager's output carries rationale, sources and triggers.
 - [ ] **M3 · T+3:15.** Config, prompts and data are frozen. The final window is run once and cached.
 - [ ] **M4 · T+3:30.** Code freeze. Nothing merges after this.
 
@@ -307,10 +307,10 @@ Times count from the start of build time. Tasks are listed per person so you can
 - [ ] Dashboard shell: header strip, equity curve, metrics table.
 
 **B**
-- [ ] Fundamentals, macro, sentiment and geopolitics analyst prompts.
-- [ ] Portfolio manager version 2: conflicts, analyst weighting, triggers.
-- [ ] Citation check: every cited ID must exist in the evidence pack.
-- [ ] Parallel analyst calls.
+- [x] Fundamentals, macro, sentiment and geopolitics analyst prompts.
+- [x] Portfolio manager version 2: conflicts, analyst weighting, triggers.
+- [x] Citation check: every cited ID must exist in the evidence pack.
+- [x] Parallel analyst calls.
 
 **C**
 - [x] Fundamentals evidence for all tickers: growth, margins, leverage and return on equity, each with an ID.
