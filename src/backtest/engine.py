@@ -80,10 +80,40 @@ class BacktestResult:
     cost_bps: float
     invested_fraction: float
     weights: dict[str, float] = field(default_factory=dict)
+    # End-of-window price relatives for held names.  Keeping these values on
+    # the result makes attribution a pure operation on the completed run: it
+    # never needs to reread the post-cutoff price store.
+    price_relatives: dict[str, float] = field(default_factory=dict)
 
     def metrics(self, rf: float = 0.0) -> dict[str, dict[str, Any]]:
         """Compute metrics for each equity column."""
         return {col: compute_metrics(self.equity[col], rf=rf) for col in self.equity.columns}
+
+    def contributions(self) -> dict[str, float]:
+        """Return additive buy-and-hold contributions to portfolio return.
+
+        Held-name contributions are ``weight * (relative - 1)`` scaled by the
+        same one-time cost drag applied to the portfolio curve.  CASH has zero
+        return, while COST is the negative initial trading cost.  For valid
+        decision weights (which sum to one), the rows reconcile to
+        ``equity["portfolio"].iloc[-1] - 1``.
+        """
+        cost = (self.cost_bps / 1e4) * self.invested_fraction
+        drag = 1.0 - cost
+
+        result: dict[str, float] = {}
+        for ticker, weight in self.weights.items():
+            if ticker == CASH or weight == 0:
+                continue
+            if ticker not in self.price_relatives:
+                raise KeyError(f"missing end price relative for held ticker: {ticker}")
+            result[ticker] = float(weight) * (self.price_relatives[ticker] - 1.0) * drag
+
+        # CASH earns zero return in v1.  The cost row accounts for the initial
+        # buy drag, so all rows are additive to the reported portfolio return.
+        result[CASH] = 0.0
+        result["COST"] = -cost
+        return result
 
 
 # --------------------------------------------------------------------------- #
@@ -158,8 +188,11 @@ def run_backtest(
         raise KeyError(f"decision holds tickers with no price data: {missing}")
 
     portfolio = pd.Series(0.0, index=calendar)
+    price_relatives: dict[str, float] = {}
     for ticker, w in held.items():
-        portfolio = portfolio + w * _relative(_price_series(prices[ticker]), calendar)
+        relative = _relative(_price_series(prices[ticker]), calendar)
+        price_relatives[ticker] = float(relative.iloc[-1])
+        portfolio = portfolio + w * relative
     cash_w = float(weights.get(CASH, 0.0))
     portfolio = portfolio + cash_w * 1.0  # CASH holds its value (zero return)
 
@@ -198,4 +231,5 @@ def run_backtest(
         cost_bps=cost_bps,
         invested_fraction=invested_fraction,
         weights=weights,
+        price_relatives=price_relatives,
     )

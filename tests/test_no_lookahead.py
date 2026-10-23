@@ -110,3 +110,46 @@ def test_technical_evidence_pack_has_no_future_item(fixture_store_dir, asof):
         assert item_date <= cutoff, (
             f"leak: evidence item {item.get('id')} dated {item['date']} > {asof}"
         )
+
+
+# --- layer 3: Phase 2 evidence packs (P2-4) --------------------------------
+# The macro and crash-risk/regime packs must obey the same no-look-ahead rule
+# as the technical pack: nothing dated after asof may appear. These activate
+# now that src/evidence/macro.py and src/evidence/regime.py exist.
+
+@pytest.mark.parametrize("asof", ASOF_DATES)
+def test_macro_evidence_pack_has_no_future_item(fixture_store_dir, asof):
+    macro = pytest.importorskip(
+        "src.evidence.macro",
+        reason="src/evidence/macro.py not built yet (P2-1).",
+    )
+    cutoff = pd.Timestamp(asof)
+    pack = macro.build_macro_evidence(asof, store_dir=str(fixture_store_dir))
+    assert pd.Timestamp(pack["asof"]) == cutoff
+    for item in pack.get("items", []):
+        # Stub/disclosure items may omit a concrete date; only check dated ones.
+        if item.get("date"):
+            item_date = pd.Timestamp(item["date"])
+            assert item_date <= cutoff, (
+                f"leak: macro item {item.get('id')} dated {item['date']} > {asof}"
+            )
+
+
+@pytest.mark.parametrize("asof", ASOF_DATES)
+def test_regime_evidence_pack_has_no_future_item(fixture_store_dir, asof):
+    regime = pytest.importorskip(
+        "src.evidence.regime",
+        reason="src/evidence/regime.py not built yet (P2-3).",
+    )
+    cutoff = pd.Timestamp(asof)
+    pack = regime.build_regime_evidence(
+        asof, FIXTURE_EQUITIES, store_dir=str(fixture_store_dir)
+    )
+    items = pack.get("items", [])
+    assert len(items) > 0, "regime pack produced no items"
+    for item in items:
+        if item.get("date"):
+            item_date = pd.Timestamp(item["date"])
+            assert item_date <= cutoff, (
+                f"leak: regime item {item.get('id')} dated {item['date']} > {asof}"
+            )

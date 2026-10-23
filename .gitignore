@@ -12,3 +12,7 @@ runs/dev-*/
 runs/*
 !runs/final/
 agentcore/dist/
+
+# Generated dashboard output (regenerated from run artifacts; committed copy
+# lives under runs/final/ for the demo).
+app/out/

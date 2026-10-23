@@ -428,3 +428,238 @@ python3 -m venv .venv
 Run outputs live under `runs/<run_id>/` (dev runs git-ignored; `runs/final/`
 is committed for the fresh-clone reproducibility test). When B produces the real
 `decision.json`, point `--decision` at it; nothing else changes.
+
+---
+---
+
+# PHASE 2 — Add the signals (Person A lane)  (README T+1:15 .. 2:15)
+
+Same working model as Phase 1: this session is the primary coordinator; each task
+runs as a separate Kiro session, gated by its DECIDE FIRST list, verified here
+against its acceptance criteria. One owner per file. Honor the frozen contracts.
+
+A's README Phase 2 items are **(1) FRED macro evidence with release lags** and
+**(2) dashboard shell**. We ADD **(3) a crash-risk / regime evidence signal**
+(the "predicting market crashes" feature) — reframed correctly below.
+
+## ⚠️ Correctness note on the crash feature (read before building P2-3)
+A forward "the market WILL crash in the scored window" predictor is LOOK-AHEAD and
+is forbidden — the point-in-time valve means no agent may see past `asof`. What we
+build instead is a **crash-RISK / regime-fragility indicator computed only from
+data dated <= asof**: it scores how fragile the market looks *at the cutoff*
+(drawdown depth, vol spike vs trailing baseline, trend break below the 200-day,
+breadth/correlation). It is evidence about the present, not a forecast of the
+future. It feeds the risk layer (README "Risk management → detect regime shifts")
+and is covered by the leakage test like everything else. Framed this way it is
+legitimate AND demo-worthy. It must NOT read any price row dated after `asof`.
+
+## FRED reality check (affects P2-1)
+FRED is blocked from this network (probe T0): web CSV host unreachable, API needs a
+32-char key we don't have. So P2-1 has a DECIDE FIRST about whether macro evidence
+is (a) dropped for v1 with a disclosure, (b) built from a committed/manual CSV of a
+few series with release lags, or (c) sourced from Yahoo proxies (^IRX for the short
+rate; ^TNX 10y; ^VIX for vol regime). Default below is (c)+(b): use Yahoo macro
+proxies we CAN fetch, plus an optional committed CSV, all run through pit with lags.
+
+---
+
+## Frozen interface contracts (Phase 2 additions)
+
+### C7. Macro evidence pack (produced by P2-1, contract C4 shape)
+`src/evidence/macro.py` → `build_macro_evidence(asof, store_dir="data/prices") -> dict`
+- Same C4 pack shape as technical: `{analyst:"macro", asof, data_horizon, items[]}`.
+- Each item `{id, ticker/series, date, text}` with `date <= asof`.
+- Evidence IDs: `fred:<SERIES>:<date>` if FRED-style, or reuse `px:` for Yahoo
+  proxies (^IRX/^TNX/^VIX stored as price-like series). Lock the ID scheme in DECIDE.
+- **Release lags:** monthly series lagged 1 month, GDP 2 months (README look-ahead
+  checklist). Daily market proxies (^VIX/^TNX/^IRX) need no lag — they print same-day.
+- Reads only through `src.pit` (no direct network at evidence-build time).
+
+### C8. Crash-risk / regime evidence (produced by P2-3, contract C4 shape)
+`src/evidence/regime.py` → `build_regime_evidence(asof, universe, store_dir=...) -> dict`
+- C4 pack: `{analyst:"regime"|"risk", asof, data_horizon, items[]}`.
+- Components (all from data <= asof): market drawdown from trailing peak, realized
+  vol vs its own trailing baseline (spike ratio), fraction of universe below 200-day
+  SMA (breadth/trend-break), optional ^VIX level if P2-1 lands it. Combine into a
+  0..1 `crash_risk_score` + a discrete band (calm/elevated/stressed).
+- One summary item for the market + optionally one per ticker; ids via `pit.px_id`
+  or a new `regime:<date>` scheme (lock in DECIDE).
+- NEVER reads a row dated > asof. Covered by the leakage test (extend P1 T4).
+
+### C9. Dashboard shell (produced by P2-2)
+`app/dashboard.py` (+ `app/__init__.py`).
+- Reads `runs/<run_id>/metrics.json` + `equity.csv` (A's backtest outputs) and,
+  if present, `decision.json` and evidence packs — NEVER recomputes prices.
+- v1 is a SHELL: header strip (universe, cutoff, end, baselines, data horizon),
+  an equity-curve plot (portfolio vs SPY vs equal_weight), and the metrics table.
+- Decide the tech in DECIDE FIRST (Streamlit vs static matplotlib PNG+HTML vs
+  plain HTML). Must run offline from committed run artifacts.
+- Owns `app/**` only; does not touch src/ or tests/ of other tasks.
+
+---
+
+## Phase 2 task graph
+
+```
+P1 complete (prices, pit, technical, backtest, leakage) 
+      │
+P2 WAVE A (parallel, independent files):
+      ├─▶ P2-1  src/evidence/macro.py            (+ tests/test_macro.py)
+      ├─▶ P2-3  src/evidence/regime.py           (+ tests/test_regime.py)   [crash-risk]
+      └─▶ P2-2  app/dashboard.py                 (+ tests/test_dashboard.py)
+      (all three touch disjoint files → fully concurrent, 3 sessions)
+      │
+P2 WAVE B (single, A in primary session):
+      └─▶ P2-4  extend tests/test_no_lookahead.py to cover macro + regime packs;
+                 wire regime score into the dashboard header; integration check.
+```
+
+Max concurrency this phase: **3 sessions** (P2-1, P2-2, P2-3 in Wave A).
+P2-2 (dashboard) can even start against the existing P1 run artifacts immediately.
+
+---
+
+## Phase 2 tasks
+
+- [ ] **P2-1 · Macro evidence** *(Wave A, concurrent)*
+  - **DECIDE FIRST (A):**
+    - Macro source given FRED is blocked? *(default: Yahoo proxies we can fetch —
+      ^IRX short rate, ^TNX 10y, ^VIX vol regime — stored via build_store, PLUS an
+      optional committed `data/macro/*.csv` for any hand-entered series. Drop true
+      FRED for v1 and DISCLOSE in limitations.)*
+    - Evidence ID scheme? *(default: `px:^VIX:<date>` style for Yahoo proxies;
+      reserve `fred:<SERIES>:<date>` only if a real FRED CSV is added later.)*
+    - Which lags? *(default: daily market proxies = no lag; any monthly CSV series
+      lagged 1 month, GDP 2 months.)*
+    - Is macro on the critical path? *(default: NO — technical+regime carry M2 for A;
+      macro is additive. If it stalls, ship the disclosure.)*
+  - Depends on: P1 (pit, build_store). Touches (write): `src/evidence/macro.py`,
+    `tests/test_macro.py`, optionally `data/macro/*.csv`. Must NOT touch other src/.
+
+- [ ] **P2-3 · Crash-risk / regime evidence** *(Wave A, concurrent)* ← "predict crashes"
+  - **DECIDE FIRST (A):**
+    - Score components + weights? *(default: equal-weight blend of (i) market
+      drawdown from trailing 252d peak, (ii) 20d realized-vol spike ratio vs its
+      trailing 252d median, (iii) fraction of universe below 200-day SMA. Add ^VIX
+      level as a 4th if P2-1 lands it.)*
+    - "Market" proxy — SPY, or equal-weight of the universe? *(default: SPY.)*
+    - Score shape + bands? *(default: 0..1 `crash_risk_score`; bands calm<0.33,
+      elevated 0.33-0.66, stressed>0.66. Bands are descriptive, not forecasts.)*
+    - ID scheme? *(default: one market item id `regime:<asof>`; per-ticker
+      trend-break items use `px:<TICKER>:<asof>`.)*
+    - Analyst label in the pack — "regime" or "risk"? *(default: "regime"; the risk
+      agent (B) consumes it.)*
+  - Depends on: P1 (pit). Touches (write): `src/evidence/regime.py`,
+    `tests/test_regime.py`. Must NOT touch pit, data/, backtest, other evidence.
+  - HARD RULE: no row dated > asof may be read. Test this explicitly.
+
+- [ ] **P2-2 · Dashboard shell** *(Wave A, concurrent)*
+  - **DECIDE FIRST (A):**
+    - Tech choice? *(default: a self-contained matplotlib PNG + a small HTML page,
+      no server — runs offline from committed artifacts, easiest for the demo and
+      the fresh-clone test. Streamlit only if the team wants interactivity.)*
+    - What it reads? *(default: runs/<run_id>/metrics.json + equity.csv; optional
+      decision.json for the header. Never recompute prices.)*
+    - Header strip contents? *(default: universe, cutoff, end, baselines, and each
+      source's data horizon.)*
+    - Output location? *(default: `app/out/dashboard.html` + `app/out/equity.png`;
+      app/out/ git-ignored except a committed final copy under runs/final/.)*
+  - Depends on: P1 backtest outputs. Touches (write): `app/__init__.py`,
+    `app/dashboard.py`, `tests/test_dashboard.py`. Must NOT touch src/ or data/.
+
+- [ ] **P2-4 · Integration & leakage extension** *(Wave B, A primary session)*
+  - **DECIDE FIRST (A):** does the regime score show on the dashboard header for M2,
+    or stay evidence-only? *(default: show it — it's the crash-risk headline.)*
+  - Depends on: P2-1, P2-2, P2-3. Touches (write): `tests/test_no_lookahead.py`
+    (extend), `app/dashboard.py` (wire regime score in). 
+  - Extends the leakage test to assert macro + regime packs contain no date > asof.
+
+---
+
+## Phase 2 acceptance criteria
+
+### P2-1 · Macro evidence (tests/test_macro.py)
+- [ ] `build_macro_evidence(asof, store_dir)` returns a C4 pack (analyst "macro").
+- [ ] Every item date <= asof; monthly/GDP series carry the documented lag.
+- [ ] IDs follow the locked scheme; data_horizon present.
+- [ ] All reads via pit / committed CSV — no network at build time. Offline tests pass.
+- [ ] If macro is dropped for v1, the pack still returns a valid "insufficient /
+      disclosed" stub rather than crashing.
+
+### P2-3 · Crash-risk / regime evidence (tests/test_regime.py)
+- [ ] `build_regime_evidence(asof, universe, store_dir)` returns a C4 pack.
+- [ ] `crash_risk_score` in [0,1]; band matches the score thresholds.
+- [ ] Components hand-checked on a fixture: a crafted/early asof with a known
+      drawdown and a <200-SMA majority yields a HIGHER score than a calm asof.
+- [ ] NO item dated > asof; explicitly tested by slicing to several asof values.
+- [ ] All data via pit; offline deterministic tests pass.
+
+### P2-2 · Dashboard shell (tests/test_dashboard.py)
+- [ ] Builds from committed run artifacts WITHOUT recomputing prices or hitting net.
+- [ ] Output contains the header strip, an equity curve for all three series, and
+      the metrics table (assert the HTML/PNG files are produced and non-empty).
+- [ ] Runs offline on the P1 `runs/<id>/` fixture; a missing optional file (e.g.
+      decision.json) degrades gracefully.
+
+### P2-4 · Integration (A primary session)
+- [ ] Full suite green incl. extended leakage test covering macro + regime packs.
+- [ ] Dashboard shows the crash-risk score in the header (if decided).
+- [ ] `git status` audit: no session wrote outside its lane.
+
+---
+---
+
+# PHASE 3 — Inspectable and credible (Person A lane)  (README T+2:15 .. 3:15)
+
+A's README Phase 3 items: (1) leakage test wired into every run, (2) contribution
+by position, (3) reasoning view (stances/conflicts/sources/triggers), (4) stretch
+analyst scorecard. Same model: parallel agents for the two big pieces, A does the
+small integration pieces in the primary session.
+
+## Ownership map (avoid collisions)
+- P3-2 contribution-by-position: `src/backtest/engine.py` (extend BacktestResult)
+  + `src/backtest/attribution.py` (new) + `tests/test_attribution.py`.
+- P3-3 reasoning view: `app/dashboard.py` + `tests/test_dashboard.py`.
+  (P3-2 and P3-3 touch disjoint files → run in PARALLEL.)
+- P3-1 leakage-into-every-run + wire contribution into CLI output: A edits
+  `src/backtest/__main__.py` AFTER P3-2 lands (sequential, primary session).
+- P3-4 stretch analyst scorecard: `src/backtest/scorecard.py` + test. Only if time.
+
+## Contracts
+### C10. Contribution by position (P3-2)
+- `BacktestResult.contributions() -> dict[ticker -> float]`: each held name's
+  additive contribution to portfolio total return (sum over held names + CASH(0)
+  + cost drag ≈ portfolio total return, within tolerance). Buy-and-hold, so a
+  name's contribution = weight_i * (price_rel_i[end] - 1), scaled by (1-cost).
+- CLI writes `contributions` into metrics.json and prints a sorted breakdown.
+
+### C11. Reasoning view (P3-3)
+- Dashboard reads `runs/<id>/decision.json` + `runs/<id>/analysts/*.json` (+ the
+  evidence packs already handled). Renders per-position: weight, rationale,
+  analyst_weighting, conflicts, sources, change_triggers. Degrades gracefully
+  when decision.json/analysts are absent (M1 fallback has none). NEVER recompute.
+
+## Tasks
+- [ ] **P3-2 · Contribution by position** *(parallel)* — engine + attribution + test.
+  DECIDE FIRST (A, locked): additive buy-and-hold contribution as in C10; include
+  a CASH row (0) and a cost row; assert they reconcile to portfolio total return.
+- [ ] **P3-3 · Reasoning view** *(parallel)* — dashboard section per C11.
+  DECIDE FIRST (A, locked): read decision.json + analysts/*.json from run_dir;
+  graceful "no reasoning artifacts yet" note when absent; artifact-only.
+- [ ] **P3-1 · Leakage wired into every run + CLI contribution** *(A, after P3-2)* —
+  the backtest CLI runs the leakage test (or an inline guard) as part of the run
+  and refuses to write outputs if it fails; prints + persists contributions.
+- [ ] **P3-4 · Stretch analyst scorecard** — DEFERRED (time). Per README "If time
+      runs short", the analyst scorecard is an explicit cut. Not built.
+
+## Acceptance criteria
+### P3-2
+- [ ] contributions() sums (held + cash + cost) to portfolio total return ±1e-6.
+- [ ] sorted breakdown available; offline test on fixtures hand-checks one name.
+### P3-3
+- [ ] reasoning section renders weight/rationale/conflicts/sources/triggers from a
+      sample decision.json + analysts; missing artifacts degrade gracefully.
+- [ ] artifact-only (no price recompute, no network); offline test passes.
+### P3-1
+- [ ] a run with a leak (crafted) fails the command; a clean run writes outputs +
+      contributions; full suite green incl. leakage.
