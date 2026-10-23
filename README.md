@@ -510,7 +510,7 @@ Never cut:
 
 ## Results and limitations
 
-From the frozen final run (`runs/final/`, cutoff 2026-01-30 → 2026-10-16). Reproduce with `python pipeline.py --run-id final`.
+From the frozen final run (`runs/final/`, cutoff 2026-01-30 → 2026-10-16). Reproduce exactly, with no live model call, using `./run_final.sh` (the model answers are cached in `runs/final/cache`). A plain `python pipeline.py` makes new model calls and gives a slightly different portfolio.
 
 - **Universe and selection rule:** AAPL, MSFT, NVDA, AMZN, XOM, JNJ, PG, CAT, NEE, KO — ten S&P 500 names across seven-plus sectors, fixed from `config.yaml` before any return was looked at. Domestic 10-K/10-Q filers; banks excluded in v1 (revenue tags differ).
 - **Cutoff and end date:** cutoff (asof) 2026-01-30; scored through 2026-10-16 (180 trading days).
@@ -532,7 +532,10 @@ Excess return: +5.57 pts over SPY, +1.19 pts over equal weight. The portfolio al
 Stated plainly, including where the answer is "none":
 
 - **Model memory.** The profile may have training data past the 2026-01-30 cutoff and could in principle recall how the window played out; that is a form of look-ahead the point-in-time guard cannot catch. We did not independently confirm the profile's training cutoff. Treat the result as a historical experiment, not a forecast.
-- **FRED revisions after the cutoff.** Macro series are revised after release; the final run uses values as read, and later revisions are a known, unmitigated gap.
+- **Macro evidence is thin.** FRED was unreachable, so macro uses three Yahoo series (3-month rate, 10-year yield, VIX) plus a market crash-risk measure. There is no CPI, jobs or GDP data. These market series are not revised after release, so there is no revision gap, but the macro analyst had little to work with and answered "insufficient data" for some stocks.
+- **Run-to-run variation.** These models have no temperature setting, so uncached runs differ slightly. Five uncached runs on identical evidence returned 14.9% to 16.4% (mean 15.7%): ahead of SPY in 5 of 5 and ahead of equal weight in 3 of 5. The frozen run is one draw from that spread (`runs/final/repeatability.json`, `runs/final/NOTES.md`).
+- **Entry price.** The backtest buys at the close of the cutoff day, the same close the agents saw.
+- **Sentiment is a curated fallback**, not measured news tone, because GDELT failed.
 - **Universe size and window length.** Ten names over ~8.5 months is a small, noisy sample; metrics are indicative, not statistically robust.
 - **How the universe was chosen.** By a written rule fixed before looking at returns (large-cap, sector-spread, domestic filers, no banks), not by back-fitting.
 - **Cost assumption.** 5 bps on traded value at the single initial allocation; with no rebalance there are no further trading costs in v1.
@@ -541,4 +544,4 @@ Stated plainly, including where the answer is "none":
 
 ---
 
-Historical experiment, not financial advice or a trading recommendation. Tickers, dates and numbers in this file are examples for planning until the team locks them.
+Historical experiment, not financial advice or a trading recommendation. Numbers in this section are from the frozen final run.
