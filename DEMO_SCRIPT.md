@@ -1,6 +1,6 @@
-# Demo script (3 minutes)
+# Demo script (about 3.5 minutes)
 
-The spoken text is about 320 words, which is roughly 2:10 at a normal pace. The rest of the 3:00 is the live commands and pauses. Rehearse once with a stopwatch.
+The spoken text is about 460 words, roughly 3:05 at a normal pace. The live commands and pauses bring it to about 3:30, which is fine. Rehearse once with a stopwatch.
 
 Numbers come from the frozen final run in `runs/final`. If it is ever re-frozen, update them from `runs/final/NOTES.md`. The team name is Alpha Strike.
 
@@ -23,10 +23,11 @@ Have three things open: the deck (`presentation/portfolio-pitch.pptx`, five slid
 | --- | --- | --- |
 | 0:00 to 0:20 | C | Slide 1 |
 | 0:20 to 1:00 | B | Slide 2 (architecture) |
-| 1:00 to 1:40 | B | Slide 3 (the Microsoft decision), then the terminal: `python show_position.py MSFT` |
-| 1:40 to 2:15 | A | Slide 4 (what happened), then the dashboard |
-| 2:15 to 2:40 | B | Terminal: `python demo_leak_attack.py` |
-| 2:40 to 3:00 | C | Slide 5 (credibility and what's next) |
+| 1:00 to 1:50 | B | Slide 3 (the Microsoft decision), then the terminal: `python show_position.py MSFT` |
+| 1:50 to 2:25 | A | Slide 4 (what happened), then the dashboard |
+| 2:25 to 2:55 | B | Terminal: `python demo_leak_attack.py` |
+| 2:55 to 3:10 | B | Terminal: `python agentcore/invoke_demo.py` |
+| 3:10 to 3:30 | C | Slide 5 (credibility and what's next) |
 
 ### 0:00 to 0:20, frame it (C)
 
@@ -38,23 +39,23 @@ Have three things open: the deck (`presentation/portfolio-pitch.pptx`, five slid
 >
 > All seven agents use the same model, GPT-5.6 Luna, through Amazon Bedrock. We tested the five GPT models Bedrock offered us, picked Luna because it was the fastest, and found that none of them accept a temperature setting. The whole pipeline is deployed as an agent on AWS AgentCore, with its IAM role and its code in S3."
 
-### 1:00 to 1:40, one decision, opened up (B)
+### 1:00 to 1:50, one decision, opened up (B)
 
 Run `python show_position.py MSFT` and scroll as you talk.
 
-> "Our system found the stock the analysts argued about most: Microsoft. The chart analyst said avoid it, because the price was falling. The business analyst said buy it, because sales and profit were growing. Both were very confident.
+> "Our system found the stock the analysts argued about most: Microsoft. The chart analyst said avoid it, minus 0.85, because the price was falling and sat below both its moving averages. The business analyst said buy it, plus 0.90, because revenue was up 17 percent and operating income up 21. Both were 98 percent confident.
 >
-> The manager split the difference with a small 8 percent bet and wrote down what would change its mind.
+> The manager split the difference with a small 8 percent bet, leaned on the chart analyst for 55 percent of the decision, and wrote down what would change its mind.
 >
 > Later, Microsoft rose 24 percent, so the business analyst was right and our caution cost us a little. That's the point: you can see exactly why it did what it did."
 
-### 1:40 to 2:15, what happened (A)
+### 1:50 to 2:25, what happened (A)
 
-> "The portfolio returned 16.7 percent, SPY 11.2, equal weight 15.5. Sharpe was 2.37 against 1.19 and 2.02, and the worst drop was 5.3 percent against 8.9 for SPY.
+> "The portfolio returned 16.7 percent, SPY 11.2, equal weight 15.5. Sharpe was 2.37 against 1.19 and 2.02, and the worst drop was 5.3 percent against 8.9 for SPY. The biggest contributors were Apple, Exxon and Coca-Cola.
 >
 > Over five reruns it beat SPY every time but equal weight only three times, so the value is the explanation, not outperformance. Afterward we graded the analysts: fundamentals and technical got seven of ten directions right."
 
-### 2:15 to 2:40, why trust it (B)
+### 2:25 to 2:55, why trust it (B)
 
 Run `python demo_leak_attack.py`. It takes under a second.
 
@@ -62,13 +63,18 @@ Run `python demo_leak_attack.py`. It takes under a second.
 >
 > And this final run is frozen. Anyone can reproduce it exactly in a second."
 
-### 2:40 to 3:00, close (C)
+### 2:55 to 3:10, the AWS agent, live (B)
 
-> "Limits: 180 days, ten stocks, the model may remember 2026, and our event data is hand-curated. This is a method for testing AI investing honestly, not advice. Thank you."
+Run `python agentcore/invoke_demo.py`. If it fails, skip it and say the same agent runs locally.
+
+> "And that same agent is deployed on AWS AgentCore. Calling it returns the identical decision in a few seconds."
+
+### 3:10 to 3:30, close (C)
+
+> "A risk reviewer approved the final weights, and CrashLab stress-tests them: a simple model says a 2008-style shock would cost about 52 percent, so it suggests trimming Apple and NVIDIA into cash. Limits: 180 days, ten stocks, the model may remember 2026, and our event data is hand-curated. This is a method for testing AI investing honestly, not advice. Thank you."
 
 ## Optional extras if you have time or are asked
 
-- `python agentcore/invoke_demo.py` calls the deployed AWS agent and prints "identical to the frozen final run: True" in a few seconds.
 - `python -m src.crashlab` shows the stress test: under a 2008-style shock the portfolio would have lost about 52 percent, and it proposes trimming NVDA and AAPL into cash. It is a simple model, not a prediction.
 
 ## Watch your wording
@@ -84,9 +90,10 @@ The deck says a few things more strongly than what we built. Don't repeat these 
 
 ## If you run out of time, cut in this order
 
-1. The AgentCore call and CrashLab, which are not in the main script anyway.
-2. The analyst-grading sentence.
-3. The "five reruns" sentence.
+1. The AgentCore call (2:55 to 3:10).
+2. The CrashLab and risk-reviewer sentence in the close.
+3. The analyst-grading sentence.
+4. The "five reruns" sentence.
 
 Never cut the Microsoft walkthrough, the baselines comparison or the leak attack.
 
