@@ -2,7 +2,7 @@
 
 The spoken text is about 320 words, which is roughly 2:10 at a normal pace. The rest of the 3:00 is the live commands and pauses. Rehearse once with a stopwatch.
 
-Numbers come from the frozen final run in `runs/final`. If it is ever re-frozen, update them from `runs/final/NOTES.md`. Say the team name where you see `[team name]`.
+Numbers come from the frozen final run in `runs/final`. If it is ever re-frozen, update them from `runs/final/NOTES.md`. The team name is Alpha Strike.
 
 ## Two minutes before you go on
 
@@ -30,7 +30,7 @@ Have three things open: the deck (`presentation/portfolio-pitch.pptx`), the dash
 
 ### 0:00 to 0:20, frame it (C)
 
-> "We're [team name]. This is a historical experiment, not financial advice. We gave AI agents ten S&P 500 stocks and only what was known on January 30th, 2026. They built a portfolio, and we scored it on the next 180 trading days against SPY and an equal-weight mix."
+> "We're Alpha Strike. This is a historical experiment, not financial advice. We gave AI agents ten S&P 500 stocks and only what was known on January 30th, 2026. They built a portfolio, and we scored it on the next 180 trading days against SPY and an equal-weight mix."
 
 ### 0:20 to 0:45, how it thinks (B)
 

@@ -1,6 +1,6 @@
 # aws-financial-portfolio
 
-Team build plan for Track 3 (Financial Portfolio Management) at the Austin Agentic AI Hackathon, Oct 23, 2026. Five analyst agents and a portfolio manager build a portfolio using only data dated on or before a cutoff. A backtest then scores it against what the market did next.
+Team Alpha Strike. Build plan for Track 3 (Financial Portfolio Management) at the Austin Agentic AI Hackathon, Oct 23, 2026. Five analyst agents and a portfolio manager build a portfolio using only data dated on or before a cutoff. A backtest then scores it against what the market did next.
 
 > Historical experiment, not financial advice or a trading recommendation.
 
