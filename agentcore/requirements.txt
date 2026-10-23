@@ -1,0 +1,4 @@
+boto3
+pyyaml
+bedrock-agentcore
+bedrock-agentcore-starter-toolkit

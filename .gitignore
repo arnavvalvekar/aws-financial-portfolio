@@ -11,3 +11,4 @@ runs/dev-*/
 # (runs/final/) is committed for the fresh-clone reproducibility test.
 runs/*
 !runs/final/
+agentcore/dist/

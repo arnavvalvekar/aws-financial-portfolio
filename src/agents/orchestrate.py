@@ -1,6 +1,7 @@
 """Run the analysts in parallel, then the portfolio manager, and save every input and output."""
 
 import json
+import os
 import shutil
 import time
 from concurrent.futures import ThreadPoolExecutor
@@ -43,7 +44,7 @@ def run(config_path, evidence_dir, run_id=None, only=None, use_cache=True):
         raise RuntimeError(f"no evidence files found in {evidence_dir}")
 
     run_id = run_id or time.strftime("%Y%m%d-%H%M%S")
-    out = ROOT / "runs" / run_id
+    out = Path(os.getenv("RUNS_DIR", ROOT / "runs")) / run_id
     (out / "evidence").mkdir(parents=True, exist_ok=True)
     (out / "analysts").mkdir(exist_ok=True)
     for name in packs:
