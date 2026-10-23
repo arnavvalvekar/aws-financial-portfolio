@@ -199,6 +199,20 @@ Risk and limitations: a stress test is only as honest as its scenarios, so state
 
 Owner: B for the scenario agent and the protective-change proposals, A for the re-pricing engine and the crisis price history. Shares the backtest's pricing and cost model.
 
+<!-- NOTE (2026-10-23, C): CrashLab is implemented in src/crashlab/ (C took the
+     stretch with A/B's sign-off; it imports A's backtest cost model and B's cached
+     llm.call_json, and modifies neither). Run: `python -m src.crashlab` writes
+     runs/final/crashlab.json and a summary; add `--agent` for extra agent-invented
+     shocks. CAVEAT: the committed price store only covers 2024-2026, so the 2008/
+     2020 "replays" are NOT literal price history — they apply each crisis's
+     documented market drop (GFC ~-56.8%, COVID ~-33.9%) via per-sector betas, the
+     stand-in the section above describes. Single beta, no correlation or liquidity
+     modelling; every scenario carries its assumptions and source. Frozen final run:
+     worst case 2008 at -52%, protective proposal trims NVDA 5%->removes ~3.6% shock
+     drawdown for ~0.6% base-case give-up. Proposals never touch decision.json.
+     Tests: src/crashlab/test_crashlab.py (16). -->
+
+
 ## Who does what
 
 The split is by layer, so each person owns different directories and rarely edits the same file. Agree the contracts below first. After that everyone can build against fixtures before real data arrives.
