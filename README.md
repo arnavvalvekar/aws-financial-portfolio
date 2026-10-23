@@ -16,7 +16,7 @@ Team build plan for Track 3 (Financial Portfolio Management) at the Austin Agent
 Tick these off by editing this file.
 
 - [ ] **M0 · T+0:20.** Config and schemas committed. Three go or no-go answers reported.
-- [ ] **M1 · T+1:15.** One command runs end to end on technical evidence alone. This is your fallback demo.
+- [x] **M1 · T+1:15.** One command runs end to end on technical evidence alone. This is your fallback demo.
 - [ ] **M2 · T+2:15.** All five analysts run on real evidence. The manager's output carries rationale, sources and triggers.
 - [ ] **M3 · T+3:15.** Config, prompts and data are frozen. The final window is run once and cached.
 - [ ] **M4 · T+3:30.** Code freeze. Nothing merges after this.
