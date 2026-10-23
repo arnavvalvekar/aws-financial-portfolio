@@ -1,0 +1,12 @@
+asof: 2026-01-30          # cutoff: agents see data dated on or before this day
+end: 2026-10-16           # last day scored
+universe: [AAPL, MSFT, NVDA, AMZN, XOM, JNJ, PG, CAT, NEE, KO]   # 10 S&P 500 stocks
+baselines: [SPY, equal_weight]
+constraints:
+  long_only: true
+  max_weight: 0.25
+  max_cash: 0.20
+rebalance: none           # version 2: month_end
+costs_bps: 5
+region: us-east-1
+model: us.openai.gpt-5.6-luna   # one profile, no temperature setting, cached

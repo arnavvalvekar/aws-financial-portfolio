@@ -70,7 +70,7 @@ Put the answers in `config.yaml` and commit it. Every other task depends on them
 ```mermaid
 flowchart LR
   subgraph KNOWN ["Known on or before the cutoff"]
-    PX["Prices<br/>Stooq daily (A)"]
+    PX["Prices<br/>Yahoo Finance daily (A)<br/>Stooq blocked 2026-10-23, recheck later"]
     FR["Macro<br/>FRED series (A)"]
     SE["Filings<br/>SEC XBRL (C)"]
     GD["News tone<br/>GDELT (C)"]
@@ -200,7 +200,17 @@ Times count from the start of build time. Tasks are listed per person so you can
 - [ ] Ask the organizers what is fixed.
 
 **A**
-- [ ] Can Stooq and FRED files be pulled from this network? Commit the price store layout.
+- [x] Can Stooq and FRED files be pulled from this network? Commit the price store layout.
+  <!-- NOTE (2026-10-23, A): Stooq is NOT working from the workshop network. Every
+       variant (.com/.pl/http) returns HTTP 200 but serves a JavaScript anti-bot
+       challenge page instead of CSV. FRED's web CSV host is unreachable (HTTP 000);
+       its API host works but needs a 32-char key we don't have. We swapped prices to
+       the Yahoo Finance chart API (query1/query2.finance.yahoo.com), validated by
+       tests/test_prices_source.py. Macro/FRED is off the critical path (risk-free can
+       be zero); ^IRX on Yahoo is a tested fallback. TODO: re-check Stooq/FRED later in
+       case the network path opens up, then this swap can be revisited. -->
+  <!-- Prices source now: Yahoo Finance. Risk-free: zero for v1 (^IRX fallback tested). -->
+
 
 **B**
 - [ ] Which of the kit's five GPT profiles work in this account?

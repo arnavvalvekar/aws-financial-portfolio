@@ -1,0 +1,34 @@
+{
+  "generated": "2026-10-23T18:21:59.238467+00:00",
+  "source": "yahoo",
+  "tickers": [
+    "AAPL",
+    "MSFT",
+    "NVDA",
+    "AMZN",
+    "XOM",
+    "JNJ",
+    "PG",
+    "CAT",
+    "NEE",
+    "KO",
+    "SPY",
+    "^IRX"
+  ],
+  "date_min": "2024-10-23",
+  "date_max": "2026-10-23",
+  "rows_per_ticker": {
+    "AAPL": 502,
+    "MSFT": 502,
+    "NVDA": 502,
+    "AMZN": 502,
+    "XOM": 502,
+    "JNJ": 502,
+    "PG": 502,
+    "CAT": 502,
+    "NEE": 502,
+    "KO": 502,
+    "SPY": 502,
+    "^IRX": 502
+  }
+}
