@@ -12,4 +12,6 @@ cp -r "$root/src/agents" "$dist/src/agents"
 find "$dist" -name __pycache__ -prune -exec rm -rf {} +
 cp "$root/config.yaml" "$dist/"
 cp -r "$root/evidence" "$dist/evidence"
+cp "$root/lessons.json" "$dist/"
+[ -d "$root/runs/final/cache" ] && cp -r "$root/runs/final/cache" "$dist/llm_cache"
 echo "package ready in $dist"

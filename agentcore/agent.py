@@ -6,6 +6,7 @@ Returns the decision, every analyst report, the disagreement table and any warni
 
 import json
 import os
+import shutil
 import sys
 import time
 from pathlib import Path
@@ -17,6 +18,10 @@ sys.path.insert(0, str(ROOT))
 # The runtime's code folder is read-only. /tmp is writable.
 os.environ.setdefault("RUNS_DIR", "/tmp/runs")
 os.environ.setdefault("LLM_CACHE_DIR", "/tmp/llm_cache")
+# The frozen final run's model answers ship with the package. Copy them next to the writable cache so the
+# default call returns the frozen result. Pass {"use_cache": false} for a live run.
+if (ROOT / "llm_cache").is_dir():
+    shutil.copytree(ROOT / "llm_cache", os.environ["LLM_CACHE_DIR"], dirs_exist_ok=True)
 
 from bedrock_agentcore.runtime import BedrockAgentCoreApp  # noqa: E402
 
@@ -37,6 +42,7 @@ def invoke(payload):
         "decision": decision,
         "analysts": {p.stem: json.loads(p.read_text()) for p in sorted((out / "analysts").glob("*.json"))},
         "disagreement": json.loads((out / "disagreement.json").read_text()),
+        "risk_review": json.loads((out / "risk_review.json").read_text()) if (out / "risk_review.json").exists() else None,
         "warnings": warnings,
     }
 
