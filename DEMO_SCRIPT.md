@@ -23,10 +23,10 @@ Have three things open: the deck (`presentation/portfolio-pitch.pptx`, five slid
 | --- | --- | --- |
 | 0:00 to 0:20 | C | Slide 1 |
 | 0:20 to 1:00 | B | Slide 2 (architecture) |
-| 1:00 to 1:45 | B | Slide 3 (the Microsoft decision), then the terminal: `python show_position.py MSFT` |
-| 1:45 to 2:15 | A | Slide 4 (what happened), then the dashboard |
-| 2:15 to 2:45 | B | Terminal: `python demo_leak_attack.py` |
-| 2:45 to 3:00 | C | Slide 5 (credibility and what's next) |
+| 1:00 to 1:40 | B | Slide 3 (the Microsoft decision), then the terminal: `python show_position.py MSFT` |
+| 1:40 to 2:15 | A | Slide 4 (what happened), then the dashboard |
+| 2:15 to 2:40 | B | Terminal: `python demo_leak_attack.py` |
+| 2:40 to 3:00 | C | Slide 5 (credibility and what's next) |
 
 ### 0:00 to 0:20, frame it (C)
 
@@ -38,7 +38,7 @@ Have three things open: the deck (`presentation/portfolio-pitch.pptx`, five slid
 >
 > All seven agents use the same model, GPT-5.6 Luna, through Amazon Bedrock. We tested the five GPT models Bedrock offered us, picked Luna because it was the fastest, and found that none of them accept a temperature setting. The whole pipeline is deployed as an agent on AWS AgentCore, with its IAM role and its code in S3."
 
-### 1:00 to 1:45, one decision, opened up (B)
+### 1:00 to 1:40, one decision, opened up (B)
 
 Run `python show_position.py MSFT` and scroll as you talk.
 
@@ -48,13 +48,13 @@ Run `python show_position.py MSFT` and scroll as you talk.
 >
 > Later, Microsoft rose 24 percent, so the business analyst was right and our caution cost us a little. That's the point: you can see exactly why it did what it did."
 
-### 1:45 to 2:15, what happened (A)
+### 1:40 to 2:15, what happened (A)
 
 > "The portfolio returned 16.7 percent, SPY 11.2, equal weight 15.5. Sharpe was 2.37 against 1.19 and 2.02, and the worst drop was 5.3 percent against 8.9 for SPY.
 >
 > Over five reruns it beat SPY every time but equal weight only three times, so the value is the explanation, not outperformance. Afterward we graded the analysts: fundamentals and technical got seven of ten directions right."
 
-### 2:15 to 2:45, why trust it (B)
+### 2:15 to 2:40, why trust it (B)
 
 Run `python demo_leak_attack.py`. It takes under a second.
 
@@ -62,7 +62,7 @@ Run `python demo_leak_attack.py`. It takes under a second.
 >
 > And this final run is frozen. Anyone can reproduce it exactly in a second."
 
-### 2:45 to 3:00, close (C)
+### 2:40 to 3:00, close (C)
 
 > "Limits: 180 days, ten stocks, the model may remember 2026, and our event data is hand-curated. This is a method for testing AI investing honestly, not advice. Thank you."
 
@@ -70,6 +70,17 @@ Run `python demo_leak_attack.py`. It takes under a second.
 
 - `python agentcore/invoke_demo.py` calls the deployed AWS agent and prints "identical to the frozen final run: True" in a few seconds.
 - `python -m src.crashlab` shows the stress test: under a 2008-style shock the portfolio would have lost about 52 percent, and it proposes trimming NVDA and AAPL into cash. It is a simple model, not a prediction.
+
+## Watch your wording
+
+The deck says a few things more strongly than what we built. Don't repeat these as written. If a judge asks, the accurate version is on the right.
+
+| The deck says | Say instead |
+| --- | --- |
+| Slide 5: CrashLab "replays the weights through 2008 and 2020" | "CrashLab stress-tests the weights. It applies the documented 2008 and 2020 market drops through a simple sector model, plus five invented shocks. It's an estimate, not a replay of real prices." |
+| Slide 5: the risk agent "monitors the portfolio against the manager's own triggers and would trigger a rebalance" | "The risk reviewer checks the final weights before they're frozen: eight code checks plus a model review, and it approved. It's report-only. Monitoring through the window and rebalancing are the next step." |
+| Slide 2: "Tune on an earlier cutoff, freeze prompts and data" | "We never tuned against the scored window. The prompts were written before any backtest, and we froze them and ran the final window once." |
+| Slide 5: the scorecard "shows fundamentals and technical drove the result" | "Fundamentals and technical got seven of ten directions right. With ten stocks, that's a hint, not proof." |
 
 ## If you run out of time, cut in this order
 
@@ -103,7 +114,9 @@ Never cut the Microsoft walkthrough, the baselines comparison or the leak attack
 
 **Did you tune it until it looked good?** No. The prompts were written before any backtest ran. One change after the first backtest, the analyst-disagreement table, was for explainability. It's written down in `runs/final/NOTES.md`.
 
-**What if the market crashes?** CrashLab stress-tests the frozen weights. It is a simple sector-beta model, not a forecast. Its assumptions are in `runs/final/crashlab.json`.
+**What if the market crashes?** CrashLab stress-tests the frozen weights. It applies the documented 2008 market drop (about minus 57 percent) and the 2020 drop (about minus 34 percent) through a simple sector model, plus five invented shocks. The worst case is about minus 52 percent, and it proposes trimming NVDA and AAPL into cash. It's an estimate, not a forecast, and the assumptions are in `runs/final/crashlab.json`.
+
+**Does the risk agent monitor the portfolio over time?** Not yet. In this version it reviews the final weights once, before they're frozen: eight code checks (position and cash caps, sector and top-three concentration, positions against analyst consensus, big positions with low confidence, thin sourcing, crash risk against cash) and a model review. It approved, and it's report-only. Monitoring and month-end rebalancing are the next step.
 
 **How did you use AWS?** Four services. Amazon Bedrock: every model call uses the Converse API, with a forced tool call so each agent returns structured JSON. We tested all five GPT inference profiles it offers, found they all work and that none accept a temperature setting, and used `us.openai.gpt-5.6-luna`. AWS AgentCore Runtime: the whole pipeline is deployed as a hosted agent, and invoking it returns the frozen result in a few seconds. IAM: a dedicated execution role limited to that one model. S3 and CloudWatch: the toolkit stores the deployed code in S3 and the runtime logs to CloudWatch.
 
