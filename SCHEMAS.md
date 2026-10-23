@@ -21,7 +21,7 @@ gdelt:<theme>:<date>
 event:<id>
 ```
 
-Example: `sec:CAT:10-Q:2026-03-31:OperatingIncomeLoss`.
+Example: `sec:CAT:10-Q:2025-09-30:OperatingIncomeLoss`.
 
 ## Evidence pack (A and C produce, B consumes)
 
@@ -30,10 +30,10 @@ One file per analyst per run: `runs/<run_id>/evidence/<analyst>.json`.
 ```json
 {
   "analyst": "fundamentals",
-  "asof": "2026-06-30",
-  "data_horizon": { "sec": "2026-06-26", "px": "2026-06-30" },
+  "asof": "2026-01-30",
+  "data_horizon": { "sec": "2026-06-26", "px": "2026-01-30" },
   "items": [
-    { "id": "sec:CAT:10-Q:2026-03-31:OperatingIncomeLoss",
+    { "id": "sec:CAT:10-Q:2025-09-30:OperatingIncomeLoss",
       "ticker": "CAT", "date": "2026-05-02", "text": "Operating income 5.1B, up 12% year on year." }
   ]
 }
@@ -48,13 +48,13 @@ One file per analyst per run: `runs/<run_id>/evidence/<analyst>.json`.
 ```json
 {
   "analyst": "fundamentals",
-  "asof": "2026-06-30",
+  "asof": "2026-01-30",
   "views": [{
     "ticker": "CAT",
     "stance": 0.4,
     "confidence": 0.7,
     "thesis": "One or two sentences grounded in the cited evidence.",
-    "evidence": ["sec:CAT:10-Q:2026-03-31:OperatingIncomeLoss"],
+    "evidence": ["sec:CAT:10-Q:2025-09-30:OperatingIncomeLoss"],
     "change_triggers": ["What would flip or weaken this view"]
   }]
 }
@@ -70,7 +70,7 @@ One file per analyst per run: `runs/<run_id>/evidence/<analyst>.json`.
 
 ```json
 {
-  "asof": "2026-06-30",
+  "asof": "2026-01-30",
   "weights": { "CAT": 0.12, "KO": 0.08, "CASH": 0.05 },
   "positions": {
     "CAT": {
@@ -78,7 +78,7 @@ One file per analyst per run: `runs/<run_id>/evidence/<analyst>.json`.
       "analyst_weighting": { "technical": 0.3, "fundamentals": 0.4,
         "macro": 0.1, "sentiment": 0.1, "geopolitics": 0.1 },
       "conflicts": ["Technical bullish, fundamentals neutral"],
-      "sources": ["px:CAT:2026-06-30"],
+      "sources": ["px:CAT:2026-01-30"],
       "confidence": 0.6,
       "change_triggers": ["Close below the 200-day average"]
     }
@@ -105,7 +105,7 @@ Validator rules (code, not prompt):
 
 ```json
 {
-  "asof": "2026-06-30",
+  "asof": "2026-01-30",
   "verdict": "approve",
   "checks": [{ "name": "max_weight", "passed": true, "detail": "" }],
   "adjusted_weights": null,

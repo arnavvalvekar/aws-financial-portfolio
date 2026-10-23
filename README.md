@@ -58,7 +58,7 @@ Put the answers in `config.yaml` and commit it. Every other task depends on them
 | --- | --- | --- |
 | Organizer rules | Ask whether the universe, cutoff or evaluation window is fixed. The brief says portfolios are evaluated against actual performance, and it also asks you to choose a cutoff. | |
 | Model | The kit offers five Bedrock inference profiles: `us.openai.gpt-5.4`, `us.openai.gpt-5.5`, `us.openai.gpt-5.6-luna` (the default), `us.openai.gpt-5.6-sol` and `us.openai.gpt-5.6-terra`. Use one profile in `us-east-1`, and cache every request to disk by hash. These profiles reject the `temperature` setting (the kit sends it, so remove it), so the cache is what makes a re-run reproducible. | |
-| Cutoff and window | One quarter-end trading day and a fixed end date. Example: cutoff `2026-06-30`, end `2026-10-16`. Choose the model first. A cutoff after the model's training data avoids memory leaks but leaves a shorter window. An earlier cutoff gives a longer window and needs a disclosure. | |
+| Cutoff and window | One quarter-end trading day and a fixed end date. Example: cutoff `2026-01-30`, end `2026-10-16`. Choose the model first. A cutoff after the model's training data avoids memory leaks but leaves a shorter window. An earlier cutoff gives a longer window and needs a disclosure. | |
 | Universe | Ten S&P 500 stocks across at least seven sectors, chosen by a written rule. Example: `AAPL MSFT NVDA AMZN XOM JNJ PG CAT NEE KO`. Use domestic 10-K and 10-Q filers only. Leave banks out of version 1, because their revenue tags differ. | |
 | Baselines | SPY buy-and-hold, and equal weight across the same universe. The second one separates a good universe from good weighting. | |
 | Decision rule | Version 1: the agents decide once at the cutoff and the portfolio is held to the end date. Version 2 (stretch): re-run at each month-end using only data up to that date. Long only, 25% cap per name, up to 20% cash, 5 bps cost on traded value. | |
@@ -292,7 +292,7 @@ Agree these before anyone codes. They let B build agents against fixtures while 
 **`config.yaml`**
 
 ```yaml
-asof: 2026-06-30       # agents see data dated on or before this day
+asof: 2026-01-30       # agents see data dated on or before this day
 end: 2026-10-16        # last day scored
 universe: [AAPL, MSFT, NVDA, AMZN, XOM, JNJ, PG, CAT, NEE, KO]
 baselines: [SPY, equal_weight]
@@ -316,7 +316,7 @@ gdelt:<theme>:<date>
 event:<id>
 
 # example
-sec:CAT:10-Q:2026-03-31:OperatingIncomeLoss
+sec:CAT:10-Q:2025-09-30:OperatingIncomeLoss
 ```
 
 **Analyst view, one per analyst.** Stance runs from -1 (underweight) to +1 (overweight). Confidence runs from 0 to 1.
@@ -324,13 +324,13 @@ sec:CAT:10-Q:2026-03-31:OperatingIncomeLoss
 ```json
 {
   "analyst": "fundamentals",
-  "asof": "2026-06-30",
+  "asof": "2026-01-30",
   "views": [{
     "ticker": "CAT",
     "stance": 0.4,
     "confidence": 0.7,
     "thesis": "One or two sentences grounded in the cited evidence.",
-    "evidence": ["sec:CAT:10-Q:2026-03-31:OperatingIncomeLoss"],
+    "evidence": ["sec:CAT:10-Q:2025-09-30:OperatingIncomeLoss"],
     "change_triggers": ["What would flip or weaken this view"]
   }]
 }
@@ -340,7 +340,7 @@ sec:CAT:10-Q:2026-03-31:OperatingIncomeLoss
 
 ```json
 {
-  "asof": "2026-06-30",
+  "asof": "2026-01-30",
   "weights": { "CAT": 0.12, "KO": 0.08, "CASH": 0.05 },
   "positions": {
     "CAT": {
@@ -348,7 +348,7 @@ sec:CAT:10-Q:2026-03-31:OperatingIncomeLoss
       "analyst_weighting": { "technical": 0.3, "fundamentals": 0.4,
         "macro": 0.1, "sentiment": 0.1, "geopolitics": 0.1 },
       "conflicts": ["Technical bullish, fundamentals neutral"],
-      "sources": ["px:CAT:2026-06-30"],
+      "sources": ["px:CAT:2026-01-30"],
       "confidence": 0.6,
       "change_triggers": ["Close below the 200-day average"]
     }
