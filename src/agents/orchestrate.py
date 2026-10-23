@@ -12,6 +12,7 @@ import yaml
 from .analysts import run_analyst
 from .consensus import disagreement
 from .pm import run_pm
+from .risk import run_risk
 from .schemas import ANALYSTS
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -36,7 +37,7 @@ def load_evidence(evidence_dir, asof, only=None):
     return packs
 
 
-def run(config_path, evidence_dir, run_id=None, only=None, use_cache=True):
+def run(config_path, evidence_dir, run_id=None, only=None, use_cache=True, risk=True):
     cfg = load_config(config_path)
     asof = str(cfg["asof"])
     packs = load_evidence(evidence_dir, asof, only)
@@ -65,8 +66,15 @@ def run(config_path, evidence_dir, run_id=None, only=None, use_cache=True):
     decision, warn = run_pm(reports, known_ids, cfg, use_cache, agreement)
     warnings += warn
     (out / "decision.json").write_text(json.dumps(decision, indent=2))
+    verdict = None
+    if risk:
+        regime_file = Path(evidence_dir) / "regime.json"
+        regime = json.loads(regime_file.read_text()) if regime_file.exists() else None
+        review = run_risk(decision, agreement, cfg, regime, use_cache)
+        (out / "risk_review.json").write_text(json.dumps(review, indent=2))
+        verdict = review["verdict"]
     (out / "meta.json").write_text(json.dumps(
         {"run_id": run_id, "asof": asof, "model": cfg["model"], "region": cfg.get("region", "us-east-1"),
-         "analysts": list(packs), "warnings": warnings,
+         "analysts": list(packs), "warnings": warnings, "risk_verdict": verdict,
          "fixture": any(p.get("fixture") for p in packs.values())}, indent=2))
     return out, decision, warnings

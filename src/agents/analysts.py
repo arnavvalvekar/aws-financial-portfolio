@@ -4,7 +4,7 @@ import json
 
 from .llm import call_json
 from .schemas import ANALYSTS, analyst_schema
-from .validate import repair_analyst, validate_analyst
+from .validate import correct_analyst, repair_analyst, validate_analyst
 
 FOCUS = {
     "technical": "price momentum, volatility, drawdown and trend against the 50 and 200-day averages",
@@ -40,16 +40,22 @@ def run_analyst(name, pack, cfg, use_cache=True):
         return call_json(system=system, user=prompt, tool_name=f"submit_{name}_views", schema=schema,
                          model=cfg["model"], region=cfg.get("region", "us-east-1"), use_cache=use_cache)
 
-    report = ask(user)
-    errors = validate_analyst(report, universe, ids, asof)
     warnings = []
+
+    def get(prompt):
+        r = ask(prompt)
+        warnings.extend(f"{name}: corrected citation {a} -> {b}" for a, b in correct_analyst(r, ids))
+        return r
+
+    report = get(user)
+    errors = validate_analyst(report, universe, ids, asof)
     if errors:
-        report = ask(user + "\n\nYour previous answer had these problems. Fix them:\n- " + "\n- ".join(errors))
+        report = get(user + "\n\nYour previous answer had these problems. Fix them:\n- " + "\n- ".join(errors))
         errors = validate_analyst(report, universe, ids, asof)
     if any("after the cutoff" in e for e in errors):
         raise RuntimeError(f"{name}: look-ahead detected after a retry: {errors}")
     if errors:
-        warnings = [f"{name}: repaired after retry: {e}" for e in errors]
+        warnings += [f"{name}: repaired after retry: {e}" for e in errors]
         report = repair_analyst(report, ids)
     return {"analyst": name, "asof": asof, **report}, warnings
 

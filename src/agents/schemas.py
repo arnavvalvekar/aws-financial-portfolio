@@ -61,3 +61,21 @@ def pm_schema(universe, analysts):
         },
         "required": ["weights", "positions", "portfolio_thesis", "regime_view"],
     }
+
+
+def risk_schema(universe):
+    ids = list(universe) + ["CASH"]
+    return {
+        "type": "object",
+        "properties": {
+            "verdict": {"type": "string", "enum": ["approve", "adjust", "veto"]},
+            "reasons": _STRINGS,
+            "concerns": {"type": "array", "items": {
+                "type": "object",
+                "properties": {"ticker": {"type": "string"}, "issue": {"type": "string"}},
+                "required": ["ticker", "issue"]}},
+            "adjusted_weights": {"type": "object", "properties": {t: {"type": "number"} for t in ids},
+                                 "required": ids},
+        },
+        "required": ["verdict", "reasons", "concerns", "adjusted_weights"],
+    }

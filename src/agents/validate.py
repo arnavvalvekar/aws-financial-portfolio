@@ -1,5 +1,6 @@
 """Checks and deterministic repairs for analyst views and the portfolio manager decision."""
 
+import difflib
 import json
 import re
 
@@ -97,3 +98,41 @@ def repair_weights(weights, universe, max_weight, max_cash):
                 break
     changed = any(abs(w[t] - float(weights.get(t, 0.0))) > 1e-9 for t in names)
     return w, changed
+
+
+def correct_ids(ids, known, cutoff=0.92):
+    """Map near-miss ids (a doubled segment, a typo) to the closest real id for the same ticker.
+
+    Returns (corrected_ids, [(wrong, right), ...]). Ids with no close match are left alone so the
+    validator still rejects them.
+    """
+    out, fixes = [], []
+    for i in ids:
+        if i in known:
+            out.append(i)
+            continue
+        parts = i.split(":")
+        pool = [k for k in known if len(parts) > 1 and k.split(":")[1:2] == parts[1:2]]
+        match = difflib.get_close_matches(i, sorted(pool), n=1, cutoff=cutoff)
+        if match:
+            out.append(match[0])
+            fixes.append((i, match[0]))
+        else:
+            out.append(i)
+    return out, fixes
+
+
+def correct_analyst(report, known):
+    fixes = []
+    for v in report.get("views", []):
+        v["evidence"], f = correct_ids(v.get("evidence", []), known)
+        fixes += f
+    return fixes
+
+
+def correct_decision(decision, known):
+    fixes = []
+    for pos in decision.get("positions", {}).values():
+        pos["sources"], f = correct_ids(pos.get("sources", []), known)
+        fixes += f
+    return fixes

@@ -40,6 +40,7 @@ def main():
     regime = build_regime_evidence(str(cfg["asof"]), cfg["universe"], str(ROOT / "data" / "prices"))
     macro["items"] += [i for i in regime["items"] if i["ticker"] == "SPY"]  # market-wide crash-risk item
     (evidence / "macro.json").write_text(json.dumps(macro, indent=1))
+    (evidence / "regime.json").write_text(json.dumps(regime, indent=1))  # read by the risk review only
     print(f"[1/3] evidence: technical {len(pack['items'])} items, macro {len(macro['items'])} items, "
           f"data horizon {pack['data_horizon']}")
 
@@ -49,6 +50,12 @@ def main():
         print(f"      {t:<6} {w:6.1%}")
     for w in warnings:
         print("      warning:", w)
+    review = out / "risk_review.json"
+    if review.exists():
+        r = json.loads(review.read_text())
+        print(f"      risk review ({r['mode']}): {r['verdict']}, failed checks: {r['failed_checks'] or 'none'}")
+        for reason in r["reasons"][:4]:
+            print("        -", reason)
 
     print("[3/3] backtest")
     subprocess.run([sys.executable, "-m", "src.backtest", "--config", str(config),

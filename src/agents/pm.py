@@ -4,7 +4,7 @@ import json
 
 from .llm import call_json
 from .schemas import pm_schema
-from .validate import repair_weights, validate_decision
+from .validate import correct_decision, repair_weights, validate_decision
 
 SYSTEM = """You are the portfolio manager of a small long-only fund. Today is {asof}. Nothing after that date is known to you.
 
@@ -43,16 +43,22 @@ def run_pm(reports, known_ids, cfg, use_cache=True, agreement=None):
     def check(d):
         return validate_decision(d, universe, c["max_weight"], c["max_cash"], known_ids, asof)
 
-    decision = ask(user)
-    errors = check(decision)
     warnings = []
+
+    def get(prompt):
+        d = ask(prompt)
+        warnings.extend(f"portfolio manager: corrected citation {a} -> {b}" for a, b in correct_decision(d, known_ids))
+        return d
+
+    decision = get(user)
+    errors = check(decision)
     if errors:
-        decision = ask(user + "\n\nYour previous answer had these problems. Fix them:\n- " + "\n- ".join(errors))
+        decision = get(user + "\n\nYour previous answer had these problems. Fix them:\n- " + "\n- ".join(errors))
         errors = check(decision)
     if any("after the cutoff" in e for e in errors):
         raise RuntimeError(f"portfolio manager: look-ahead detected after a retry: {errors}")
     if errors:
-        warnings = [f"portfolio manager: repaired after retry: {e}" for e in errors]
+        warnings += [f"portfolio manager: repaired after retry: {e}" for e in errors]
         decision["weights"], _ = repair_weights(decision["weights"], universe, c["max_weight"], c["max_cash"])
         for pos in decision["positions"].values():
             pos["sources"] = [s for s in pos.get("sources", []) if s in known_ids]
