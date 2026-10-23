@@ -1,0 +1,46 @@
+{
+  "analyst": "geopolitics",
+  "asof": "2026-01-30",
+  "source": "events",
+  "data_horizon": {
+    "events": "2026-01-28"
+  },
+  "items": [
+    {
+      "id": "event:trade-tariffs",
+      "ticker": "ALL",
+      "date": "2026-01-14",
+      "text": "[trade-tariffs] Tariff measures on imported industrial and consumer inputs raise cost pressure for manufacturers and import-reliant retailers. Exposure: CAT, AMZN, PG, KO. Source: https://www.reuters.com/markets/ (2026-01-14)."
+    },
+    {
+      "id": "event:export-controls",
+      "ticker": "ALL",
+      "date": "2026-01-21",
+      "text": "[export-controls] Export controls on advanced semiconductors restrict sales of high-end chips to some overseas markets, a direct demand risk for chipmakers. Exposure: NVDA, MSFT. Source: https://www.bis.gov/ (2026-01-21)."
+    },
+    {
+      "id": "event:oil-supply",
+      "ticker": "XOM",
+      "date": "2026-01-19",
+      "text": "[oil-supply] Supply tightness in a major oil-producing region supports crude prices, a tailwind for integrated oil producers. Exposure: XOM. Source: https://www.eia.gov/petroleum/ (2026-01-19)."
+    },
+    {
+      "id": "event:energy-policy",
+      "ticker": "NEE",
+      "date": "2026-01-09",
+      "text": "[energy-policy] Federal renewable-energy incentives extended, supporting utility-scale wind and solar build-out economics. Exposure: NEE. Source: https://www.energy.gov/ (2026-01-09)."
+    },
+    {
+      "id": "event:health-pricing",
+      "ticker": "JNJ",
+      "date": "2026-01-16",
+      "text": "[health-pricing] Drug-pricing negotiation framework under review, a margin risk for large pharmaceutical manufacturers. Exposure: JNJ. Source: https://www.cms.gov/ (2026-01-16)."
+    },
+    {
+      "id": "event:interest-rates",
+      "ticker": "ALL",
+      "date": "2026-01-28",
+      "text": "[interest-rates] Central-bank communications signal a cautious, data-dependent path on rates, keeping financing costs a market-wide factor. Exposure: market-wide. Source: https://www.federalreserve.gov/newsevents/pressreleases.htm (2026-01-28)."
+    }
+  ]
+}

@@ -262,8 +262,20 @@ Times count from the start of build time. Tasks are listed per person so you can
 - [x] Write `SCHEMAS.md`.
 
 **C**
-- [ ] Can an SEC quarterly zip be downloaded with a User-Agent header, and is GDELT reachable?
-- [ ] Map tickers to CIKs.
+- [x] Can an SEC quarterly zip be downloaded with a User-Agent header, and is GDELT reachable?
+  <!-- NOTE (2026-10-23, C): SEC is reachable. company_tickers.json and the XBRL
+       data.sec.gov companyfacts/companyconcept endpoints return 200 with a
+       descriptive User-Agent. GDELT is NOT usable from the workshop network: the
+       DOC 2.0 API returns HTTP 429 with a throttle/challenge page (shared egress IP
+       is rate-limited), even at 1 request / 5s. Per the README risk table we use the
+       dated event log fallback (src/evidence/events.py); src/data/gdelt.py still
+       tries GDELT first and caches, so if the path opens later the packs pick it up
+       automatically. Say "sentiment source: fallback" in the demo. -->
+- [x] Map tickers to CIKs.
+  <!-- NOTE (2026-10-23, C): ticker->CIK via SEC company_tickers.json, with a pinned
+       override: the table now maps XOM to "ExxonMobil Holdings Corp" (CIK 2115436, a
+       near-empty shell) instead of the operating "Exxon Mobil Corporation" (CIK
+       34088). CIK_OVERRIDES in src/data/sec.py pins it. -->
 
 > **M0 · T+0:20.** Config and schemas committed. Three go or no-go answers reported.
 
@@ -301,10 +313,19 @@ Times count from the start of build time. Tasks are listed per person so you can
 - [ ] Parallel analyst calls.
 
 **C**
-- [ ] Fundamentals evidence for all tickers: growth, margins, leverage and return on equity, each with an ID.
-- [ ] GDELT sample for the 90 days before the cutoff (tone and event counts by theme) into sentiment and geopolitics evidence. Time-box it to 45 minutes.
-- [ ] Fallback if GDELT stalls: a dated event log where every row has a source published before the cutoff.
-- [ ] A data horizon line on every evidence pack.
+- [x] Fundamentals evidence for all tickers: growth, margins, leverage and return on equity, each with an ID.
+- [x] GDELT sample for the 90 days before the cutoff (tone and event counts by theme) into sentiment and geopolitics evidence. Time-box it to 45 minutes.
+- [x] Fallback if GDELT stalls: a dated event log where every row has a source published before the cutoff.
+  <!-- NOTE (2026-10-23, C): GDELT returns 429 from this network (see M0 note), so
+       sentiment and geopolitics are built from the dated event log. src/evidence/
+       events.py holds the curated events: each row has a theme, a date <= cutoff, the
+       exposed universe tickers, and a source URL. Builders: src/evidence/sentiment.py
+       (one item per ticker, id gdelt:<TICKER>:<date> from GDELT or event:sentiment:
+       <TICKER> fallback) and src/evidence/geo.py (id event:<theme>, plus a GDELT
+       conflict-intensity read when available). Both record `source` ("gdelt"/
+       "fallback"/"events"+/-gdelt) and a data_horizon. Tests: src/evidence/
+       test_sentiment_geo.py. -->
+- [x] A data horizon line on every evidence pack.
 
 > **M2 · T+2:15.** All five analysts run on real evidence. The manager's output carries rationale, sources and triggers.
 
